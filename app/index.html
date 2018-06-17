@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bán vé tàu Online</title>
+    <meta name="description" content="">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="https://dsvn.vn/css/bootstrap-cerulean.min.css">
+
+    <link rel="stylesheet" href="https://dsvn.vn/content/ETicket-1.0.29.css">
+
+    <link rel="stylesheet" href="app.css">
+    <!--   chon time-->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+</head>
+<body>
+<div id="menu-fixed">
+    <div class="visible-print">
+        <h3 style="border-bottom: solid 1px #ccc;padding-bottom: 6px;margin-bottom: -20px;">Tổng công ty Đường sắt Việt Nam</h3>
+    </div>
+    <div class="et-banner hidden-print">
+        <div class="container et-banner" style="max-width:1024px;">
+            <div class="pull-left banner-logo">
+                <div class="pull-left banner-logo"><img src="https://dsvn.vn/images/LOGO_n.png"></div>
+                <div class="pull-left" id="bannerDate">Chủ nhật, 17/06/2018</div>
+            </div>
+            <div class="pull-right banner-language">
+                <div class="text-right" ng-show="!bannerTet">
+                    <!--<a href="javascript:;" translation-lang="en"><img src="/images/en-icon.png" width="20" height="20" /></a>
+                <a href="javascript:;" translation-lang="vi"><img src="/images/vn-icon.gif" width="20" height="16" /></a>-->
+                </div>
+                <div class="text-right banner-logo-2" style="padding-top: 20px;"><img src="https://dsvn.vn/images/fpt-logo2.png" width="75" height="48"></div>
+                <div class="text-right ticket-cart-number" style="padding-top: 6px; display:none;">
+                    <div et-ticket-cart-number="" class="ng-isolate-scope">
+                        <div class="visible-xs">
+                            <a analytics-on="click" analytics-event="Checkout" href="" ng-click="pocketDetail($event)" id="btnCheckOut" target="_blank" class="btn">
+                                <span class="cart-item ng-binding">0</span>
+                                <img src="https://dsvn.vn/images/Shopping-Cart-03.png" style="font-size:20px;z-index: 1; width:25px;">
+                            </a>
+                        </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="navbar-default bg-primary ng-scope" role="navigation"
+     style="margin-top:10PX;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="nav">
+                <li class="ng-scope">
+                    <a ng-href="#/home"
+                       class="nav-menu et-image-menu" href="#/">
+                        <span class="glyphicon glyphicon-home ng-scope"></span>
+                    </a>
+                </li>
+                <li class="ng-scope">
+                    <a ng-href="#/home"
+                       target="" class="nav-menu et-text-menu" href="#/timve">
+                        <span class="ng-binding ng-scope">TÌM VÉ</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+<div ng-view></div>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+<script src="bower_components/ngstorage/ngStorage.js"></script>
+
+<!--search-->
+<script src="pages/search/search.html"></script>
+<script src="pages/search/searchController.js"></script>
+<script src="pages/search/searchService.js"></script>
+
+<script src="pages/home/home.html"></script>
+<script src="pages/home/homeController.js"></script>
+
+
+<script src="config/constantCf.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

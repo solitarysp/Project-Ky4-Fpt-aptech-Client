@@ -1,0 +1,61 @@
+<div ng-controller="homeController" class="shuffle-animation ng-scope" style="padding-right: 0px; padding-left: 0px;">
+    <div class="row ng-scope">
+    </div>
+    <div class="col-xs-12 col-sm-4 et-col-md-3">
+        <div class="et-col-md-12 et-widget" style="margin-bottom: 5px">
+            <div class="row et-widget-header"><img src="https://dsvn.vn/images/widgetIcon.png"><span><strong
+                    class="ng-binding">Thông tin hành trình</strong></span>
+            </div>
+            <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
+                    type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDi"
+                    placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
+                <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                    ng-style="{top: position.top+'px', left: position.left+'px'}"
+                    style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                    id="typeahead-00Z-2199" matches="matches" active="activeIdx" select="select(activeIdx)"
+                    query="query" position="position">
+                    <!-- ngRepeat: match in matches track by $index -->
+                </ul>
+            </div>
+            <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
+                    type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDen"
+                    placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
+                    aria-owns="typeahead-010-1595">
+                <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                    style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                    id="typeahead-010-1595" matches="matches" active="activeIdx" select="select(activeIdx)"
+                    query="query" position="position">
+                    <!-- ngRepeat: match in matches track by $index -->
+                </ul>
+            </div>
+            <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
+                <div class="input-group input-cal-picker"><input type="text"
+                                                                 ng-model="searchData.dateStart"
+                                                                 class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                                                                 placeholder="Ngày đi"
+                                                                 id="dateStart"
+                                                                 required="required">
+                    <span class="input-group-btn"></span></div>
+            </div>
+            <div class="form-group"><h6 class="ng-binding">Ngày Đến</h6><span
+                    class="control-label ng-binding ng-hide" ng-show="ngayVeError"
+                    ng-class="{'et-error-label': ngayDenError}">Ngày về không hợp lệ</span>
+                <div class="input-group input-cal-picker"><input type="text"
+                                                                 ng-model="searchData.dateEnd"
+                                                                 class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                                                                 placeholder="Ngày về"
+                                                                 id="dateEnd"
+                >
+                    <span class="input-group-btn"></span></div>
+            </div>
+            <div class="row text-center"><a href="" class="et-btn ng-binding" analytics-on="click"
+                                            analytics-event="SearchTau" ng-click="validateInput();">Tìm
+                kiếm</a></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+</script>

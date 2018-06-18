@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -12,3 +12,7 @@ var baseConfig = {
     standardServicePort: ':8080',
     baseUrlEnding: '/'
 };
+var mess =
+    {
+        not_find : "không tìm thấy",
+    };

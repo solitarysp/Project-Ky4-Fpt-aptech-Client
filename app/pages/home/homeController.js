@@ -2,7 +2,7 @@
 var app = angular.module('myApp');
 app.controller('homeController', controller);
 
-function controller($scope, searchService, $location,$localStorage) {
+function controller($scope, searchService, $location, $localStorage) {
     $scope.searchData = null;
     $(document).ready(function () {
 
@@ -20,8 +20,9 @@ function controller($scope, searchService, $location,$localStorage) {
     });
     $scope.validateInput = function () {
         searchService.getListTrain($scope.searchData).then(function (data) {
-            if (data == null) {
-                console.log("khong tim thay")
+            console.log(data);
+            if (data == null || data == undefined || data == '') {
+                $scope.mess = mess.not_find;
             } else {
                 window.location = "/#/search";
                 $localStorage.Train = data;

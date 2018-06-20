@@ -8,12 +8,13 @@ angular.module('myApp', [
     'ngDialog'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $routeProvider
+        .when('/home', {
+            templateUrl: 'pages/home/home.html',
+            constructor: "homeController",
+        })
         .when('/search', {
             templateUrl: 'pages/search/search.html',
             constructor: "searchController",
-        }).when('/home', {
-        templateUrl: 'pages/home/home.html',
-        constructor: "homeController",
-    })
-        .otherwise({redirectTo: '/search'});
+        })
+        .otherwise({redirectTo: '/home'});
 }]);

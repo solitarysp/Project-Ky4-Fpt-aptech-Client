@@ -1,6 +1,6 @@
-<div style="margin-left: 20px" ng-controller="searchController">
-    <div ng-if="Train==null||Train==undefined||Train==''">không tìm thấy gì cả</div>
-    <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope" ng-repeat="tau in Train"
+<div class="container" style="margin-left: 20px;" ng-controller="searchController">
+    <div ng-if="Trains==null||Trains==undefined||Train==''">không tìm thấy gì cả</div>
+    <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope" ng-repeat="tau in Trains"
          ng-click="doiChuyen(tau, false)" analytics-on="click" analytics-event="SelectTrain">
         <div class="et-train-head et-train-head-selected"
              ng-class="{'et-train-head-selected': tau.id == selectTau.id}">

@@ -24,8 +24,8 @@ function controller($scope, searchService, $location, $localStorage) {
                 $scope.mess = mess.not_find;
             } else {
                 $localStorage.searchData = $scope.searchData;
+                $localStorage.Trains = data;
                 window.location = "/#/search";
-                $localStorage.Train = data;
 
             }
         });

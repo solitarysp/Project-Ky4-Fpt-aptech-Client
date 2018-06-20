@@ -3,10 +3,10 @@ var app = angular.module('myApp');
 app.controller('searchController', controller);
 
 function controller($scope, searchService, $location, $localStorage, ngDialog) {
-    $scope.Train = $localStorage.Train;
+    $scope.Trains = $localStorage.Trains;
     $scope.searchData = $localStorage.searchData;
 
-    $scope.Train.forEach(function (entry) {
+    $scope.Trains.forEach(function (entry) {
         console.log(entry);
         entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
             return item.locationStart == $scope.searchData.tenGaDi;
@@ -17,7 +17,6 @@ function controller($scope, searchService, $location, $localStorage, ngDialog) {
         })[0].timeEnd;
 
     });
-    $localStorage.Train = null;
     $scope.showDetails = function (train) {
         $scope.chairTrainDetails = train;
     };

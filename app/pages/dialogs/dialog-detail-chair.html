@@ -1,24 +1,85 @@
 <span ng-controller="DialogController">
     <div class="modal-header">
-    <h1>Xác nhận</h1>
+    <h1>Chi tiết</h1>
 </div>
 <div class="modal-body">
     <table class="table table-hover collapse-body">
         <tr>
+            <th>Tên Tàu</th>
             <th>Nơi Đi</th>
             <th>Nơi Đến</th>
+            <th>Thời Gian đi</th>
+            <th>Thời Gian Đến</th>
             <th>Vị Trí Khoang Tàu</th>
             <th>số ghế</th>
             <th>giá tiền</th>
         </tr>
          <tr>
-            <th>{{searchData.tenGaDi}}</th>
-            <th>{{searchData.tenGaDen}}</th>
-            <th>{{chairTrainDetails.numberCar}}</th>
-            <th>{{chairSelect.numberChair}}</th>
-            <th>{{chairSelect.price}}</th>
+            <th>{{DetailsTicket['name']}}</th>
+            <th>{{DetailsTicket['tenGaDi']}}</th>
+            <th>{{DetailsTicket['tenGaDen']}}</th>
+            <th>{{DetailsTicket['timeStartFilter']  | date:'yyyy-MM-dd HH:mm'}}</th>
+            <th>{{DetailsTicket['timeEndFilter']  | date:'yyyy-MM-dd HH:mm'}}</th>
+            <th>{{DetailsTicket['numberCar'] }}</th>
+            <th>{{DetailsTicket['numberChair']}}</th>
+            <th>{{DetailsTicket['price']}}</th>
         </tr>
     </table>
+     <div ng-if="showinput==true">
+    <h2 style="text-align: center">Nhập Địa Chỉ</h2>
+
+         <table class="table">
+             <tr>
+                 <th>
+                     <label>Id Chuyến Tàu</label>
+                 </th>
+                 <th>
+                                          <label>{{DetailsTicket['id']}}</label>
+
+
+
+                 </th>
+             </tr>
+
+             <tr>
+                 <th>
+                     <label>Tên</label>
+                 </th>
+                 <th>
+               <input ng-model="DetailsTicket['nameADDre']">
+
+                 </th>
+             </tr>
+
+                    <tr>
+                 <th>
+                     <label>Địa Chỉ</label>
+                 </th>
+                 <th>
+              <input ng-model="DetailsTicket['diaChi']">
+
+                 </th>
+             </tr>
+
+
+                    <tr>
+                 <th>
+                     <label>Phone</label>
+                 </th>
+                 <th>
+           <input ng-model="DetailsTicket['phone']">
+
+                 </th>
+             </tr>
+         </table>
+
+    </div>
+    <button style="float: right" ng-if="showinput==false" ng-click="showinputClick()"
+            class="btn btn-primary">Mua Vé</button>
+    <button style="float: right" ng-if="showinput==true" ng-click="showinputClick()" class="btn btn-primary">Ẩn</button>
+    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="funcBuyTicket()" class="btn btn-primary">Thanh Toán</button>
+
+
 </div>
 <div class="modal-footer">
 

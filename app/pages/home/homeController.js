@@ -20,10 +20,10 @@ function controller($scope, searchService, $location, $localStorage) {
     });
     $scope.validateInput = function () {
         searchService.getListTrain($scope.searchData).then(function (data) {
-            console.log(data);
             if (data == null || data == undefined || data == '') {
                 $scope.mess = mess.not_find;
             } else {
+                $localStorage.searchData = $scope.searchData;
                 window.location = "/#/search";
                 $localStorage.Train = data;
 

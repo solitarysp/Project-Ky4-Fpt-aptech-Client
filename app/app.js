@@ -4,7 +4,8 @@
 angular.module('myApp', [
     'ngRoute',
     'myApp.version',
-    'ngStorage'
+    'ngStorage',
+    'ngDialog'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $routeProvider
         .when('/search', {

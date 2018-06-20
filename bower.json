@@ -11,7 +11,12 @@
     "angular-loader": "~1.5.0",
     "angular-mocks": "~1.5.0",
     "html5-boilerplate": "^5.3.0",
-    "ngstorage": "~0.3.11"
+    "ngstorage": "~0.3.11",
+    "ng-dialog": "^1.4.0",
+    "bootstrap": "~3.3.5",
+    "bootstrap-select": "~1.9.3",
+    "bootstrap-switch": "~3.3.2",
+    "bootstrap-tagsinput": "~0.5.0"
 
   }
 }

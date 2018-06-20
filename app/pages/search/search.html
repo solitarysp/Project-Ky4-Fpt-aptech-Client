@@ -9,9 +9,9 @@
             </div>
             <div class="et-train-head-info">
                 <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đi</span> <span
-                        class="pull-right ng-binding">{{tau.timeStart  | date:'yyyy-MM-dd HH:mm'}}</span></div>
+                        class="pull-right ng-binding">{{tau.timeStartFilter  | date:'yyyy-MM-dd HH:mm'}}</span></div>
                 <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đến</span> <span
-                        class="pull-right"></span> <span class="pull-right ng-binding">{{tau.timeEnd  | date:'yyyy-MM-dd HH:mm'}}</span>
+                        class="pull-right"></span> <span class="pull-right ng-binding">{{tau.timeEndFilter  | date:'yyyy-MM-dd HH:mm'}}</span>
                 </div>
             </div>
             <div class="row et-no-margin">
@@ -33,11 +33,13 @@
 
     <div class="et-col-90">
 
-        <div ng-show="chairTrainDetails" class="row et-car-floor">
+        <div ng-show="chairTrainDetails.chairTrainSet" class="row et-car-floor">
             <div class="et-full-width fix-width-80">
-                <div ng-repeat="chair in chairTrainDetails" class="et-col-1-20 et-seat-h-35 ng-isolate-scope"
+                <div ng-repeat="chair in chairTrainDetails.chairTrainSet" class="et-col-1-20 et-seat-h-35 ng-isolate-scope"
                      direct="direct">
-                    <div class="et-car-seat-left et-seat-h-35">
+                    <div class="et-car-seat-left et-seat-h-35"
+                         ng-click="clickChair(chair,chairTrainDetails)"
+                    >
                         <div class="et-col-16 et-sit-side"></div>
                         <div class="et-col-84 et-sit-sur-outer">
                             <div class="et-sit-sur text-center"

@@ -7,9 +7,15 @@
     function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService) {
         $scope.DetailsTicket = [];
         $scope.showinput = false;
-        $scope.showinputClick=function () {
+        $scope.showinputClick = function () {
             $scope.showinput = !$scope.showinput;
-        }
+        };
+        if ($scope.message != null) {
+            $scope.message = $scope.message;
+        };
+        if ($scope.status != null) {
+            $scope.status = $scope.status;
+        };
         if ($scope.chairSelect != null) {
             $scope.chairSelect = $scope.chairSelect;
             $scope.DetailsTicket['numberChair'] = $scope.chairSelect.numberChair;
@@ -46,7 +52,20 @@
 
         $scope.funcBuyTicket = function () {
             $localStorage.DetailsTicket = $scope.DetailsTicket;
-            dialogService.funcBuyTicket($localStorage.DetailsTicket);
+            dialogService.funcBuyTicket($scope.DetailsTicket).then(function (data) {
+                $scope.message = data.message;
+                $localStorage.thanhcongmuave = $localStorage.Trains;
+                $localStorage.Trains = null;
+            console.log($localStorage.thanhcongmuave)
+                ngDialog.open({
+                    template: 'pages/dialogs/dialog-notification.html',
+                    className: 'ngdialog-theme-default',
+                    controller: 'DialogController',
+                    scope: $scope,
+                    controllerAs: 'dialogCtrl',
+                    width: 1000,
+                });
+            });
         }
 
     }

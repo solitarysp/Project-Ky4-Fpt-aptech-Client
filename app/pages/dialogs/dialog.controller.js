@@ -12,10 +12,12 @@
         };
         if ($scope.message != null) {
             $scope.message = $scope.message;
-        };
+        }
+        ;
         if ($scope.status != null) {
             $scope.status = $scope.status;
-        };
+        }
+        ;
         if ($scope.chairSelect != null) {
             $scope.chairSelect = $scope.chairSelect;
             $scope.DetailsTicket['numberChair'] = $scope.chairSelect.numberChair;
@@ -56,7 +58,6 @@
                 $scope.message = data.message;
                 $localStorage.thanhcongmuave = $localStorage.Trains;
                 $localStorage.Trains = null;
-            console.log($localStorage.thanhcongmuave)
                 ngDialog.open({
                     template: 'pages/dialogs/dialog-notification.html',
                     className: 'ngdialog-theme-default',

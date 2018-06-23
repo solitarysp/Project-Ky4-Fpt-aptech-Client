@@ -16,5 +16,9 @@ angular.module('myApp', [
             templateUrl: 'pages/search/search.html',
             constructor: "searchController",
         })
+        .when('/showMessgarPayTicket', {
+            templateUrl: 'pages/messgar/showMessgarPayTicket.html',
+            constructor: "showMessgarPayTicketController",
+        })
         .otherwise({redirectTo: '/home'});
 }]);

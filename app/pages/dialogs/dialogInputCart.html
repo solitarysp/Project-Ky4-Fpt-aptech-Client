@@ -1,0 +1,51 @@
+<span ng-controller="DialogController">
+    <div class="modal-header">
+    <h1>Chi tiết</h1>
+</div>
+<div class="modal-body">
+    <h2 style="text-align: center">Thanh Toán Với Visa</h2>
+         <table class="table">
+             <tr>
+                 <th>
+                     <label>Số Thẻ</label>
+                 </th>
+                 <th>
+               <input ng-model="DetailsTicket['numberCart']">
+                 </th>
+             </tr>
+                 <tr>
+                 <th>
+                     <label>Ngày hết hạn</label>
+                 </th>
+                 <th>
+                <select ng-model="DetailsTicket['thangHetHan']">
+                 <option ng-repeat="v in [1,2,3,4,5,6,7,8,9,10,11,12]">
+                     {{v}}
+                 </option>
+                </select>
+                  <select ng-model="DetailsTicket['namHetHan']">
+                 <option ng-repeat="v in [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
+                     {{v}}
+                 </option>
+                </select>
+                 </th>
+             </tr>
+              <tr>
+                 <th>
+                     <label>CVV/CVC2</label>
+                 </th>
+                 <th>
+              <input ng-model="DetailsTicket['CVV']">
+                 </th>
+             </tr>
+
+         </table>
+    <button style="float: right;margin-right: 20px"ng-click="funcBuyTicket(1)"
+            class="btn btn-primary">Thanh Toán</button>
+        <button ng-click="closeThisDialog()" class="btn" style="width: 120px;">Đóng</button>
+
+</div>
+<div class="modal-footer">
+
+</div>
+</span>

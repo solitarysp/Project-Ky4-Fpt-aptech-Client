@@ -11,14 +11,19 @@ angular.module('myApp', [
         .when('/home', {
             templateUrl: 'pages/home/home.html',
             constructor: "homeController",
+            controllerAs: 'homeCtrl'
         })
         .when('/search', {
             templateUrl: 'pages/search/search.html',
             constructor: "searchController",
+            controllerAs: 'searchCtrl'
+
         })
         .when('/showMessgarPayTicket', {
             templateUrl: 'pages/messgar/showMessgarPayTicket.html',
             constructor: "showMessgarPayTicketController",
+            controllerAs: 'showMessgarPayTicketCtrl'
+
         })
         .otherwise({redirectTo: '/home'});
 }]);

@@ -54,7 +54,9 @@
 
 
         $scope.funcBuyTicket = function (isPay) {
-
+                if($localStorage.DetailsTicket==null){
+                    $localStorage.DetailsTicket = $scope.DetailsTicket;
+                }
             if (isPay == 1) {
                 $localStorage.DetailsTicket['isPay'] = 1;
             } else {
@@ -65,7 +67,7 @@
                 console.log(data)
                 $localStorage.thanhcongmuave = $localStorage.Trains;
                 $localStorage.Trains = null;
-                $localStorage.DetailsTicket['idTicket'] = data.idTicket;
+                $localStorage.DetailsTicket['idTicket'] = data.data.idTicket;
                 $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
                 $localStorage.DetailsTicket = null;
                 window.location = "/#/showMessgarPayTicket";

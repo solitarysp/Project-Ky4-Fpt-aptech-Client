@@ -25,5 +25,11 @@ angular.module('myApp', [
             controllerAs: 'showMessgarPayTicketCtrl'
 
         })
+        .when('/admin', {
+            templateUrl: 'pages/admin/login/loginAdmin.html',
+            constructor: "loginAdminController",
+            controllerAs: 'loginAdminCtrl'
+
+        })
         .otherwise({redirectTo: '/home'});
 }]);

@@ -1,0 +1,32 @@
+<span ng-controller="loginAdminController" >
+
+
+<div class="modal-header">
+    <h1>Admin</h1>
+</div>
+<div class="modal-body">
+    <table class="table">
+        <tr>
+            <th>
+                Tài Khoản
+            </th>
+            <th>
+                <input ng-model="dataInput.userAdmin" placeholder="nhập user admin">
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Mật Khẩu
+            </th>
+            <th>
+                <input type="password" ng-model="dataInput.password" placeholder="nhập password admin">
+            </th>
+        </tr>
+    </table>
+    <button  ng-click="clickLogin()" class="btn" style="width: 120px;float: right;margin-right: 30%">Đăng Nhập</button>
+
+</div>
+<div class="modal-footer">
+
+</div>
+    </span>

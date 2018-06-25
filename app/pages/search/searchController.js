@@ -29,17 +29,20 @@ function controller($scope, searchService, $location, $localStorage, ngDialog) {
 
     };
     $scope.clickChair = function (chair, chairTrainDetails) {
-        $scope.chairSelect = chair;
-        $scope.chairTrainDetails = chairTrainDetails;
-        ngDialog.open({
-            template: 'pages/dialogs/dialog-detail-chair.html',
-            className: 'ngdialog-theme-default',
-            controller: 'DialogController',
-            scope: $scope,
-            controllerAs: 'dialogCtrl',
-            width: 1000,
+        if(chair.byTicket == true){
+            $scope.chairSelect = chair;
+            $scope.chairTrainDetails = chairTrainDetails;
+            ngDialog.open({
+                template: 'pages/dialogs/dialog-detail-chair.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                controllerAs: 'dialogCtrl',
+                width: 1000,
 
-        });
+            });
+        }
+
     }
 
 }

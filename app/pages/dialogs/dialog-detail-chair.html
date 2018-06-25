@@ -14,6 +14,7 @@
             <th>số ghế</th>
             <th>giá tiền</th>
         </tr>
+
          <tr>
             <th>{{DetailsTicket['name']}}</th>
             <th>{{DetailsTicket['tenGaDi']}}</th>
@@ -25,9 +26,9 @@
             <th>{{DetailsTicket['price']}}</th>
         </tr>
     </table>
-     <div ng-if="showinput==true">
-    <h2 style="text-align: center">Nhập Địa Chỉ</h2>
 
+<div ng-if="showinput==true">
+    <h2 style="text-align: center">Nhập Địa Chỉ</h2>
          <table class="table">
              <tr>
                  <th>
@@ -35,50 +36,59 @@
                  </th>
                  <th>
                      <label>{{DetailsTicket['id']}}</label>
+                 </th>
+             </tr>
 
+             <tr>
+                 <th>
+                     <label>Tên <span style="color: red">*</span></label>
+                 </th>
 
+                 <th>
+                      <input ng-model="DetailsTicket['nameADDre']">
+                     <div ng-if="validateInput['name']==false" style="color: red">Phải nhập name</div>
+                 </th>
+             </tr>
+
+              <tr>
+                 <th>
+                     <label>Địa Chỉ <span style="color: red">*</span></label>
+                 </th>
+                 <th>
+                      <input ng-model="DetailsTicket['diaChi']">
+                    <div ng-if="validateInput['diaChi']==false" style="color: red">Phải nhập địa chỉ</div>
 
                  </th>
              </tr>
 
              <tr>
                  <th>
-                     <label>Tên</label>
+                     <label>Phone <span style="color: red">*</span></label>
                  </th>
                  <th>
-               <input ng-model="DetailsTicket['nameADDre']">
-
-                 </th>
-             </tr>
-
-                    <tr>
-                 <th>
-                     <label>Địa Chỉ</label>
-                 </th>
-                 <th>
-              <input ng-model="DetailsTicket['diaChi']">
+                      <input ng-model="DetailsTicket['phone']">
+                     <div ng-if="validateInput['phone']==false" style="color: red">Phải nhập phone</div>
 
                  </th>
              </tr>
-
-
-                    <tr>
+              <tr>
                  <th>
-                     <label>Phone</label>
+                     <label>email</label>
                  </th>
                  <th>
-           <input ng-model="DetailsTicket['phone']">
-
+                   <input ng-model="DetailsTicket['email']">
                  </th>
              </tr>
          </table>
 
-    </div>
+</div>
     <button style="float: right" ng-if="showinput==false" ng-click="showinputClick()"
             class="btn btn-primary">Mua Vé</button>
     <button style="float: right" ng-if="showinput==true" ng-click="showinputClick()" class="btn btn-primary">Ẩn</button>
-    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="clickChangeSsPayVisa()" class="btn btn-primary">Thanh Toán</button>
-    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="funcBuyTicket(0)" class="btn btn-primary">Giữ Ghế</button>
+    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="clickChangeSsPayVisa()"
+            class="btn btn-primary">Thanh Toán</button>
+    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="funcBuyTicket(0)"
+            class="btn btn-primary">Giữ Ghế</button>
 
 
 </div>
@@ -91,6 +101,8 @@
                  </th>
                  <th>
                <input ng-model="DetailsTicket['numberCart']">
+                      <div ng-if="validateInput['numberCart']==false" style="color: red">Phải nhập numberCart</div>
+
                  </th>
              </tr>
                  <tr>
@@ -103,11 +115,15 @@
                      {{v}}
                  </option>
                 </select>
+                                          <div ng-if="validateInput['thangHetHan']==false" style="color: red">Phải nhập thangHetHan</div>
+
                   <select ng-model="DetailsTicket['namHetHan']">
                  <option ng-repeat="v in [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
                      {{v}}
                  </option>
                 </select>
+                                          <div ng-if="validateInput['namHetHan']==false" style="color: red">Phải nhập namHetHan</div>
+
                  </th>
              </tr>
               <tr>
@@ -116,11 +132,13 @@
                  </th>
                  <th>
               <input ng-model="DetailsTicket['CVV']">
+                   <div ng-if="validateInput['CVV']==false" style="color: red">Phải nhập CVV</div>
+
                  </th>
              </tr>
 
          </table>
-    <button style="float: right;margin-right: 20px"ng-click="funcBuyTicket(1)"
+    <button style="float: right;margin-right: 20px" ng-click="funcBuyTicket(1)"
             class="btn btn-primary">Thanh Toán</button>
         <button ng-click="closeThisDialog()" class="btn" style="width: 120px;">Đóng</button>
         <button ng-click="clickChangeSsPayVisa()" class="btn" style="width: 120px;">Quay Lại</button>

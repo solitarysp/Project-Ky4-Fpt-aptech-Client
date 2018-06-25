@@ -10,6 +10,10 @@
         $scope.showinputClick = function () {
             $scope.showinput = !$scope.showinput;
         };
+        $scope.isPayVisa = false;
+        $scope.clickChangeSsPayVisa = function () {
+            $scope.isPayVisa = !$scope.isPayVisa;
+        };
         if ($scope.message != null) {
             $scope.message = $scope.message;
         }
@@ -54,40 +58,45 @@
 
 
         $scope.funcBuyTicket = function (isPay) {
-                if($localStorage.DetailsTicket==null){
-                    $localStorage.DetailsTicket = $scope.DetailsTicket;
-                }
-            if (isPay == 1) {
-                $localStorage.DetailsTicket['isPay'] = 1;
-            } else {
-                $localStorage.DetailsTicket['isPay'] = 0;
+            $localStorage.DetailsTicket = $scope.DetailsTicket;
+            if ($localStorage.DetailsTicket == null) {
+                $localStorage.DetailsTicket = $scope.DetailsTicket;
             }
+            if (isPay == 1) {
+                $localStorage.DetailsTicket['pay'] = 1;
+            } else {
+                $localStorage.DetailsTicket['pay'] = 0;
+            }
+            console.log($localStorage.DetailsTicket['pay'])
             dialogService.funcBuyTicket($localStorage.DetailsTicket).then(function (data) {
                 $scope.message = data.message;
-                console.log(data)
-                $localStorage.thanhcongmuave = $localStorage.Trains;
-                $localStorage.Trains = null;
-                $localStorage.DetailsTicket['idTicket'] = data.data.idTicket;
-                $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
-                $localStorage.DetailsTicket = null;
-                window.location = "/#/showMessgarPayTicket";
-            });
-        };
-        $scope.funcBuyTicketShowPay = function () {
-            $localStorage.DetailsTicket = $scope.DetailsTicket;
-            ngDialog.open({
-                template: 'pages/dialogs/dialogInputCart.html',
-                className: 'ngdialog-theme-default',
-                controller: 'DialogController',
-                scope: $scope,
-                controllerAs: 'dialogCtrl',
-                disableAnimation: true,
-                width: 1000,
-            });
-        };
-        $scope.funcHoldTicket = function () {
-        }
+                $localStorage.DetailsTicket['dataResponse'] = data;
+                switch ($localStorage.DetailsTicket['dataResponse'].status) {
+                    case '900':
+                        ngDialog.open({
+                            template: 'pages/dialogs/dialog-notification.html',
+                            className: 'ngdialog-theme-default',
+                            controller: 'DialogController',
+                            scope: $scope,
+                            controllerAs: 'dialogCtrl',
+                            width: 1000,
+                        });
+                        break;
+                    case '200':
+                        $localStorage.thanhcongmuave = $localStorage.Trains;
 
+                        $localStorage.Trains = null;
+                        $localStorage.DetailsTicket['idTicket'] = data.data.idTicket;
+                        $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
+                        window.location = "/#/showMessgarPayTicket";
+                        $localStorage.DetailsTicket = null;
+                        ngDialog.close();
+                        break;
+                }
+
+            });
+
+        };
     }
 
 

@@ -30,6 +30,11 @@ function dialogService($http, $q) {
                 'tenGaDi': searchData.tenGaDi,
                 'timeEndFilter': searchData.timeEndFilter,
                 'timeStartFilter': searchData.timeStartFilter,
+                'numberCart': searchData.numberCart,
+                'thangHetHan': searchData.thangHetHan,
+                'namHetHan': searchData.namHetHan,
+                'CVV': searchData.CVV,
+                'pay': searchData.pay,
             }
         })
             .then(

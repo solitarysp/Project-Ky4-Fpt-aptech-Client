@@ -12,8 +12,8 @@
                 <th>Vị Trí Khoang Tàu</th>
                 <th>số ghế</th>
                 <th>giá tiền</th>
-                <th ng-if="!DetailsTicket1.isPay">Thời Giạn Giữ chỗ</th>
-                <th ng-if="DetailsTicket1.isPay">Trạng Thái</th>
+                <th ng-if="!DetailsTicket1.pay">Thời Giạn Giữ chỗ</th>
+                <th ng-if="DetailsTicket1.pay">Trạng Thái</th>
             </tr>
             <tr>
                 <th>{{DetailsTicket1['idTicket']}}</th>
@@ -25,9 +25,9 @@
                 <th>{{DetailsTicket1['numberCar'] }}</th>
                 <th>{{DetailsTicket1['numberChair']}}</th>
                 <th>{{DetailsTicket1['price']}}</th>
-                <th ng-if="!DetailsTicket1.isPay">7 ngày</th>
-                <th ng-if="!DetailsTicket1.isPay">Chưa Thanh Toán</th>
-                <th ng-if="DetailsTicket1.isPay">Đã Thanh Toán</th>
+                <th ng-if="!DetailsTicket1.pay">7 ngày</th>
+                <th ng-if="!DetailsTicket1.pay">Chưa Thanh Toán</th>
+                <th ng-if="DetailsTicket1.pay">Đã Thanh Toán</th>
             </tr>
         </table>
     </div>

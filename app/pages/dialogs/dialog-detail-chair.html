@@ -46,6 +46,9 @@
 
                  <th>
                       <input ng-model="DetailsTicket['nameADDre']">
+                     <datalist id="nameHistory" ng-model="DetailsTicket['nameADDre']">
+                          <option ng-repeat="item in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{ item }}"></option>
+                      </datalist>
                      <div ng-if="validateInput['name']==false" style="color: red">Phải nhập name</div>
                  </th>
              </tr>

@@ -19,16 +19,37 @@ function controller($scope, searchService, $location, $localStorage) {
         dateEnd.datepicker(options);
     });
     $scope.validateInput = function () {
-        searchService.getListTrain($scope.searchData).then(function (data) {
-            if (data == null || data == undefined || data == '') {
-                $scope.mess = mess.not_find;
-            } else {
-                $localStorage.searchData = $scope.searchData;
-                $localStorage.Trains = data;
-                window.location = "/#/search";
+        if ($scope.validateSearchData($scope.searchData)) {
+            searchService.getListTrain($scope.searchData).then(function (data) {
+                if (data == null || data == undefined || data == '') {
+                    $scope.mess = mess.not_find;
+                } else {
+                    $localStorage.searchData = $scope.searchData;
+                    $localStorage.Trains = data;
+                    window.location = "/#/search";
 
-            }
-        });
+                }
+            });
+        }else {
+            $scope.mess = "vui long nhap day du cac value";
+
+        }
+
+    };
+    $scope.validateSearchData = function (value) {
+        if(value==null){
+            isValidate = false;
+            return isValidate;
+        }
+        var isValidate = false;
+        if (value.dateStart == null || value.dateEnd == null || value.tenGaDi == null || value.tenGaDen == null) {
+            isValidate = false;
+        } else {
+            isValidate = true;
+
+        }
+        return isValidate;
     }
+
 
 }

@@ -30,6 +30,11 @@ angular.module('myApp', [
             constructor: "loginAdminController",
             controllerAs: 'loginAdminCtrl'
 
+        }) .when('/admin/home', {
+            templateUrl: 'pages/admin/home/home.html',
+            constructor: "homeAdminController",
+            controllerAs: 'homeAdminCtrl'
+
         })
         .otherwise({redirectTo: '/home'});
 }]);

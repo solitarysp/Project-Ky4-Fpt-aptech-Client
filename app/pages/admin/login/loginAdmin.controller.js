@@ -14,6 +14,7 @@
             loginAdminService.clickLogin($scope.data).then(function (data) {
                 if (data.access_token != undefined && data.access_token != null) {
                     $localStorage.access_token = data.access_token;
+                    window.location = "/#/admin/home";
                 } else {
 
                 }

@@ -24,6 +24,7 @@ function controller($scope, searchService, $location, $localStorage) {
                 if (data == null || data == undefined || data == '') {
                     $scope.mess = mess.not_find;
                 } else {
+                    $localStorage.listSelect=[];
                     $localStorage.searchData = $scope.searchData;
                     $localStorage.Trains = data;
                     window.location = "/#/search";

@@ -38,12 +38,12 @@
                 <div ng-repeat="chair in chairTrainDetails.chairTrainSet" class="et-col-1-20 et-seat-h-35 ng-isolate-scope"
                      direct="direct">
                     <div class="et-car-seat-left et-seat-h-35"
-                         ng-click="clickChair(chair,chairTrainDetails)"
+                         ng-click="clickChair(chair,chairTrainDetails,!chair.select)"
                         >
                         <div class="et-col-16 et-sit-side"></div>
                         <div class="et-col-84 et-sit-sur-outer">
-                            <div class="et-sit-sur text-center"
-                                 ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true}"
+                            <div class="et-sit-sur text-center "
+                                 ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':chair.select!=undefined&&chair.select==true}"
                             >
                                 <div popover="Chỗ đã bán" popover-title="Chỗ đã bán" popover-trigger="mouseenter"
                                      popover-placement="top" class="et-sit-no ng-scope"><span
@@ -57,3 +57,4 @@
             </div>
         </div>
     </div>
+</div>

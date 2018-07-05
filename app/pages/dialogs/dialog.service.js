@@ -9,7 +9,30 @@ function dialogService($http, $q) {
     };
     return service;
 
-    function funcBuyTicket(searchData) {
+    function funcBuyTicket(listSelect) {
+        var mappingAll = [];
+        listSelect.forEach(function (searchData) {
+            var mapping = {};
+            mapping['id'] = searchData.id;
+            mapping['diaChi'] = searchData.diaChi;
+            mapping['name'] = searchData.name;
+            mapping['nameADDre'] = searchData.nameADDre;
+            mapping['numberCar'] = searchData.numberCar;
+            mapping['numberChair'] = searchData.numberChair;
+            mapping['phone'] = searchData.phone;
+            mapping['price'] = searchData.price;
+            mapping['tenGaDen'] = searchData.tenGaDen;
+            mapping['tenGaDi'] = searchData.tenGaDi;
+            mapping['timeEndFilter'] = searchData.timeEndFilter;
+            mapping['timeStartFilter'] = searchData.timeStartFilter;
+            mapping['numberCart'] = searchData.numberCart;
+            mapping['thangHetHan'] = searchData.thangHetHan;
+            mapping['namHetHan'] = searchData.namHetHan;
+            mapping['CVV'] = searchData.CVV;
+            mapping['pay'] = searchData.pay;
+            mappingAll.push(mapping);
+        });
+
         var deferred = $q.defer();
         $http({
             url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "ticket",
@@ -17,25 +40,7 @@ function dialogService($http, $q) {
             headers: {
                 'Content-Type': "application/json"
             },
-            data: {
-                'id': searchData.id,
-                'diaChi': searchData.diaChi,
-                'name': searchData.name,
-                'nameADDre': searchData.nameADDre,
-                'numberCar': searchData.numberCar,
-                'numberChair': searchData.numberChair,
-                'phone': searchData.phone,
-                'price': searchData.price,
-                'tenGaDen': searchData.tenGaDen,
-                'tenGaDi': searchData.tenGaDi,
-                'timeEndFilter': searchData.timeEndFilter,
-                'timeStartFilter': searchData.timeStartFilter,
-                'numberCart': searchData.numberCart,
-                'thangHetHan': searchData.thangHetHan,
-                'namHetHan': searchData.namHetHan,
-                'CVV': searchData.CVV,
-                'pay': searchData.pay,
-            }
+            data: mappingAll
         })
             .then(
                 function (response) {

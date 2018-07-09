@@ -12,6 +12,12 @@
         $scope.showinputClick = function () {
             $scope.showinput = !$scope.showinput;
         };
+
+        $scope.deleteDetails = function (index) {
+            $scope.listSelect.splice(index, 1);
+            $localStorage.listSelect=$scope.listSelect;
+
+        };
         $scope.isPayVisa = false;
         $scope.clickChangeSsPayVisa = function () {
             if ($scope.validateValue()) {

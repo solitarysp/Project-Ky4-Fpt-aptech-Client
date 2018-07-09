@@ -24,21 +24,22 @@ function controller($scope, searchService, $location, $localStorage) {
                 if (data == null || data == undefined || data == '') {
                     $scope.mess = mess.not_find;
                 } else {
-                    $localStorage.listSelect=[];
+                    $localStorage.listSelect = [];
                     $localStorage.searchData = $scope.searchData;
                     $localStorage.Trains = data;
+                    console.log($localStorage.Trains['Multil_WAY']);
                     window.location = "/#/search";
 
                 }
             });
-        }else {
+        } else {
             $scope.mess = "vui long nhap day du cac value";
 
         }
 
     };
     $scope.validateSearchData = function (value) {
-        if(value==null){
+        if (value == null) {
             isValidate = false;
             return isValidate;
         }
@@ -50,6 +51,14 @@ function controller($scope, searchService, $location, $localStorage) {
 
         }
         return isValidate;
+    }
+    $scope.changeDataStart = function () {
+        if ($scope.searchData.isOneWay == 0) {
+            $scope.searchData.dateEnd = $scope.searchData.dateStart;
+        }
+    };
+    $scope.click1Chieu = function () {
+        $scope.searchData.dateEnd = $scope.searchData.dateStart;
     }
 
 

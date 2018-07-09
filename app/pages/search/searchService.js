@@ -14,6 +14,7 @@ function searchService($http, $q) {
         $http.post(baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "getTrain?"
         +"dateStart="+searchData.dateStart
         +"&dateEnd="+searchData.dateEnd
+        +"&isOneWay="+searchData.isOneWay
         +"&locationStart="+searchData.tenGaDi
         +"&locationEnd="+searchData.tenGaDen
         ).success(

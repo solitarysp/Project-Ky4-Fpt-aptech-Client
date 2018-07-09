@@ -28,8 +28,21 @@
                     <!-- ngRepeat: match in matches track by $index -->
                 </ul>
             </div>
+
+
+            <div ng-init="searchData.isOneWay=0" class="et-direct-block">
+                <input ng-click="click1Chieu()" ng-model="searchData.isOneWay" type="radio" value="0" name="oneWay"
+                                                class="ng-pristine ng-valid">
+                <span class="ng-binding">Một chiều</span>
+                <input ng-model="searchData.isOneWay" type="radio" name="oneWay" value="1"
+                        class="ng-pristine ng-valid">
+                <span class="ng-binding">Khứ hồi</span>
+            </div>
+
+
             <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
-                <div class="input-group input-cal-picker"><input type="text"
+                <div class="input-group input-cal-picker">
+                    <input type="text" ng-change="changeDataStart()"
                                                                  ng-model="searchData.dateStart"
                                                                  class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
                                                                  placeholder="Ngày đi"
@@ -37,11 +50,11 @@
                                                                  required="required">
                     <span class="input-group-btn"></span></div>
             </div>
-            <div class="form-group"><h6 class="ng-binding">Ngày Đến</h6><span
+            <div   class="form-group"><h6 class="ng-binding">Ngày Đến</h6><span
                     class="control-label ng-binding ng-hide" ng-show="ngayVeError"
                     ng-class="{'et-error-label': ngayDenError}">Ngày về không hợp lệ</span>
-                <div class="input-group input-cal-picker"><input type="text"
-                                                                 ng-model="searchData.dateEnd"
+                <div  class="input-group input-cal-picker">
+                    <input ng-disabled="searchData.isOneWay==0"  type="text" ng-model="searchData.dateEnd"
                                                                  class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
                                                                  placeholder="Ngày về"
                                                                  id="dateEnd"
@@ -55,6 +68,7 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-8 et-col-md-6"><a href="http://www.vr.com.vn/cam-nang-di-tau.html" target="_blank"><img
-            class="img" style="margin-top: 10px" ng-src="https://dsvn.vn/images/banner-2018.jpg" src="/images/banner-2018.jpg"></a>
+            class="img" style="margin-top: 10px" ng-src="https://dsvn.vn/images/banner-2018.jpg"
+            src="/images/banner-2018.jpg"></a>
     </div>
 </div>

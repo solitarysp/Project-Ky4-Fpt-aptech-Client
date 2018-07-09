@@ -1,6 +1,10 @@
 <div class="container" style="margin-left: 20px;" ng-controller="searchController">
-    <div ng-if="Trains==null||Trains==undefined||Train==''">không tìm thấy gì cả</div>
-    <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope" ng-repeat="tau in Trains"
+    <div>
+        <div ng-if="Trains_ONE_WAY==null||Trains_ONE_WAY==undefined">không tìm thấy gì cả</div>
+
+        <h1 class="text-center" ng-if="Trains_ONE_WAY!=null||Trains_ONE_WAY!=undefined||searchData.isOneWay==1">Vé đi</h1>
+
+    <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope" ng-repeat="tau in Trains_ONE_WAY"
          ng-click="doiChuyen(tau, false)" analytics-on="click" analytics-event="SelectTrain">
         <div class="et-train-head et-train-head-selected"
              ng-class="{'et-train-head-selected': tau.id == selectTau.id}">
@@ -39,7 +43,7 @@
                      direct="direct">
                     <div class="et-car-seat-left et-seat-h-35"
                          ng-click="clickChair(chair,chairTrainDetails,!chair.select)"
-                        >
+                    >
                         <div class="et-col-16 et-sit-side"></div>
                         <div class="et-col-84 et-sit-sur-outer">
                             <div class="et-sit-sur text-center "
@@ -50,6 +54,71 @@
                                         class="ng-binding">{{chair.numberChair}}</span>
                                 </div>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div ng-if="searchData.isOneWay==1">
+        <div ng-if="Trains_Multil==null||Trains_Multil==undefined||Train==''">không tìm thấy gì cả</div>
+        <h1 class="" ng-if="Trains_Multil!=null||Trains_Multil!=undefined||searchData.isOneWay==1">Vé về</h1>
+
+        <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block" ng-repeat="tau in Trains_Multil"
+             ng-click="doiChuyenMultil(tau, false)" analytics-on="click" analytics-event="SelectTrain">
+            <div class="et-train-head et-train-head-selected"
+                 ng-class="{'et-train-head-selected': tau.id == selectTauMultil.id}">
+                <div class="row center-block" style="width: 40%; margin-bottom: 3px">
+                    <div class="et-train-lamp text-center ng-binding">{{tau.name}}</div>
+                </div>
+                <div class="et-train-head-info">
+                    <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đi</span> <span
+                            class="pull-right ng-binding">{{tau.timeStartFilter  | date:'yyyy-MM-dd HH:mm'}}</span></div>
+                    <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đến</span> <span
+                            class="pull-right"></span> <span class="pull-right ng-binding">{{tau.timeEndFilter  | date:'yyyy-MM-dd HH:mm'}}</span>
+                    </div>
+                </div>
+                <div class="row et-no-margin">
+                    <div class="et-col-50"><span class="et-train-lamp-bellow-left"></span></div>
+                    <div class="et-col-50"><span class="et-train-lamp-bellow-right"></span></div>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+        <div class="col-md-10 ">
+            <span ng-repeat="train in TrainDetailMultil">
+                <span ng-click="showDetailsMultil(train)" class="et-car-icon et-car-icon-selected col-md-1 "><img
+                        src="/images/trainCar2.png"></span>
+            </span>
+            <span ng-if="TrainDetailMultil!=null" class="et-car-icon"><img class="et-car-block" src="/images/train2.png"></span>
+        </div>
+
+        <div class="et-col-90">
+
+            <div ng-show="chairTrainDetailsMultil.chairTrainSet" class="row et-car-floor">
+                <div class="et-full-width fix-width-80">
+                    <div ng-repeat="chair in chairTrainDetailsMultil.chairTrainSet" class="et-col-1-20 et-seat-h-35 ng-isolate-scope"
+                         direct="direct">
+                        <div class="et-car-seat-left et-seat-h-35"
+                             ng-click="clickChairMultil(chair,chairTrainDetailsMultil,!chair.select)"
+                        >
+                            <div class="et-col-16 et-sit-side"></div>
+                            <div class="et-col-84 et-sit-sur-outer">
+                                <div class="et-sit-sur text-center "
+                                     ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':chair.select!=undefined&&chair.select==true}"
+                                >
+                                    <div popover="Chỗ đã bán" popover-title="Chỗ đã bán" popover-trigger="mouseenter"
+                                         popover-placement="top" class="et-sit-no ng-scope"><span
+                                            class="ng-binding">{{chair.numberChair}}</span>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -2,7 +2,7 @@
 var app = angular.module('myApp');
 app.controller('homeController', controller);
 
-function controller($scope, searchService, $location, $localStorage) {
+function controller($scope, searchService, $location, $localStorage,$window) {
     $scope.searchData = null;
     $(document).ready(function () {
 
@@ -29,6 +29,7 @@ function controller($scope, searchService, $location, $localStorage) {
                     $localStorage.Trains = data;
                     console.log($localStorage.Trains['Multil_WAY']);
                     window.location = "/#/search";
+                    $window.location.reload();
 
                 }
             });

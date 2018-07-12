@@ -1,5 +1,6 @@
 <span ng-controller="DialogController">
-    <div class="modal-header">
+
+<div class="modal-header">
     <h1>Chi tiết</h1>
 </div>
 <div ng-if="!isPayVisa" class="modal-body">
@@ -75,6 +76,28 @@
 
                  </th>
              </tr>
+
+             <tr>
+                 <th>
+                     <label>Thành Phố <span style="color: red">*</span></label>
+                 </th>
+                 <th>
+                      <input ng-model="DetailsTicket['City']">
+                     <div ng-if="validateInput['City']==false" style="color: red">Phải nhập City</div>
+
+                 </th>
+             </tr>
+
+             <tr>
+                 <th>
+                     <label>postal code <span style="color: red">*</span></label>
+                 </th>
+                 <th>
+                      <input ng-model="DetailsTicket['postalcode']">
+                     <div ng-if="validateInput['postalcode']==false" style="color: red">postal code</div>
+
+                 </th>
+             </tr>
               <tr>
                  <th>
                      <label>email</label>
@@ -94,6 +117,17 @@
     <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="funcBuyTicket(0)"
             class="btn btn-primary">Giữ Ghế</button>
 
+    <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="clickPay()"
+            class="btn btn-primary">Thanh Toán Online</button>
+    <span ng-if="
+    showinput==true
+    &&DetailsTicket['nameADDre'].length>0
+    &&DetailsTicket['diaChi'].length>0
+    &&DetailsTicket['phone'].length>0
+
+" >
+               <div id="paypal-button"></div>
+    </span>
 
 </div>
     <div ng-if="isPayVisa" class="modal-body">

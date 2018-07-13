@@ -7,10 +7,13 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
     if($localStorage.listSelect==undefined){
         $scope.listSelect=[];
     }
+    if($localStorage.Trains==undefined||$localStorage.Trains['ONE_WAY']==undefined||$localStorage.Trains['ONE_WAY']==null){
+        window.location = "/#/home";
+    }
     $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
     $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
     $scope.searchData = $localStorage.searchData;
-    console.log($scope.Trains_ONE_WAY)
+
     $scope.DetailsTicket = [];
     $scope.Trains_ONE_WAY.forEach(function (entry) {
         entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {

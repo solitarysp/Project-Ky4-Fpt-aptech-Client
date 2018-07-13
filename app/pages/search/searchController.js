@@ -10,7 +10,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
     $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
     $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
     $scope.searchData = $localStorage.searchData;
-
+    console.log($scope.Trains_ONE_WAY)
     $scope.DetailsTicket = [];
     $scope.Trains_ONE_WAY.forEach(function (entry) {
         entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {

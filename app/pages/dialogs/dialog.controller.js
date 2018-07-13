@@ -33,8 +33,8 @@
             $scope.status = $scope.status;
         }
 
-        $scope.funcBuyTicket = function (isPay,isonline) {
-            if ($scope.validateValue(isPay)||isonline) {
+        $scope.funcBuyTicket = function (isPay, isonline) {
+            if ($scope.validateValue(isPay) || isonline) {
                 $scope.listSelect = $localStorage.listSelect;
                 $scope.listSelect.forEach(function (value) {
                     if (isPay == 1) {
@@ -62,7 +62,7 @@
                             break;
                         case '200':
                             $scope.listSelect = [];
-                            $localStorage.listSelect=[];
+                            $localStorage.listSelect = [];
                             $localStorage.thanhcongmuave = $localStorage.Trains;
 
                             $localStorage.Trains = null;
@@ -147,66 +147,66 @@
             return isValidate;
         };
         $scope.clickPay = function () {
-           if( $scope.validateValue()){
-               var totalCurr = 0;
-               var mappingAll = [];
-               $scope.listSelect.forEach(function (entry) {
-                   var mapping = {};
-                   mapping['name'] ='vé đi tàu tàu:'+ entry['name'];
-                   mapping['description'] = 'nơi đi: '+entry['tenGaDi']+" ;  Nơi đến :"+entry['tenGaDen'];
-                   mapping['quantity'] = '1';
-                   mapping['price'] = entry['price'];
-                   mapping['currency'] = 'USD';
-                   totalCurr += entry['price'];
-                   mappingAll.push(mapping);
-               });
+            if ($scope.validateValue()) {
+                var totalCurr = 0;
+                var mappingAll = [];
+                $scope.listSelect.forEach(function (entry) {
+                    var mapping = {};
+                    mapping['name'] = 'vé đi tàu tàu:' + entry['name'];
+                    mapping['description'] = 'nơi đi: ' + entry['tenGaDi'] + " ;  Nơi đến :" + entry['tenGaDen'];
+                    mapping['quantity'] = '1';
+                    mapping['price'] = entry['price'];
+                    mapping['currency'] = 'USD';
+                    totalCurr += entry['price'];
+                    mappingAll.push(mapping);
+                });
 
-               paypal.Button.render({
-                   env: 'sandbox',
-                   client: {
-                       sandbox: 'AeaAdSa-S7DDI2K7TpSr8Xwyo8D2H2-BMjaKBuDlM8HD9coVd7d5XKenhiYOlP5Lo-Sej8mVEDImfLmf',
-                       production: 'AeaAdSa-S7DDI2K7TpSr8Xwyo8D2H2-BMjaKBuDlM8HD9coVd7d5XKenhiYOlP5Lo-Sej8mVEDImfLmf'
-                   },
-                   payment: function (data, actions) {
-                       return actions.payment.create({
-                           transactions: [{
-                               amount: {
-                                   total:totalCurr,
-                                   currency: 'USD',
-                                   details: {
-                                       subtotal: totalCurr
-                                   }
-                               },
-                               description: 'The payment transaction description.',
-                               custom: '90048630024435',
-                               payment_options: {
-                                   allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
-                               },
-                               soft_descriptor: 'ECHI5786786',
-                               item_list: {
-                                   items: mappingAll,
-                                   shipping_address: {
-                                       recipient_name: $scope.DetailsTicket['nameADDre'],
-                                       line1: $scope.DetailsTicket['diaChi'],
-                                       line2: $scope.DetailsTicket['diaChi'],
-                                       city: 'San Jose',
-                                       country_code: 'US',
-                                       postal_code: '95131',
-                                       phone: $scope.DetailsTicket['phone'],
-                                       state: 'CA'
-                                   }
-                               }
-                           }],
-                       });
-                   },
-                   onAuthorize: function (data, actions) {
-                       return actions.payment.execute()
-                           .then(function () {
-                               $scope.funcBuyTicket(1,true);
-                           });
-                   }
-               }, '#paypal-button');
-           }
+                paypal.Button.render({
+                    env: 'sandbox',
+                    client: {
+                        sandbox: 'AeaAdSa-S7DDI2K7TpSr8Xwyo8D2H2-BMjaKBuDlM8HD9coVd7d5XKenhiYOlP5Lo-Sej8mVEDImfLmf',
+                        production: 'AeaAdSa-S7DDI2K7TpSr8Xwyo8D2H2-BMjaKBuDlM8HD9coVd7d5XKenhiYOlP5Lo-Sej8mVEDImfLmf'
+                    },
+                    payment: function (data, actions) {
+                        return actions.payment.create({
+                            transactions: [{
+                                amount: {
+                                    total: totalCurr,
+                                    currency: 'USD',
+                                    details: {
+                                        subtotal: totalCurr
+                                    }
+                                },
+                                description: 'The payment transaction description.',
+                                custom: '90048630024435',
+                                payment_options: {
+                                    allowed_payment_method: 'INSTANT_FUNDING_SOURCE'
+                                },
+                                soft_descriptor: 'ECHI5786786',
+                                item_list: {
+                                    items: mappingAll,
+                                    shipping_address: {
+                                        recipient_name: $scope.DetailsTicket['nameADDre'],
+                                        line1: $scope.DetailsTicket['diaChi'],
+                                        line2: $scope.DetailsTicket['diaChi'],
+                                        city: 'San Jose',
+                                        country_code: 'US',
+                                        postal_code: '95131',
+                                        phone: $scope.DetailsTicket['phone'],
+                                        state: 'CA'
+                                    }
+                                }
+                            }],
+                        });
+                    },
+                    onAuthorize: function (data, actions) {
+                        return actions.payment.execute()
+                            .then(function () {
+                                $scope.funcBuyTicket(1, true);
+                            });
+                    }
+                }, '#paypal-button');
+            }
 
         }
 

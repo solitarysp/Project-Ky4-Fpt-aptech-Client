@@ -120,7 +120,7 @@
                             >
                                 <div class="et-col-84 et-sit-sur-outer">
                                     <div class="et-bed text-center " style="width: 26px"
-                                         ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':chair.select!=undefined&&chair.select==true}"
+                                         ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair)}"
                                     >
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
                                              popover-trigger="mouseenter"
@@ -192,7 +192,7 @@
                             >
                                 <div class="et-col-84 et-sit-sur-outer">
                                     <div class="et-bed text-center " style="width: 26px"
-                                         ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':chair.select!=undefined&&chair.select==true}"
+                                         ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':checkChair(chairTrainDetailsMultil.idTrain,chairTrainDetailsMultil.numberCar,chair.numberChair)}"
                                     >
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
                                              popover-trigger="mouseenter"

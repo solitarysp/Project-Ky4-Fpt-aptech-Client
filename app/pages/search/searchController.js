@@ -4,16 +4,15 @@ app.controller('searchController', controller);
 
 function controller($scope, $rootScope, searchService, $location, $localStorage, ngDialog) {
     $scope.listSelect = $localStorage.listSelect;
-    if($localStorage.listSelect==undefined){
-        $scope.listSelect=[];
+    if ($localStorage.listSelect == undefined) {
+        $scope.listSelect = [];
     }
-    if($localStorage.Trains==undefined||$localStorage.Trains['ONE_WAY']==undefined||$localStorage.Trains['ONE_WAY']==null){
+    if ($localStorage.Trains == undefined || $localStorage.Trains['ONE_WAY'] == undefined || $localStorage.Trains['ONE_WAY'] == null) {
         window.location = "/#/home";
     }
     $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
     $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
     $scope.searchData = $localStorage.searchData;
-
     $scope.DetailsTicket = [];
     $scope.Trains_ONE_WAY.forEach(function (entry) {
         entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
@@ -25,7 +24,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         })[0].timeEnd;
 
     });
-    if($scope.Trains_Multil!=undefined&&$scope.Trains_Multil!=null){
+    if ($scope.Trains_Multil != undefined && $scope.Trains_Multil != null) {
         $scope.Trains_Multil.forEach(function (entry) {
             entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
                 return item.locationStart == $scope.searchData.tenGaDen;
@@ -60,16 +59,34 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
     };
 
+    $scope.checkChair = function (id, numberCar, numberChair) {
+        var index = $scope.listSelect.map(function (object) {
+            return object.id + "" + object.numberCar + "" + object.numberChair;
+        }).indexOf(id + "" + numberCar + "" + numberChair);
+
+        if (index >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     $scope.clickChair = function (chair, chairTrainDetails, isSelect) {
+        $scope.chairSelect = chair;
+        $scope.chairTrainDetails = chairTrainDetails;
+        var details = $scope.getDetailsTicket();
+        var index1 = $scope.listSelect.map(function (object) {
+            return object.id + "" + object.numberCar + "" + object.numberChair;
+        }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
+        if (index1 < 0) {
+            isSelect = true;
+        }
 
         if (chair.byTicket == true) {
-            $scope.chairSelect = chair;
-            $scope.chairTrainDetails = chairTrainDetails;
-            var details = $scope.getDetailsTicket();
+
             var index = $scope.listSelect.map(function (object) {
-                return object.id + object.numberCar + object.numberChair;
-            }).indexOf(details.id + details.numberCar + details.numberChair);
+                return object.id + "" + object.numberCar + "" + object.numberChair;
+            }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
 
             if (isSelect) {
                 $scope.listSelect.push(details);
@@ -90,15 +107,25 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             $scope.listSelect = [];
         }
         if (chair.byTicket == true) {
+
+
             $scope.chairSelectMultil = chair;
             $scope.chairTrainDetailsMultil = chairTrainDetailsMultil;
             var details = $scope.getDetailsTicketMultil();
+
+            var index1 = $scope.listSelect.map(function (object) {
+                return object.id + "" + object.numberCar + "" + object.numberChair;
+            }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
+            if (index1 < 0) {
+                isSelect = true;
+            }
+
             if ($localStorage.listSelect == undefined && $localStorage.listSelect == null) {
                 $localStorage.listSelect = [];
             }
             var index = $scope.listSelect.map(function (object) {
-                return object.id + object.numberCar + object.numberChair;
-            }).indexOf(details.id + details.numberCar + details.numberChair);
+                return object.id + "" + object.numberCar + "" + object.numberChair;
+            }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
 
             if (isSelect) {
                 $scope.listSelect.push(details);

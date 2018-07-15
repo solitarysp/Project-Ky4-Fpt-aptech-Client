@@ -37,18 +37,57 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
                             return item.locationEnd == $scope.searchData.tenGaDen;
                         })[0].timeEnd;
                     });
-                    //lấy về index Train
-                    var indexTrain = $scope.Trains_ONE_WAY.map(function (object) {
-                        return object.id;
-                    }).indexOf($scope.infoDoiChuyen['tau'].id);
-                    var train_Trains_ONE_WAY = $scope.Trains_ONE_WAY[indexTrain];
-                    $scope.doiChuyen(train_Trains_ONE_WAY);
+                    if ($scope.infoDoiChuyen != null) {
+                        //lấy về index Train
+                        var indexTrain = $scope.Trains_ONE_WAY.map(function (object) {
+                            return object.id;
+                        }).indexOf($scope.infoDoiChuyen['tau'].id);
+                        var train_Trains_ONE_WAY = $scope.Trains_ONE_WAY[indexTrain];
+                        $scope.doiChuyen(train_Trains_ONE_WAY);
 
-                    var indexTrainDetail = train_Trains_ONE_WAY.trainDetailSet.map(function (object) {
-                        return object.numberCar;
-                    }).indexOf($scope.chairTrainDetails.numberCar);
-                    $scope.showDetails(train_Trains_ONE_WAY.trainDetailSet[indexTrainDetail]);
+                        var indexTrainDetail = train_Trains_ONE_WAY.trainDetailSet.map(function (object) {
+                            return object.numberCar;
+                        }).indexOf($scope.chairTrainDetails.numberCar);
+                        $scope.showDetails(train_Trains_ONE_WAY.trainDetailSet[indexTrainDetail]);
+                        //
+
+                    }
+
+                    //
+
+                    if ($scope.Trains_Multil != undefined && $scope.Trains_Multil != null) {
+
+                        $scope.Trains_Multil.forEach(function (entry) {
+                            entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
+                                return item.locationStart == $scope.searchData.tenGaDen;
+                            })[0].timeStart;
+
+                            entry.timeEndFilter = entry.scheduleTrainSet.filter(function (item) {
+                                return item.locationEnd == $scope.searchData.tenGaDi;
+                            })[0].timeEnd;
+
+                        });
+                        if ($scope.infoDoiChuyenMultil != null) {
+
+                            //lấy về index Train
+                            var indexTrain = $scope.Trains_Multil.map(function (object) {
+                                return object.id;
+                            }).indexOf($scope.infoDoiChuyenMultil['tau'].id);
+                            var train_Trains_MULTIL_WAY = $scope.Trains_Multil[indexTrain];
+                            $scope.doiChuyenMultil(train_Trains_MULTIL_WAY);
+
+                            var indexTrainDetail = train_Trains_MULTIL_WAY.trainDetailSet.map(function (object) {
+                                return object.numberCar;
+                            }).indexOf($scope.chairTrainDetailsMultil.numberCar);
+                            $scope.showDetailsMultil(train_Trains_MULTIL_WAY.trainDetailSet[indexTrainDetail]);
+                        }
+
+                    }
+
+
                 }
+
+
             });
 
 
@@ -105,7 +144,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
     $scope.doiChuyenMultil = function (tau) {
         $scope.infoDoiChuyenMultil = [];
-        $scope.infoDoiChuyenMultil = tau;
+        $scope.infoDoiChuyenMultil['tau'] = tau;
 
         $scope.selectTauMultil = tau.id;
         $scope.TrainDetailMultil = tau.trainDetailSet;
@@ -141,7 +180,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
         var checkIsSelect = $scope.checkChair(chairTrainDetails.idTrain, chairTrainDetails.numberCar, chair.numberChair)
 
-        if (chair.byTicket == true && (checkIsSelect||chair.status==0)) {
+        if (chair.byTicket == true && (checkIsSelect || chair.status == 0)) {
 
             var index = $scope.listSelect.map(function (object) {
                 return object.id + "" + object.numberCar + "" + object.numberChair;
@@ -167,12 +206,16 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         }
     };
 
-    $scope.clickChairMultil = function (chair, chairTrainDetailsMultil, isSelect) {
+    $scope.clickChairMultil = function (chair, chairTrainDetailsMultil) {
+        var isSelect;
         $scope.listSelect = $localStorage.listSelect;
         if ($scope.listSelect == undefined) {
             $scope.listSelect = [];
         }
-        if (chair.byTicket == true) {
+
+        var checkIsSelect = $scope.checkChair(chairTrainDetailsMultil.idTrain, chairTrainDetailsMultil.numberCar, chair.numberChair)
+
+        if (chair.byTicket == true && (checkIsSelect || chair.status == 0)) {
 
 
             $scope.chairSelectMultil = chair;

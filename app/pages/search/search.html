@@ -121,9 +121,9 @@
                                     <div class="et-bed text-center " style="width: 26px"
                                          ng-class="{'et-sit-bought': chair.byTicket == false,
                                          'et-sit-avaiable': chair.byTicket == true,
-          
                                          'et-sit-booked': chair.status == 1,
-                                         'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair)
+                                         'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair),
+                                          'mauDangChoThanhToan': chair.status == 2,
                                          }"
                                     >
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
@@ -304,10 +304,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="et-car-nm-64-sit et-col-md-6">
+                            <div class="et-col-16 et-sit-side"></div>
+                            <div class="mauDangChoThanhToan et-sit-sur-outer">
+                                <div class="et-sit-sur text-center"></div>
+                            </div>
+                        </div>
+                        <div class="et-bed-left et-col-md-3 et-no-padding">
+                            <div class="et-bed-outer">
+                                <div class="et-bed text-center mauDangChoThanhToan"></div>
+                                <div class="et-bed-illu"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="et-col-md-6" style="padding-right: 0px">
                     <div class="et-legend-label ng-binding">Chỗ đã bán</div>
                     <div class="et-legend-label ng-binding">Chỗ trống</div>
+                    <div class="et-legend-label ng-binding">Đã giữ chỗ, đang đợi thanh toán</div>
                 </div>
 
             </div>

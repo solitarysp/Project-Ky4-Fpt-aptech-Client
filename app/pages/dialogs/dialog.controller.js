@@ -33,6 +33,15 @@
             $scope.status = $scope.status;
         }
 
+        var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+        var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe('/topic/greetings', function (greeting) {
+                $localStorage.listSelectALL = JSON.parse(greeting.body);
+                $scope.listSelectALL = $localStorage.listSelectALL;
+            });
+        });
+
         $scope.funcBuyTicket = function (isPay, isonline) {
             if ($scope.validateValue(isPay) || isonline) {
                 $scope.listSelect = $localStorage.listSelect;
@@ -73,7 +82,7 @@
                             ngDialog.close();
                             break;
                     }
-
+                    stompClient.send("/app/hello", {}, JSON.stringify({"get": true}));
                 });
             } else {
                 console.log('null')

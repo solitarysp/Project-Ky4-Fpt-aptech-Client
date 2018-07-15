@@ -116,7 +116,6 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         var index = $scope.listSelect.map(function (object) {
             return object.id + "" + object.numberCar + "" + object.numberChair;
         }).indexOf(id + "" + numberCar + "" + numberChair);
-        console.log(index)
         if (index >= 0) {
             return true;
         } else {

@@ -140,7 +140,9 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             isSelect = true;
         }
 
-        if (chair.byTicket == true) {
+        var checkIsSelect = $scope.checkChair(chairTrainDetails.idTrain, chairTrainDetails.numberCar, chair.numberChair)
+
+        if (chair.byTicket == true && (checkIsSelect||chair.status==0)) {
 
             var index = $scope.listSelect.map(function (object) {
                 return object.id + "" + object.numberCar + "" + object.numberChair;

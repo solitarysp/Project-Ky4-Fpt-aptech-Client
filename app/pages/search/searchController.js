@@ -2,8 +2,58 @@
 var app = angular.module('myApp');
 app.controller('searchController', controller);
 
-function controller($scope, $rootScope, searchService, $location, $localStorage, ngDialog) {
-    $scope.listSelect = $localStorage.listSelect;
+function controller($scope, $rootScope, searchService, $location, $localStorage, ngDialog, $timeout) {
+    $scope.listSelectALL = [];
+    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+        stompClient.subscribe('/topic/greetings', function (greeting) {
+            $localStorage.listSelectALL = JSON.parse(greeting.body);
+            $scope.listSelectALL = $localStorage.listSelectALL;
+
+            //get data mới nhất
+            searchService.getListTrain($scope.searchData).then(function (data) {
+                if (data == null || data == undefined || data == '') {
+                    $scope.mess = mess.not_find;
+                } else {
+                    $localStorage.searchData = $scope.searchData;
+                    $localStorage.Trains = data;
+
+
+                    //set data mới nhất vào
+                    $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
+                    $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
+                    //set value tìm kiếm
+                    $scope.searchData = $localStorage.searchData;
+
+                    $scope.DetailsTicket = [];
+                    //set time hiển thị
+                    $scope.Trains_ONE_WAY.forEach(function (entry) {
+                        entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
+                            return item.locationStart == $scope.searchData.tenGaDi;
+                        })[0].timeStart;
+
+                        entry.timeEndFilter = entry.scheduleTrainSet.filter(function (item) {
+                            return item.locationEnd == $scope.searchData.tenGaDen;
+                        })[0].timeEnd;
+                    });
+                    //lấy về index Train
+                    var indexTrain = $scope.Trains_ONE_WAY.map(function (object) {
+                        return object.id;
+                    }).indexOf($scope.infoDoiChuyen['tau'].id);
+                    var train_Trains_ONE_WAY = $scope.Trains_ONE_WAY[indexTrain];
+                    $scope.doiChuyen(train_Trains_ONE_WAY);
+
+                    var indexTrainDetail = train_Trains_ONE_WAY.trainDetailSet.map(function (object) {
+                        return object.numberCar;
+                    }).indexOf($scope.chairTrainDetails.numberCar);
+                    $scope.showDetails(train_Trains_ONE_WAY.trainDetailSet[indexTrainDetail]);
+                }
+            });
+
+
+        });
+    });
     if ($localStorage.listSelect == undefined) {
         $scope.listSelect = [];
     }
@@ -46,14 +96,17 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
     };
 
     $scope.doiChuyen = function (tau) {
+        $scope.infoDoiChuyen = [];
+        $scope.infoDoiChuyen['tau'] = tau;
         $scope.selectTau = tau.id;
         $scope.TrainDetail = tau.trainDetailSet;
-        console.log($scope.TrainDetail)
-
 
     };
 
     $scope.doiChuyenMultil = function (tau) {
+        $scope.infoDoiChuyenMultil = [];
+        $scope.infoDoiChuyenMultil = tau;
+
         $scope.selectTauMultil = tau.id;
         $scope.TrainDetailMultil = tau.trainDetailSet;
 
@@ -63,15 +116,20 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         var index = $scope.listSelect.map(function (object) {
             return object.id + "" + object.numberCar + "" + object.numberChair;
         }).indexOf(id + "" + numberCar + "" + numberChair);
-
+        console.log(index)
         if (index >= 0) {
             return true;
         } else {
             return false;
         }
-    }
+    };
+    /*    setInterval(function () {
+            stompClient.send("/app/hello", {}, JSON.stringify({"get": true}));
+        }, 800);*/
 
-    $scope.clickChair = function (chair, chairTrainDetails, isSelect) {
+
+    $scope.clickChair = function (chair, chairTrainDetails) {
+        var isSelect;
         $scope.chairSelect = chair;
         $scope.chairTrainDetails = chairTrainDetails;
         var details = $scope.getDetailsTicket();
@@ -89,11 +147,18 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
 
             if (isSelect) {
+                details['select'] = true;
+                stompClient.send("/app/hello", {}, JSON.stringify(details));
                 $scope.listSelect.push(details);
+
                 chair.select = true;
             } else {
                 if (index >= 0) {
                     chair.select = false;
+
+                    $scope.objectSelect = $scope.listSelect[index];
+                    $scope.objectSelect['select'] = false;
+                    stompClient.send("/app/hello", {}, JSON.stringify($scope.objectSelect));
                     $scope.listSelect.splice(index, 1);
                 }
             }
@@ -128,11 +193,18 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             }).indexOf(details.id + "" + details.numberCar + "" + details.numberChair);
 
             if (isSelect) {
+                details['select'] = true;
                 $scope.listSelect.push(details);
+                stompClient.send("/app/hello", {}, JSON.stringify(details));
                 chair.select = true;
             } else {
                 if (index >= 0) {
                     chair.select = false;
+
+                    $scope.objectSelect = $scope.listSelect[index];
+                    $scope.objectSelect['select'] = false;
+
+                    stompClient.send("/app/hello", {}, JSON.stringify($scope.objectSelect));
                     $scope.listSelect.splice(index, 1);
                 }
             }
@@ -224,6 +296,6 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             width: 1000,
 
         });
-    }
+    };
 
 }

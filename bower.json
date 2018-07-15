@@ -16,7 +16,9 @@
     "bootstrap": "~3.3.5",
     "bootstrap-select": "~1.9.3",
     "bootstrap-switch": "~3.3.2",
-    "bootstrap-tagsinput": "~0.5.0"
-
+    "bootstrap-tagsinput": "~0.5.0",
+    "sockjs": "0.3.4",
+    "stomp-websocket": "2.3.4",
+    "lodash": "2.4.1"
   }
 }

@@ -1,72 +1,73 @@
 <div class="container" style="margin-left: 20px;" ng-controller="searchController">
-   <!-- <div class="col-xs-5" style="float: right;width: 260px">
-        <div class="et-col-md-12 et-widget" style="margin-bottom: 5px">
-            <div class="row et-widget-header"><img src="https://dsvn.vn/images/widgetIcon.png"><span><strong
-                    class="ng-binding">Thông tin hành trình</strong></span>
-            </div>
-            <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
-                    type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDi"
-                    placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
-                <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
-                    ng-style="{top: position.top+'px', left: position.left+'px'}"
-                    style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
-                    id="typeahead-00Z-2199" matches="matches" active="activeIdx" select="select(activeIdx)"
-                    query="query" position="position">
-                    &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
-                </ul>
-            </div>
-            <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
-                    type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDen"
-                    placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
-                    aria-owns="typeahead-010-1595">
-                <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
-                    style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
-                    id="typeahead-010-1595" matches="matches" active="activeIdx" select="select(activeIdx)"
-                    query="query" position="position">
-                    &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
-                </ul>
-            </div>
+    <!-- <div class="col-xs-5" style="float: right;width: 260px">
+         <div class="et-col-md-12 et-widget" style="margin-bottom: 5px">
+             <div class="row et-widget-header"><img src="https://dsvn.vn/images/widgetIcon.png"><span><strong
+                     class="ng-binding">Thông tin hành trình</strong></span>
+             </div>
+             <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
+                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDi"
+                     placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
+                 <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                     ng-style="{top: position.top+'px', left: position.left+'px'}"
+                     style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                     id="typeahead-00Z-2199" matches="matches" active="activeIdx" select="select(activeIdx)"
+                     query="query" position="position">
+                     &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
+                 </ul>
+             </div>
+             <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
+                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDen"
+                     placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
+                     aria-owns="typeahead-010-1595">
+                 <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                     style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                     id="typeahead-010-1595" matches="matches" active="activeIdx" select="select(activeIdx)"
+                     query="query" position="position">
+                     &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
+                 </ul>
+             </div>
 
 
-            <div ng-init="searchData.isOneWay=0" class="et-direct-block">
-                <input ng-click="click1Chieu()" ng-model="searchData.isOneWay" type="radio" value="0" name="oneWay"
-                       class="ng-pristine ng-valid">
-                <span class="ng-binding">Một chiều</span>
-                <input ng-model="searchData.isOneWay" type="radio" name="oneWay" value="1"
-                       class="ng-pristine ng-valid">
-                <span class="ng-binding">Khứ hồi</span>
-            </div>
+             <div ng-init="searchData.isOneWay=0" class="et-direct-block">
+                 <input ng-click="click1Chieu()" ng-model="searchData.isOneWay" type="radio" value="0" name="oneWay"
+                        class="ng-pristine ng-valid">
+                 <span class="ng-binding">Một chiều</span>
+                 <input ng-model="searchData.isOneWay" type="radio" name="oneWay" value="1"
+                        class="ng-pristine ng-valid">
+                 <span class="ng-binding">Khứ hồi</span>
+             </div>
 
 
-            <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
-                <div class="input-group input-cal-picker">
-                    <input type="text" ng-change="changeDataStart()"
-                           ng-model="searchData.dateStart"
-                           class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
-                           placeholder="Ngày đi"
-                           id="dateStart"
-                           required="required">
-                    <span class="input-group-btn"></span></div>
-            </div>
-            <div   class="form-group"><h6 class="ng-binding">Ngày Đến</h6><span
-                    class="control-label ng-binding ng-hide" ng-show="ngayVeError"
-                    ng-class="{'et-error-label': ngayDenError}">Ngày về không hợp lệ</span>
-                <div  class="input-group input-cal-picker">
-                    <input ng-disabled="searchData.isOneWay==0"  type="text" ng-model="searchData.dateEnd"
-                           class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
-                           placeholder="Ngày về"
-                           id="dateEnd"
-                    >
-                    <span class="input-group-btn"></span></div>
-            </div>
-            <div ng-if="mess!=null||mess!=undefined||mess!=''" style="color: red">{{mess}}</div>
-            <div class="row text-center"><a href="" class="et-btn ng-binding" analytics-on="click"
-                                            analytics-event="SearchTau" ng-click="validateInput();">Tìm
-                kiếm</a></div>
-        </div>
-    </div>-->
+             <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
+                 <div class="input-group input-cal-picker">
+                     <input type="text" ng-change="changeDataStart()"
+                            ng-model="searchData.dateStart"
+                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                            placeholder="Ngày đi"
+                            id="dateStart"
+                            required="required">
+                     <span class="input-group-btn"></span></div>
+             </div>
+             <div   class="form-group"><h6 class="ng-binding">Ngày Đến</h6><span
+                     class="control-label ng-binding ng-hide" ng-show="ngayVeError"
+                     ng-class="{'et-error-label': ngayDenError}">Ngày về không hợp lệ</span>
+                 <div  class="input-group input-cal-picker">
+                     <input ng-disabled="searchData.isOneWay==0"  type="text" ng-model="searchData.dateEnd"
+                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                            placeholder="Ngày về"
+                            id="dateEnd"
+                     >
+                     <span class="input-group-btn"></span></div>
+             </div>
+             <div ng-if="mess!=null||mess!=undefined||mess!=''" style="color: red">{{mess}}</div>
+             <div class="row text-center"><a href="" class="et-btn ng-binding" analytics-on="click"
+                                             analytics-event="SearchTau" ng-click="validateInput();">Tìm
+                 kiếm</a></div>
+         </div>
+     </div>-->
+    <div ng-mousemove="count = count + 1" style="float: left" class="col-xs-12 col-sm-9 et-col-md-9">
+        {{testt}}
 
-    <div style="float: left" class="col-xs-12 col-sm-9 et-col-md-9">
         <div class="col-xs-12">
             <div ng-if="Trains_ONE_WAY!=null||Trains_ONE_WAY!=undefined" class="row et-page-header"><span
                     class="et-main-label ng-binding"><strong
@@ -113,14 +114,19 @@
                         <div ng-repeat="chair in chairTrainDetails.chairTrainSet"
                              class="et-col-1-20"
                              direct="direct"
-                            style="width: 45px"
+                             style="width: 45px"
                         >
                             <div class="et-car-seat-left et-seat-h-35"
-                                 ng-click="clickChair(chair,chairTrainDetails,!chair.select)"
+                                 ng-click="clickChair(chair,chairTrainDetails)"
                             >
                                 <div class="et-col-84 et-sit-sur-outer">
                                     <div class="et-bed text-center " style="width: 26px"
-                                         ng-class="{'et-sit-bought': chair.byTicket == false,'et-sit-avaiable': chair.byTicket == true,'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair)}"
+                                         ng-class="{'et-sit-bought': chair.byTicket == false,
+                                         'et-sit-avaiable': chair.byTicket == true,
+          
+                                         'et-sit-booked': chair.status == 1,
+                                         'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair)
+                                         }"
                                     >
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
                                              popover-trigger="mouseenter"
@@ -139,7 +145,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 "ng-if="searchData.isOneWay==1">
+        <div class="col-xs-12 " ng-if="searchData.isOneWay==1">
             <div ng-if="Trains_Multil!=null||Trains_Multil!=undefined||Trains_Multil==''"
                  class="row et-page-header"><span class="et-main-label ng-binding"><strong
                     class="ng-binding">Chiều về:</strong> ngày {{searchData.dateEnd}} từ {{searchData.tenGaDen}} đến {{searchData.tenGaDi}}</span>
@@ -185,7 +191,7 @@
                 <div ng-show="chairTrainDetailsMultil.chairTrainSet" class="row et-car-floor">
                     <div class="et-full-width fix-width-80">
                         <div ng-repeat="chair in chairTrainDetailsMultil.chairTrainSet"
-                             class="et-col-1-20"     style="width: 45px"
+                             class="et-col-1-20" style="width: 45px"
                              direct="direct">
                             <div class="et-car-seat-left et-seat-h-35"
                                  ng-click="clickChairMultil(chair,chairTrainDetailsMultil,!chair.select)"
@@ -213,60 +219,60 @@
 
     </div>
     <div class="et-col-md-12 table-bordered list-ticket-deskhop" style="margin-top: 20px; padding: 5px">
-       <!-- <div class="et-col-md-12">
-            <div class="et-col-md-6 et-no-padding">
-                <div class="et-col-md-6">
-                    <div class="et-col-md-12">
-                        <div class="et-col-md-12">
-                            <div class="et-col-md-12 et-car-block">
-                                <div class="et-car-icon et-car-icon-avaiable"><img src="/images/trainCar2.png"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="et-col-md-12 text-center et-no-padding ng-binding" style="margin-top: -20px">Toa còn
-                        vé
-                    </div>
-                </div>
-                <div class="et-col-md-6">
-                    <div class="et-col-md-12">
-                        <div class="et-col-md-12">
-                            <div class="et-col-md-12 et-car-block">
-                                <div class="et-car-icon et-car-icon-full"><img src="/images/trainCar2.png"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="et-col-md-12 et-no-padding text-center ng-binding" style="margin-top: -20px">Toa chưa
-                        bán
-                    </div>
-                </div>
-            </div>
-            <div class="et-col-md-6 et-no-padding">
-                <div class="et-col-md-6">
-                    <div class="et-col-md-12">
-                        <div class="et-col-md-12">
-                            <div class="et-col-md-12 et-car-block">
-                                <div class="et-car-icon et-car-icon-selected"><img src="/images/trainCar2.png"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="et-col-md-12 et-no-padding text-center ng-binding" style="margin-top: -20px">Toa đang
-                        chọn
-                    </div>
-                </div>
-                <div class="et-col-md-6">
-                    <div class="et-col-md-12">
-                        <div class="et-col-md-12">
-                            <div class="et-col-md-12 et-car-block">
-                                <div class="et-car-icon et-car-icon-sold-out"><img src="/images/trainCar2.png"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="et-col-md-12 text-center et-no-padding ng-binding" style="margin-top: -20px">Toa hết
-                        vé
-                    </div>
-                </div>
-            </div>
-        </div>-->
+        <!-- <div class="et-col-md-12">
+             <div class="et-col-md-6 et-no-padding">
+                 <div class="et-col-md-6">
+                     <div class="et-col-md-12">
+                         <div class="et-col-md-12">
+                             <div class="et-col-md-12 et-car-block">
+                                 <div class="et-car-icon et-car-icon-avaiable"><img src="/images/trainCar2.png"></div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="et-col-md-12 text-center et-no-padding ng-binding" style="margin-top: -20px">Toa còn
+                         vé
+                     </div>
+                 </div>
+                 <div class="et-col-md-6">
+                     <div class="et-col-md-12">
+                         <div class="et-col-md-12">
+                             <div class="et-col-md-12 et-car-block">
+                                 <div class="et-car-icon et-car-icon-full"><img src="/images/trainCar2.png"></div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="et-col-md-12 et-no-padding text-center ng-binding" style="margin-top: -20px">Toa chưa
+                         bán
+                     </div>
+                 </div>
+             </div>
+             <div class="et-col-md-6 et-no-padding">
+                 <div class="et-col-md-6">
+                     <div class="et-col-md-12">
+                         <div class="et-col-md-12">
+                             <div class="et-col-md-12 et-car-block">
+                                 <div class="et-car-icon et-car-icon-selected"><img src="/images/trainCar2.png"></div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="et-col-md-12 et-no-padding text-center ng-binding" style="margin-top: -20px">Toa đang
+                         chọn
+                     </div>
+                 </div>
+                 <div class="et-col-md-6">
+                     <div class="et-col-md-12">
+                         <div class="et-col-md-12">
+                             <div class="et-col-md-12 et-car-block">
+                                 <div class="et-car-icon et-car-icon-sold-out"><img src="/images/trainCar2.png"></div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="et-col-md-12 text-center et-no-padding ng-binding" style="margin-top: -20px">Toa hết
+                         vé
+                     </div>
+                 </div>
+             </div>
+         </div>-->
         <div class="et-col-md-12 table-bordered"></div>
         <div class="et-col-md-12 et-legend">
             <div class="et-col-md-6" style="padding-right: 0px">
@@ -323,9 +329,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="et-car-nm-64-sit et-col-md-6">
+                            <div class="et-col-16 et-sit-side"></div>
+                            <div class="et-col-64 et-sit-sur-outer">
+                                <div class="et-sit-sur text-center et-sit-booked"></div>
+                            </div>
+                        </div>
+                        <div class="et-bed-left et-col-md-3 et-no-padding">
+                            <div class="et-bed-outer">
+                                <div class="et-bed text-center et-sit-booked"></div>
+                                <div class="et-bed-illu"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="et-col-md-6" style="padding-right: 0px">
-                    <div class="et-legend-label ng-binding">Chỗ đang chọn</div>
+                    <div class="et-legend-label ng-binding">Chỗ bạn đang chọn</div>
+                    <div class="et-legend-label ng-binding">Chỗ đang giao dịch</div>
                 </div>
             </div>
             <div></div>

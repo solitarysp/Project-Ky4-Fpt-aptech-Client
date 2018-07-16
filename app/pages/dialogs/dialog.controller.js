@@ -12,7 +12,10 @@
         $scope.showinputClick = function () {
             $scope.showinput = !$scope.showinput;
         };
-
+ /*       $scope.currentDate = new Date();
+        setInterval(function () {
+         $scope.currentDate = new Date();
+        }, 10);*/
         $scope.deleteDetails = function (index) {
 
             $scope.objectSelect = $scope.listSelect[index];

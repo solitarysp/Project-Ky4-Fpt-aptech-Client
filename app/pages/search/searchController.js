@@ -189,8 +189,9 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             if (isSelect) {
                 details['select'] = true;
                 stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify(details));
+                var date = new Date();
+                details['timeCreate'] = date;
                 $scope.listSelect.push(details);
-
                 chair.select = true;
             } else {
                 if (index >= 0) {
@@ -205,7 +206,18 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             $localStorage.listSelect = $scope.listSelect;
         }
     };
-
+    setInterval(function () {
+        $scope.listSelect.forEach(function (object, index) {
+            var date = new Date();
+            var datse = new Date(object['timeCreate']);
+            if (date.getTime() - datse.getTime() > 300000) {
+                $scope.objectSelect = $scope.listSelect[index];
+                $scope.objectSelect['select'] = false;
+                stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify($scope.objectSelect));
+                $scope.listSelect.splice(index, 1);
+            }
+        })
+    }, 800);
     $scope.clickChairMultil = function (chair, chairTrainDetailsMultil) {
         var isSelect;
         $scope.listSelect = $localStorage.listSelect;

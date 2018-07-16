@@ -14,8 +14,14 @@
         };
 
         $scope.deleteDetails = function (index) {
+
+            $scope.objectSelect = $scope.listSelect[index];
+            $scope.objectSelect['select'] = false;
+            stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify($scope.objectSelect));
+
             $scope.listSelect.splice(index, 1);
             $localStorage.listSelect = $scope.listSelect;
+
 
         };
         $scope.isPayVisa = false;
@@ -33,10 +39,10 @@
             $scope.status = $scope.status;
         }
 
-        var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+        var socket = new SockJS(baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + 'websocket');
         var stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/greetings', function (greeting) {
+            stompClient.subscribe('/topic/allSelectChair', function (greeting) {
                 $localStorage.listSelectALL = JSON.parse(greeting.body);
                 $scope.listSelectALL = $localStorage.listSelectALL;
             });
@@ -82,7 +88,7 @@
                             ngDialog.close();
                             break;
                     }
-                    stompClient.send("/app/hello", {}, JSON.stringify({"get": true}));
+                    stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify({"get": true}));
                 });
             } else {
                 console.log('null')

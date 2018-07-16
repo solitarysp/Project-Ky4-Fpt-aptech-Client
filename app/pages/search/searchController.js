@@ -4,10 +4,10 @@ app.controller('searchController', controller);
 
 function controller($scope, $rootScope, searchService, $location, $localStorage, ngDialog, $timeout) {
     $scope.listSelectALL = [];
-    var socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+    var socket = new SockJS(baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + 'websocket');
     var stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        stompClient.subscribe('/topic/greetings', function (greeting) {
+        stompClient.subscribe('/topic/allSelectChair', function (greeting) {
             $localStorage.listSelectALL = JSON.parse(greeting.body);
             $scope.listSelectALL = $localStorage.listSelectALL;
 
@@ -188,7 +188,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
             if (isSelect) {
                 details['select'] = true;
-                stompClient.send("/app/hello", {}, JSON.stringify(details));
+                stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify(details));
                 $scope.listSelect.push(details);
 
                 chair.select = true;
@@ -198,7 +198,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
                     $scope.objectSelect = $scope.listSelect[index];
                     $scope.objectSelect['select'] = false;
-                    stompClient.send("/app/hello", {}, JSON.stringify($scope.objectSelect));
+                    stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify($scope.objectSelect));
                     $scope.listSelect.splice(index, 1);
                 }
             }
@@ -239,7 +239,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
             if (isSelect) {
                 details['select'] = true;
                 $scope.listSelect.push(details);
-                stompClient.send("/app/hello", {}, JSON.stringify(details));
+                stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify(details));
                 chair.select = true;
             } else {
                 if (index >= 0) {
@@ -248,7 +248,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
                     $scope.objectSelect = $scope.listSelect[index];
                     $scope.objectSelect['select'] = false;
 
-                    stompClient.send("/app/hello", {}, JSON.stringify($scope.objectSelect));
+                    stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify($scope.objectSelect));
                     $scope.listSelect.splice(index, 1);
                 }
             }

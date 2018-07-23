@@ -1,38 +1,39 @@
 <div class="container" style="margin-left: 20px;" ng-controller="searchController">
-    <!-- <div class="col-xs-5" style="float: right;width: 260px">
+
+     <div class="col-xs-5" style="float: right;width: 260px">
          <div class="et-col-md-12 et-widget" style="margin-bottom: 5px">
              <div class="row et-widget-header"><img src="https://dsvn.vn/images/widgetIcon.png"><span><strong
                      class="ng-binding">Thông tin hành trình</strong></span>
              </div>
              <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
-                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDi"
+                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchDataAtSearch.tenGaDi"
                      placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
                  <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
                      ng-style="{top: position.top+'px', left: position.left+'px'}"
                      style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
                      id="typeahead-00Z-2199" matches="matches" active="activeIdx" select="select(activeIdx)"
                      query="query" position="position">
-                     &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
+                     <!-- ngRepeat: match in matches track by $index -->
                  </ul>
              </div>
              <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
-                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchData.tenGaDen"
+                     type="text" class="form-control input-sm ng-pristine ng-valid" ng-model="searchDataAtSearch.tenGaDen"
                      placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
                      aria-owns="typeahead-010-1595">
                  <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
                      style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
                      id="typeahead-010-1595" matches="matches" active="activeIdx" select="select(activeIdx)"
                      query="query" position="position">
-                     &lt;!&ndash; ngRepeat: match in matches track by $index &ndash;&gt;
+                     <!-- ngRepeat: match in matches track by $index -->
                  </ul>
              </div>
 
 
-             <div ng-init="searchData.isOneWay=0" class="et-direct-block">
-                 <input ng-click="click1Chieu()" ng-model="searchData.isOneWay" type="radio" value="0" name="oneWay"
+             <div ng-init="searchDataAtSearch.isOneWay=0" class="et-direct-block">
+                 <input ng-click="click1Chieu()" ng-model="searchDataAtSearch.isOneWay" type="radio" value="0" name="oneWay"
                         class="ng-pristine ng-valid">
                  <span class="ng-binding">Một chiều</span>
-                 <input ng-model="searchData.isOneWay" type="radio" name="oneWay" value="1"
+                 <input ng-model="searchDataAtSearch.isOneWay" type="radio" name="oneWay" value="1"
                         class="ng-pristine ng-valid">
                  <span class="ng-binding">Khứ hồi</span>
              </div>
@@ -41,7 +42,7 @@
              <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
                  <div class="input-group input-cal-picker">
                      <input type="text" ng-change="changeDataStart()"
-                            ng-model="searchData.dateStart"
+                            ng-model="searchDataAtSearch.dateStart"
                             class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
                             placeholder="Ngày đi"
                             id="dateStart"
@@ -52,7 +53,7 @@
                      class="control-label ng-binding ng-hide" ng-show="ngayVeError"
                      ng-class="{'et-error-label': ngayDenError}">Ngày về không hợp lệ</span>
                  <div  class="input-group input-cal-picker">
-                     <input ng-disabled="searchData.isOneWay==0"  type="text" ng-model="searchData.dateEnd"
+                     <input ng-disabled="searchDataAtSearch.isOneWay==0"  type="text" ng-model="searchDataAtSearch.dateEnd"
                             class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
                             placeholder="Ngày về"
                             id="dateEnd"
@@ -64,7 +65,8 @@
                                              analytics-event="SearchTau" ng-click="validateInput();">Tìm
                  kiếm</a></div>
          </div>
-     </div>-->
+     </div>
+
     <div style="float: left" class="col-xs-12 col-sm-9 et-col-md-9">
         <div class="col-xs-12">
             <div ng-if="Trains_ONE_WAY!=null||Trains_ONE_WAY!=undefined" class="row et-page-header"><span
@@ -73,7 +75,7 @@
             </div>
             <div ng-if="Trains_ONE_WAY==null||Trains_ONE_WAY==undefined">không tìm thấy gì cả</div>
             <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope" ng-repeat="tau in Trains_ONE_WAY"
-                 ng-click="doiChuyen(tau, false)" analytics-on="click" analytics-event="SelectTrain">
+                 ng-click="doiChuyen(tau, true)" analytics-on="click" analytics-event="SelectTrain">
                 <div class="et-train-head et-train-head-selected"
                      ng-class="{'et-train-head-selected': tau.id == selectTau.id}">
                     <div class="row center-block" style="width: 40%; margin-bottom: 3px">
@@ -99,7 +101,7 @@
             <div class="col-md-10 " m>
                 <span ng-repeat="train in TrainDetail">
                     <span ng-click="showDetails(train)" class="et-car-icon et-car-icon-selected col-md-1 "><img
-                            src="/images/trainCar2.png"><span style="border: #0f0f0f">1</span></span>
+                            src="/images/trainCar2.png"><span style="border: #0f0f0f">{{train.numberCar}}</span></span>
                 </span>
                 <span ng-if="TrainDetail!=null" class="et-car-icon"><img class="et-car-block"
                                                                          src="/images/train2.png"></span>
@@ -151,7 +153,7 @@
             <div ng-if="Trains_Multil==null||Trains_Multil==undefined||Trains_Multil==''">không tìm thấy gì cả</div>
 
             <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block" ng-repeat="tau in Trains_Multil"
-                 ng-click="doiChuyenMultil(tau, false)" analytics-on="click" analytics-event="SelectTrain">
+                 ng-click="doiChuyenMultil(tau, true)" analytics-on="click" analytics-event="SelectTrain">
                 <div class="et-train-head et-train-head-selected"
                      ng-class="{'et-train-head-selected': tau.id == selectTauMultil.id}">
                     <div class="row center-block" style="width: 40%; margin-bottom: 3px">

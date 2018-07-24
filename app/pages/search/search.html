@@ -106,10 +106,10 @@
                 <span ng-if="TrainDetail!=null" class="et-car-icon"><img class="et-car-block"
                                                                          src="/images/train2.png"></span>
             </div>
-
             <div class="et-col-90" style="margin-top: 20px">
-
                 <div ng-show="chairTrainDetails.chairTrainSet" class="row et-car-floor">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center"><h4 class="ng-binding">Toa số {{chairTrainDetails.numberCar}}: {{chairTrainDetails.name}}</h4></div>
+
                     <div class="et-full-width fix-width-80">
                         <div ng-repeat="chair in chairTrainDetails.chairTrainSet"
                              class="et-col-1-20"
@@ -189,6 +189,7 @@
             <div class="et-col-90" style="margin-top: 20px">
 
                 <div ng-show="chairTrainDetailsMultil.chairTrainSet" class="row et-car-floor">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center"><h4 class="ng-binding">Toa số {{chairTrainDetailsMultil.numberCar}}: {{chairTrainDetailsMultil.name}}</h4></div>
                     <div class="et-full-width fix-width-80">
                         <div ng-repeat="chair in chairTrainDetailsMultil.chairTrainSet"
                              class="et-col-1-20" style="width: 45px"

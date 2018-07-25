@@ -82,6 +82,18 @@
                         <span class="cart-item ng-binding"> {{listSelect.length}}</span>
                     </a>
                 </li>
+                <div class="btn-group" ng-if="access_token!=null">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/admin/addtrain">Add Train</a></li>
+                        <li><a href="#/admin/history">History</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
             </ul>
         </div>
     </div>
@@ -117,8 +129,19 @@
 
 <script src="pages/admin/login/loginAdmin.controller.js"></script>
 <script src="pages/admin/login/loginAdmin.service.js"></script>
+
+<script src="pages/admin/home/homeAdmin.controller.js"></script>
+
+
+<script src="pages/admin/addtrain/addTrain.controller.js"></script>
+<script src="pages/admin/history/history.controller.js"></script>
+
 <script src="pages/indexController.js"></script>
 
+<!-- Optional theme -->
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="config/constantCf.js"></script>
 <script src="components/version/version.js"></script>

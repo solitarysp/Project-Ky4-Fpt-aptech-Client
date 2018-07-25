@@ -30,10 +30,19 @@ angular.module('myApp', [
             constructor: "loginAdminController",
             controllerAs: 'loginAdminCtrl'
 
-        }) .when('/admin/home', {
+        }).when('/admin/home', {
             templateUrl: 'pages/admin/home/home.html',
             constructor: "homeAdminController",
             controllerAs: 'homeAdminCtrl'
+        }).when('/admin/addtrain', {
+            templateUrl: 'pages/admin/addtrain/addTrain.html',
+            constructor: "addTrainAdminController",
+            controllerAs: 'addTrainHomeAdminCtrl'
+
+        }).when('/admin/history', {
+            templateUrl: 'pages/admin/history/history.html',
+            constructor: "historyAdminController",
+            controllerAs: 'historyAdminCtrl'
 
         })
         .otherwise({redirectTo: '/home'});

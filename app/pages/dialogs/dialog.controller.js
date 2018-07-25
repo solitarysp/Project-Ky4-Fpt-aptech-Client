@@ -8,14 +8,16 @@
         $scope.DetailsTicket = [];
         $scope.validateInput = [];
         $scope.showinput = false;
+        $scope.showinputPayOnline = true;
         $scope.listSelect = $localStorage.listSelect;
         $scope.showinputClick = function () {
+            $scope.showinputPayOnline = true;
             $scope.showinput = !$scope.showinput;
         };
- /*       $scope.currentDate = new Date();
-        setInterval(function () {
-         $scope.currentDate = new Date();
-        }, 10);*/
+        /*       $scope.currentDate = new Date();
+               setInterval(function () {
+                $scope.currentDate = new Date();
+               }, 10);*/
         $scope.deleteDetails = function (index) {
 
             $scope.objectSelect = $scope.listSelect[index];
@@ -224,6 +226,7 @@
                             });
                     }
                 }, '#paypal-button');
+                $scope.showinputPayOnline = false
             }
 
         }

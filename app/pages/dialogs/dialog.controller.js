@@ -9,7 +9,10 @@
         $scope.validateInput = [];
         $scope.showinput = false;
         $scope.showinputPayOnline = true;
+        $scope.totalPrice = 0;
         $scope.listSelect = $localStorage.listSelect;
+
+
         $scope.showinputClick = function () {
             $scope.showinputPayOnline = true;
             $scope.showinput = !$scope.showinput;

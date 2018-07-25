@@ -24,7 +24,6 @@ function controller($scope, searchService, $location, $localStorage,$window) {
                 if (data == null || data == undefined || data == '') {
                     $scope.mess = mess.not_find;
                 } else {
-                    $localStorage.listSelect = [];
                     $localStorage.searchData = $scope.searchData;
                     $localStorage.Trains = data;
                     console.log($localStorage.Trains['Multil_WAY']);

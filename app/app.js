@@ -44,6 +44,11 @@ angular.module('myApp', [
             constructor: "historyAdminController",
             controllerAs: 'historyAdminCtrl'
 
+        }).when('/cart', {
+            templateUrl: 'pages/cart/cart.html',
+            constructor: "cartController",
+            controllerAs: 'cartCtrl'
+
         })
         .otherwise({redirectTo: '/home'});
 }]);

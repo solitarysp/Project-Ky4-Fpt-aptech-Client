@@ -134,8 +134,8 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         $scope.chairTrainDetailsMultil = train;
     };
 
-    $scope.doiChuyen = function (tau,isClick) {
-        if(isClick!=undefined&&isClick==true){
+    $scope.doiChuyen = function (tau, isClick) {
+        if (isClick != undefined && isClick == true) {
             $scope.chairTrainDetails = null;
         }
 
@@ -146,8 +146,8 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
     };
 
-    $scope.doiChuyenMultil = function (tau,isClick) {
-        if(isClick!=undefined&&isClick==true){
+    $scope.doiChuyenMultil = function (tau, isClick) {
+        if (isClick != undefined && isClick == true) {
             $scope.chairTrainDetailsMultil = null;
         }
 
@@ -185,7 +185,6 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         if (index1 < 0) {
             isSelect = true;
         }
-
         var checkIsSelect = $scope.checkChair(chairTrainDetails.idTrain, chairTrainDetails.numberCar, chair.numberChair)
 
         if (chair.byTicket == true && (checkIsSelect || chair.status == 0)) {
@@ -196,6 +195,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
             if (isSelect) {
                 details['select'] = true;
+                details['nameToa'] = chairTrainDetails.name;
                 stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify(details));
                 var date = new Date();
                 details['timeCreate'] = date;
@@ -258,6 +258,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
             if (isSelect) {
                 details['select'] = true;
+                details['nameToa'] = chairTrainDetailsMultil.name;
                 $scope.listSelect.push(details);
                 stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify(details));
                 chair.select = true;
@@ -361,91 +362,91 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
         });
     };
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            var date_input = $('#dateStart'); //our date input has the name "date"
-            var dateEnd = $('#dateEnd'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            var options = {
-                format: 'dd/mm/yyyy',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            };
-            date_input.datepicker(options);
-            dateEnd.datepicker(options);
-        });
-        $scope.validateInput = function () {
-            if ($scope.validateSearchData($scope.searchDataAtSearch)) {
-                searchService.getListTrain($scope.searchDataAtSearch).then(function (data) {
-                    $scope.TrainDetail = null;
-                    $scope.chairTrainDetails = null;
-                    $scope.TrainDetailMultil = null;
-                    $scope.chairTrainDetailsMultil = null;
+        var date_input = $('#dateStart'); //our date input has the name "date"
+        var dateEnd = $('#dateEnd'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
+        dateEnd.datepicker(options);
+    });
+    $scope.validateInput = function () {
+        if ($scope.validateSearchData($scope.searchDataAtSearch)) {
+            searchService.getListTrain($scope.searchDataAtSearch).then(function (data) {
+                $scope.TrainDetail = null;
+                $scope.chairTrainDetails = null;
+                $scope.TrainDetailMultil = null;
+                $scope.chairTrainDetailsMultil = null;
 
-                    if (data == null || data == undefined || data == '') {
-                        $scope.mess = mess.not_find;
-                    } else {
+                if (data == null || data == undefined || data == '') {
+                    $scope.mess = mess.not_find;
+                } else {
 
-                        $localStorage.searchData = angular.copy($scope.searchDataAtSearch);
-                        $localStorage.Trains = data;
+                    $localStorage.searchData = angular.copy($scope.searchDataAtSearch);
+                    $localStorage.Trains = data;
 
-                        window.location = "/#/search";
-                        $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
-                        $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
-                        $scope.searchData = $localStorage.searchData;
-                        $scope.DetailsTicket = [];
-                        $scope.Trains_ONE_WAY.forEach(function (entry) {
+                    window.location = "/#/search";
+                    $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
+                    $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
+                    $scope.searchData = $localStorage.searchData;
+                    $scope.DetailsTicket = [];
+                    $scope.Trains_ONE_WAY.forEach(function (entry) {
+                        entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
+                            return item.locationStart == $scope.searchData.tenGaDi;
+                        })[0].timeStart;
+
+                        entry.timeEndFilter = entry.scheduleTrainSet.filter(function (item) {
+                            return item.locationEnd == $scope.searchData.tenGaDen;
+                        })[0].timeEnd;
+
+                    });
+                    if ($scope.Trains_Multil != undefined && $scope.Trains_Multil != null) {
+                        $scope.Trains_Multil.forEach(function (entry) {
                             entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
-                                return item.locationStart == $scope.searchData.tenGaDi;
+                                return item.locationStart == $scope.searchData.tenGaDen;
                             })[0].timeStart;
 
                             entry.timeEndFilter = entry.scheduleTrainSet.filter(function (item) {
-                                return item.locationEnd == $scope.searchData.tenGaDen;
+                                return item.locationEnd == $scope.searchData.tenGaDi;
                             })[0].timeEnd;
 
                         });
-                        if ($scope.Trains_Multil != undefined && $scope.Trains_Multil != null) {
-                            $scope.Trains_Multil.forEach(function (entry) {
-                                entry.timeStartFilter = entry.scheduleTrainSet.filter(function (item) {
-                                    return item.locationStart == $scope.searchData.tenGaDen;
-                                })[0].timeStart;
-
-                                entry.timeEndFilter = entry.scheduleTrainSet.filter(function (item) {
-                                    return item.locationEnd == $scope.searchData.tenGaDi;
-                                })[0].timeEnd;
-
-                            });
-                        }
-
                     }
-                });
-            } else {
-                $scope.mess = "vui long nhap day du cac value";
 
-            }
+                }
+            });
+        } else {
+            $scope.mess = "vui long nhap day du cac value";
 
-        };
-        $scope.validateSearchData = function (value) {
-            if (value == null) {
-                isValidate = false;
-                return isValidate;
-            }
-            var isValidate = false;
-            if (value.dateStart == null || value.dateEnd == null || value.tenGaDi == null || value.tenGaDen == null) {
-                isValidate = false;
-            } else {
-                isValidate = true;
+        }
 
-            }
+    };
+    $scope.validateSearchData = function (value) {
+        if (value == null) {
+            isValidate = false;
             return isValidate;
         }
-        $scope.changeDataStart = function () {
-            if ($scope.searchDataAtSearch.isOneWay == 0) {
-                $scope.searchDataAtSearch.dateEnd = $scope.searchDataAtSearch.dateStart;
-            }
-        };
-        $scope.click1Chieu = function () {
+        var isValidate = false;
+        if (value.dateStart == null || value.dateEnd == null || value.tenGaDi == null || value.tenGaDen == null) {
+            isValidate = false;
+        } else {
+            isValidate = true;
+
+        }
+        return isValidate;
+    }
+    $scope.changeDataStart = function () {
+        if ($scope.searchDataAtSearch.isOneWay == 0) {
             $scope.searchDataAtSearch.dateEnd = $scope.searchDataAtSearch.dateStart;
         }
+    };
+    $scope.click1Chieu = function () {
+        $scope.searchDataAtSearch.dateEnd = $scope.searchDataAtSearch.dateStart;
+    }
 }

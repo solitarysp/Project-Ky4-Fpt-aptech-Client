@@ -4,8 +4,10 @@
     app.controller('historyAdminController', historyAdminController);
 
     /** @ngInject */
-    function historyAdminController($rootScope, $scope, ngDialog, $localStorage) {
-        console.log("f");
+    function historyAdminController($rootScope, $scope, ngDialog, $localStorage,$window) {
+        if ($localStorage.access_token == undefined && $localStorage.access_token == null) {
+            window.location = "/#/admin";
+        }
     }
 })();
 

@@ -2,7 +2,7 @@
 var app = angular.module('myApp');
 app.controller('indexController', controller);
 
-function controller($scope, $rootScope, $location, $localStorage, ngDialog) {
+function controller($scope, $rootScope, $location, $localStorage, ngDialog,$window) {
     $scope.listSelect = $localStorage.listSelect;
     $scope.access_token = $localStorage.access_token;
     $scope.clickPay = function () {
@@ -14,6 +14,10 @@ function controller($scope, $rootScope, $location, $localStorage, ngDialog) {
             controllerAs: 'dialogCtrl',
             width: 1000,
         });
+    };
+    $scope.logout = function () {
+        $localStorage.access_token = null;
+        window.location = "/#/admin/home";
+        $window.location.reload();
     }
-
 }

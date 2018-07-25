@@ -4,7 +4,7 @@
     app.controller('homeAdminController', homeAdminController);
 
     /** @ngInject */
-    function homeAdminController($rootScope, $scope, ngDialog, $localStorage) {
+    function homeAdminController($rootScope, $scope, ngDialog, $localStorage,$window) {
         if ($localStorage.access_token == undefined && $localStorage.access_token == null) {
             window.location = "/#/admin";
         }

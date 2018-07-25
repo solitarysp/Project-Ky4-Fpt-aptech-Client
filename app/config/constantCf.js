@@ -21,5 +21,5 @@ var config = {
 
 var mess =
     {
-        not_find : "không tìm thấy",
+        not_find: "không tìm thấy",
     };

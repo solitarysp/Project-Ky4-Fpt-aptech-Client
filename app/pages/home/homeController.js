@@ -2,7 +2,7 @@
 var app = angular.module('myApp');
 app.controller('homeController', controller);
 
-function controller($scope, searchService, $location, $localStorage,$window) {
+function controller($scope, searchService, $location, $localStorage, $window) {
     $scope.searchData = null;
     $(document).ready(function () {
 
@@ -21,12 +21,21 @@ function controller($scope, searchService, $location, $localStorage,$window) {
     $scope.validateInput = function () {
         if ($scope.validateSearchData($scope.searchData)) {
             searchService.getListTrain($scope.searchData).then(function (data) {
-                if (data == null || data == undefined || data == '') {
+
+                if ($scope.searchData.isOneWay == 1) {
+                    if (data.ONE_WAY || data.Multil_WAY) {
+                        $scope.mess = mess.not_find;
+                        return;
+                    }
+                }
+
+                if (data == null || data == undefined || data == '' || data.ONE_WAY == null) {
                     $scope.mess = mess.not_find;
-                } else {
+                    return;
+                }
+                else {
                     $localStorage.searchData = $scope.searchData;
                     $localStorage.Trains = data;
-                    console.log($localStorage.Trains['Multil_WAY']);
                     window.location = "/#/search";
                     $window.location.reload();
 

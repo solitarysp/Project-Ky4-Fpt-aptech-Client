@@ -180,7 +180,7 @@
             <div class="col-md-10 ">
             <span ng-repeat="train in TrainDetailMultil">
                 <span ng-click="showDetailsMultil(train)" class="et-car-icon et-car-icon-selected col-md-1 "><img
-                        src="/images/trainCar2.png"><span style="border: #0f0f0f">1</span></span>
+                        src="/images/trainCar2.png"><span style="border: #0f0f0f">{{train.numberCar}}</span></span>
             </span>
                 <span ng-if="TrainDetailMultil!=null" class="et-car-icon"><img class="et-car-block"
                                                                                src="/images/train2.png"></span>

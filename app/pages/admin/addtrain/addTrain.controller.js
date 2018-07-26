@@ -38,6 +38,7 @@
         $scope.changeDetails = function (number) {
             $scope.isChooseDetailNumber = true;
             $scope.chooseDetailNumberParam = number - 1;
+            $scope.type = 1;
             ngDialog.open({
                 template: 'pages/dialogs/dialog.addDetailTrain.html',
                 className: 'ngdialog-theme-default',
@@ -47,12 +48,21 @@
             });
         }
         $scope.changeLocalNumber = function (number) {
-            $scope.chooseDetailNumber = number ;
+            $scope.chooseDetailNumber = number;
             $scope.chairTrainDetails = $scope.dataCreate.trainDetailSet[number - 1];
         }
 
         $scope.changeDetailChair = function (number) {
-        console.log(number)
+            $scope.chairTrainDetails.DetailChairs[number].name = "f";
+            $scope.changeDatailChair = $scope.chairTrainDetails.DetailChairs[number];
+            $scope.type = 2;
+            ngDialog.open({
+                template: 'pages/dialogs/dialog.addChairTrain.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
         }
     }
 })();

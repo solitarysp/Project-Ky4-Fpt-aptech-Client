@@ -7,7 +7,7 @@
 
     function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService) {
 
-        if ($scope.isChooseDetailNumber) {
+        if ($scope.type == 1) {
             $scope.dataCreate = $scope.dataCreate;
             $scope.chooseDetailNumber = $scope.chooseDetailNumberParam;
             $scope.dataTrainDetailSet = $scope.dataCreate.trainDetailSet[$scope.chooseDetailNumber];
@@ -25,6 +25,13 @@
             }
             $scope.dataTrainDetailSet.DetailChairs = $scope.DetailChairs;
         }
+
+
+        if ($scope.type == 2) {
+            $scope.changeDatailChair = $scope.changeDatailChair;
+
+        }
+
     }
 
     function tepm($rootScope, $scope, ngDialog, $localStorage, dialogService) {

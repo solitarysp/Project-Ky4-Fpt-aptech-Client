@@ -2,7 +2,7 @@
 
 angular.module("myApp").service("historyService", historyService);
 
-function historyService($http, $q, $httpParamSerializer) {
+function historyService($http, $q, $httpParamSerializer,$localStorage) {
     var service = {
 
         getHistory: getHistory
@@ -20,8 +20,10 @@ function historyService($http, $q, $httpParamSerializer) {
             + "?type=" + dataInput
             + "&page=" + page
             + url
+            + "&access_token=" + $localStorage.access_token
+
             ,
-            method: config.post,
+            method: config.get,
         }).then(
             function (response) {
                 deferred.resolve(response.data);

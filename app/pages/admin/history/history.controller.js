@@ -4,7 +4,7 @@
     app.controller('historyAdminController', historyAdminController);
 
     /** @ngInject */
-    function historyAdminController($rootScope, $scope, ngDialog, $localStorage, $window, historyService) {
+    function historyAdminController($rootScope, $scope, ngDialog, $localStorage, $window, historyService, $timeout) {
         if ($localStorage.access_token == undefined && $localStorage.access_token == null) {
             window.location = "/#/admin";
         }
@@ -45,7 +45,24 @@
                 $scope.datas = data.data;
                 $scope.totalElement = $scope.data.paging.totalElements;
                 $scope.pageSize = $scope.data.paging.totalElements;
-                console.log($scope.data)
+            }, function (data,status) {
+            console.log(data)
+            console.log(status)
+                if (data.status == "401"||data.status == "-1") {
+                    $scope.message = "Bạn Không Có quyền truy cập vui vui lòng đăng nhập lại ";
+                    ngDialog.open({
+                        template: 'pages/dialogs/dialog-notification.html',
+                        className: 'ngdialog-theme-default',
+                        controller: 'DialogController',
+                        scope: $scope,
+                        width: 1000,
+                    });
+                    $timeout(function () {
+                        $localStorage.access_token = null;
+                        window.location = "/#/admin";
+                        $window.location.reload();
+                    }, 2050);
+                }
             })
         }
     }

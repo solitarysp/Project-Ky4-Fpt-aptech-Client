@@ -6,6 +6,7 @@
     /** @ngInject */
     function checkTicketController($rootScope, $scope, ngDialog, $localStorage, $window, checkTicketService) {
         $scope.searchData = [];
+        $scope.checkPay = 1;
         $scope.searchData['type'] = 0;
         $scope.dataTicketSerach = {};
         $scope.total = 0;

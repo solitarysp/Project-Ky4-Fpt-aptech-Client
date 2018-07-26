@@ -45,10 +45,8 @@
                 $scope.datas = data.data;
                 $scope.totalElement = $scope.data.paging.totalElements;
                 $scope.pageSize = $scope.data.paging.totalElements;
-            }, function (data,status) {
-            console.log(data)
-            console.log(status)
-                if (data.status == "401"||data.status == "-1") {
+            }, function (data, status) {
+                if (data.status == "401" || data.status == "-1") {
                     $scope.message = "Bạn Không Có quyền truy cập vui vui lòng đăng nhập lại ";
                     ngDialog.open({
                         template: 'pages/dialogs/dialog-notification.html',

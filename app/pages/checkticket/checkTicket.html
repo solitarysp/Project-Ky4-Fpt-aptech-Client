@@ -63,17 +63,18 @@
 
     <div class="col-md-12 table-responsive list-ticket-deskhop"><div class=""><h5
             class="et-register-block ng-binding">Các giao dịch đang xử lý</h5>
-        <p class="et-error-label ng-binding" ng-bind-html="'PSearchBooking_ghiChuThoiGianTamGiu'">Các vé có biểu tượng <img
-            src="/images/waring20.png"> là các vé bị hết thời gian tạm giữ và sẽ không được thanh toán. Xin vui lòng loại bỏ các vé này khỏi danh sách vé đặt mua trước khi thực hiện giao dịch thanh toán tiền.</p><table
-            class="table table-bordered"><thead class="et-table-header"><tr>
+        <p class="et-error-label ng-binding"
+           ng-bind-html="'PSearchBooking_ghiChuThoiGianTamGiu'">Các vé có biểu tượng <img
+                src="/images/waring20.png"> là các vé bị hết thời gian tạm giữ và sẽ không được thanh toán. Xin vui lòng loại bỏ các vé này khỏi danh sách vé đặt mua trước khi thực hiện giao dịch thanh toán tiền.</p><table
+                class="table table-bordered"><thead class="et-table-header"><tr>
 
-            <th  class="ng-binding">Họ tên</th><th
-            style="width:120px" class="ng-binding">Số CMND/ Hộ chiếu</th>
-            <th style="width:85px" class="ng-binding">Đối tượng</th>
+            <th class="ng-binding">Họ tên</th><th
+                style="width:120px" class="ng-binding">Số CMND/ Hộ chiếu</th>
+            <th style="width:85px" class="ng-binding">Loại Toa</th>
             <th class="ng-binding">Thông Tin vé</th>
 <th
-            style="width:100px" class="ng-binding">Thành tiền (VNĐ)</th><th style="width:150px" class="ng-binding">Trạng thái</th></tr></thead>
-        <!-- ngRepeat: group in pendingGroup -->
+        style="width:100px" class="ng-binding">Thành tiền (VNĐ)</th><th style="width:150px" class="ng-binding">Trạng thái</th></tr></thead>
+            <!-- ngRepeat: group in pendingGroup -->
         <tbody ng-repeat="group in dataTicketSerach" class="ng-scope">
 
 
@@ -82,54 +83,80 @@
 
 
             <td
-                class="et-table-cell ng-binding">{{book.name}}</td><td
+                    class="et-table-cell ng-binding">{{book.name}}</td><td
                 class="et-table-cell ng-binding">{{book.soCMND}}</td>
          <td class="et-table-cell ng-binding">{{book.idChair.idTrainDetail.name}}</td>
             <td class="et-table-cell"><div
                     class="text-center et-text-md ng-hide"><img src="/images/waring20.png"><div
                     class="ng-binding">Vé này đã hết thời gian tạm giữ</div></div>
-                <div class="ng-binding">{{book.idChair.idTrainDetail.trainDto.name}} </div>
-                <div class="ng-binding">{{book.locationStart}} - {{book.locationEnd }} {{book.idChair.idTrainDetail.trainDto.timeStart | date:'yyyy-MM-dd HH:mm'}}  {{book.idChair.idTrainDetail.trainDto.timeEnd | date:'yyyy-MM-dd HH:mm'}} </div>
-                <div
-                    class="ng-binding">Toa: {{book.idChair.idTrainDetail.numberCar}} chỗ số: {{book.idChair.numberChair}}</div></td>
-            <td
-                    class="et-table-cell text-right ng-binding">{{book.price}}</td>
 
-            <td ng-if="group.pay==0" class="et-table-cell ng-binding">Chưa Thanh Toán</td>
-            <td ng-if="group.pay==1" class="et-table-cell ng-binding">Đã Thanh Toán Qua Visa</td>
-            <td ng-if="group.pay==2" class="et-table-cell ng-binding">Đã Thanh Toán Qua PayPal</td>
+                <div class="ng-binding">
+                    <p>ID Train : {{book.idChair.idTrainDetail.trainDto.id}}</p>
+                    <p>Toa: : {{book.idChair.idTrainDetail.numberCar}} chỗ số: {{book.idChair.numberChair}}</p>
+                    <p>Name Train : {{book.idChair.idTrainDetail.trainDto.name}}</p>
+                    <p>ID Vé : {{book.id}}</p>
+
+                    <p> Nơi đi : {{book.locationStart}}   {{book.idChair.idTrainDetail.trainDto.timeStart | date:'yyyy-MM-dd '}}</p>
+                 <p>Nơi đến : {{book.locationEnd }} {{book.idChair.idTrainDetail.trainDto.timeEnd | date:'yyyy-MM-dd '}} </p>
+                   </div>
+                </td>
+             <td class="et-table-cell text-right ng-binding">{{book.price}}</td>
+            <td ng-show="group.pay==0"
+                class="et-table-cell ng-binding">Chưa Thanh Toán</td>
+            <td ng-show="group.pay==1" class="et-table-cell ng-binding">Đã Thanh Toán Qua Visa</td>
+            <td ng-show="group.pay==2" class="et-table-cell ng-binding">Đã Thanh Toán Qua PayPal</td>
 
         </tr>
 
         </tbody>
 
-        <!-- end ngRepeat: group in pendingGroup --><tfoot><tr class="info"><td
-                colspan="5"><span class="pull-right"><strong class="ng-binding">Tổng tiền</strong></span></td><td
-                class="text-right" style="border-right: 0"><strong class="ng-binding">{{total}}</strong></td><td
-                colspan="2" style="border-left: 0" class="text-right"></td></tr></tfoot></table><div
-            class="et-col-md-12 hidden-print" style="padding-bottom: 10px"><div
-            class="text-center"><!-- ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT"
-                                                                        class="et-btn ng-binding ng-scope"
-                                                                        ng-click="applyPayment(item.MaCongTT)"
-                                                                        ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
-                                                                        style="margin-right: 6px">Thanh toán trực tuyến</a>
-        <!-- end ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT" class="et-btn ng-binding ng-scope"
-                                                    ng-click="applyPayment(item.MaCongTT)"
-                                                    ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
-                                                    style="margin-right: 6px">Thanh toán trên PAYOO</a>
-        <!-- end ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT"
-                                                    class="et-btn ng-binding ng-scope ng-hide"
-                                                    ng-click="applyPayment(item.MaCongTT)"
-                                                    ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
-                                                    style="margin-right: 6px">Trả sau</a>
-        <!-- end ngRepeat: item in listCongTT --></div></div></div><div
-            class="ng-hide"><h5
-            class="et-register-block ng-binding">Các giao dịch thành công</h5><table class="table table-bordered"><thead
-            class="et-table-header"><tr><th style="width:2%">#</th><th style="width:18%" class="ng-binding">Họ tên</th><th
-            style="width:10%" class="ng-binding">Số CMND/ Hộ chiếu</th><th style="width:10%" class="ng-binding">Đối tượng</th><th
-            style="width:14%" class="ng-binding">Loại chỗ</th><th style="width:15%" class="ng-binding">Thông tin vé</th><th
-            style="width:10%" class="ng-binding">Thành tiền (VNĐ)</th><th style="width:14%" class="ng-binding">Trạng thái</th><th
-            style="width:7%" class="ng-binding">Tải vé</th></tr></thead><!-- ngRepeat: group in successGroup --></table></div></div>
+            <!-- end ngRepeat: group in pendingGroup --><tfoot><tr class="info"><td
+                    colspan="5"><span class="pull-right"><strong class="ng-binding">Tổng tiền</strong></span></td><td
+                    class="text-right" style="border-right: 0"><strong class="ng-binding">{{total}}</strong></td><td
+                    colspan="2" style="border-left: 0" class="text-right"></td></tr></tfoot>
+
+
+        </table>
+         <div ng-if="dataTicketSerach[0].pay==0&&searchData['type']==1">
+                <button ng-show="!showinputCart" style="text-align: center" ng-click="funcBuyTicket(0)"
+                        class="btn btn-primary"
+                        type="button">
+                         Giữ Chỗ
+                </button>
+
+                <button ng-show="!showinputCart&&!PayOnline" style="text-align: center"
+                        ng-click="clickHidePayOnline();clickPayOnline()" class="btn btn-primary "
+                        type="button">
+                    Thanh Toán Online
+                </button>
+
+                <button ng-show="!showinputCart&&PayOnline" style="text-align: center" ng-click="clickHidePayOnline()"
+                        class="btn btn-primary "
+                        type="button">
+                    Ẩn Toán Online
+                </button>
+
+                <button ng-show="showinputCart" style="text-align: center" ng-click="funcBuyTicket(1)"
+                        class="btn btn-primary "
+                        type="button">
+                    Thanh Toán
+                </button>
+
+                <button ng-show="!showinputCart" style="text-align: center" ng-click="showInputClick()"
+                        class="btn btn-primary "
+                        type="button">
+                    Mua Qua Thẻ
+                </button>
+
+                <button ng-show="showinputCart" style="text-align: center" ng-click="showInputClick()"
+                        class="btn btn-primary "
+                        type="button">
+                    Ẩn Mua Qua Thẻ
+                </button>
+                <div>
+                    <div ng-if="showinputPayOnline" id="paypal-button"></div>
+                </div>
+        </div>
 </div>
 </div>
 

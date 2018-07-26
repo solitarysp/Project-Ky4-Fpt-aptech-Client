@@ -351,17 +351,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
         }
         return $scope.DetailsTicket;
     };
-    $scope.testShow = function () {
-        ngDialog.open({
-            template: 'pages/dialogs/dialog-detail-chair.html',
-            className: 'ngdialog-theme-default',
-            controller: 'DialogController',
-            scope: $scope,
-            controllerAs: 'dialogCtrl',
-            width: 1000,
 
-        });
-    };
     $(document).ready(function () {
 
         var date_input = $('#dateStart'); //our date input has the name "date"

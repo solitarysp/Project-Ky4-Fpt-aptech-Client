@@ -4,7 +4,30 @@
     app.controller('DialogController', DialogController);
 
     /** @ngInject */
+
     function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService) {
+
+        if ($scope.isChooseDetailNumber) {
+            $scope.dataCreate = $scope.dataCreate;
+            $scope.chooseDetailNumber = $scope.chooseDetailNumber;
+            $scope.dataTrainDetailSet = $scope.dataCreate.trainDetailSet[$scope.chooseDetailNumber];
+        }
+
+        if ($scope.message != null) {
+            $scope.message = $scope.message;
+        }
+        $scope.changeNumberChair = function () {
+            $scope.DetailChairs = [];
+            for (let i = 1; i <= $scope.dataTrainDetailSet.numberChair; i++) {
+                $scope.DetailChair = {};
+                $scope.DetailChair.numberCar = i;
+                $scope.DetailChairs.push($scope.DetailChair);
+            }
+            $scope.dataTrainDetailSet.DetailChairs = $scope.DetailChairs;
+        }
+    }
+
+    function tepm($rootScope, $scope, ngDialog, $localStorage, dialogService) {
         $scope.DetailsTicket = [];
         $scope.validateInput = [];
         $scope.showinput = false;
@@ -236,7 +259,6 @@
 
 
     }
-
 
 })();
 

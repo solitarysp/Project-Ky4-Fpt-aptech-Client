@@ -1,32 +1,236 @@
-<span ng-controller="addTrainAdminController" >
+<span class="container" ng-controller="addTrainAdminController">
 
 
 
-<div class="modal-body row">
-   <div>đang phát triển</div>
-   <!-- <table class="table alert alert-success">
-        <tr >
-            <th style="margin-top: 150px">
-                Name
-            </th>
-            <th>
-                <input style="max-width: 400px" class="form-control" ng-model="dataInput.userAdmin"
-                       placeholder="nhập user admin">
-            </th>
-        </tr>
+    <div class="col-xs-5" style="float: right;width: 400px">
+                <div class="et-col-md-12 et-widget" style="margin-bottom: 5px">
+             <div class="row et-widget-header"><img src="https://dsvn.vn/images/widgetIcon.png"><span><strong
+                     class="ng-binding">Thông tin chuyến tàu</strong></span>
+             </div>
+               <div class="form-group"><h6 class="ng-binding">Name</h6> <input
+                       type="text" class="form-control input-sm ng-pristine ng-valid"
+                       ng-model="dataCreate.name"
+                       placeholder="Name" aria-autocomplete="list" aria-expanded="false"/>
 
-        <tr>
-            <th>
-                Mật Khẩu
-            </th>
-            <th>
-                <input style="max-width: 400px" class="form-control" type="password" ng-model="dataInput.password"
-                       placeholder="nhập password admin">
-            </th>
-        </tr>
-    </table>-->
-<!--<button style="text-align: center" ng-click="clickLogin()" class="btn btn-primary col-xs-offset-4" type="button">-->
-  <!--Đăng Nhập &lt;!&ndash;<span class="badge">4</span>&ndash;&gt;-->
-<!--</button>-->
-</div>
+             </div>
+
+             <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
+                     type="text" class="form-control input-sm ng-pristine ng-valid"
+                     ng-model="dataCreate.tenGaDi"
+                     placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
+                 <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                     ng-style="{top: position.top+'px', left: position.left+'px'}"
+                     style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                     id="typeahead-00Z-2199" matches="matches" active="activeIdx" select="select(activeIdx)"
+                     query="query" position="position">
+                     <!-- ngRepeat: match in matches track by $index -->
+                 </ul>
+             </div>
+             <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
+                     type="text" class="form-control input-sm ng-pristine ng-valid"
+                     ng-model="dataCreate.tenGaDen"
+                     placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
+                     aria-owns="typeahead-010-1595">
+                 <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
+                     style="display: block;;display: block;" role="listbox" aria-hidden="true" typeahead-popup=""
+                     id="typeahead-010-1595" matches="matches" active="activeIdx" select="select(activeIdx)"
+                     query="query" position="position">
+                     <!-- ngRepeat: match in matches track by $index -->
+                 </ul>
+             </div>
+
+             <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
+                 <div class="input-group input-cal-picker">
+                     <input type="text"
+                            ng-model="dataCreate.dateStart"
+                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                            placeholder="Ngày đi"
+                            id="dateStart"
+                            required="required">
+                     <span class="input-group-btn"></span></div>
+             </div>
+
+              <div class="form-group"><h6 class="ng-binding">Ngày Đến</h6>
+                 <div class="input-group input-cal-picker">
+                     <input type="text"
+                            ng-model="dataCreate.dateEnd"
+                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                            placeholder="Ngày đi"
+                            id="dateEnd"
+                            required="required">
+                     <span class="input-group-btn"></span></div>
+             </div>
+
+               <div class="form-group"><h6 class="ng-binding">Số Toa Tàu</h6> <input
+                       type="text" class="form-control input-sm ng-pristine ng-valid"
+                       ng-model="dataCreate.SoToaTau"
+                       ng-change="changeSoToaTau()"
+                       placeholder="Số Toa Tàu" aria-autocomplete="list" aria-expanded="false"
+                       aria-owns="typeahead-010-1595">
+             </div>
+
+             <div class="row text-center"><a href="" class="et-btn ng-binding" analytics-on="click"
+                                             analytics-event="SearchTau" ng-click="validateInput();">Tạo</a></div>
+         </div>
+        </div>
+
+    <div style="float: left" class="col-xs-12 col-sm-8 et-col-md-8">
+        <div class="col-xs-12">
+            <div class="row et-page-header"><span
+                    class="et-main-label ng-binding"><strong
+                    class="ng-binding">Chiều đi:</strong> ngày {{dataCreate.dateStart}} từ {{dataCreate.tenGaDi}} đến {{dataCreate.tenGaDen}} {{dataCreate.dateStart}}</span>
+            </div>
+            <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope"
+                 ng-click="doiChuyen(tau, true)" analytics-on="click" analytics-event="SelectTrain">
+                <div class="et-train-head et-train-head-selected">
+                    <div class="row center-block" style="width: 40%; margin-bottom: 3px">
+                        <div class="et-train-lamp text-center ng-binding">{{dataCreate.name}}</div>
+                    </div>
+                    <div class="et-train-head-info">
+                        <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đi</span> <span
+                                class="pull-right ng-binding">{{dataCreate.dateStart  | date:'yyyy-MM-dd HH:mm'}}</span>
+                        </div>
+                        <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đến</span> <span
+                                class="pull-right"></span> <span class="pull-right ng-binding">{{dataCreate.dateStart  | date:'yyyy-MM-dd HH:mm'}}</span>
+                        </div>
+                    </div>
+                    <div class="row et-no-margin">
+                        <div class="et-col-50"><span class="et-train-lamp-bellow-left"></span></div>
+                        <div class="et-col-50"><span class="et-train-lamp-bellow-right"></span></div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+
+            <div class="col-md-10 " m>
+                <span ng-repeat="train in dataCreate.trainDetailSet">
+                    <span ng-dblclick="changeDetails(dataCreate.trainDetailSet.length - $index)"
+                          ng-click="changeLocalNumber(dataCreate.trainDetailSet.length - $index)"
+                          class="et-car-icon et-car-icon-selected col-md-1 "><img
+                            src="/images/trainCar2.png"><span style="border: #0f0f0f">{{dataCreate.trainDetailSet.length - $index}}</span></span>
+                </span>
+                <span class="et-car-icon"><img class="et-car-block"
+                                               src="/images/train2.png"></span>
+            </div>
+            <div class="et-col-90" style="margin-top: 20px">
+                <div class="row et-car-floor">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center"><h4 class="ng-binding">Toa số {{chooseDetailNumber}}: {{chairTrainDetails.name}}</h4></div>
+
+                    <div class="et-full-width fix-width-80">
+                        <div ng-repeat="chair in chairTrainDetails.DetailChairs"
+                             class="et-col-1-20"
+                             direct="direct"
+                             style="width: 45px"
+                        >
+                            <div class="et-car-seat-left et-seat-h-35"
+                                 ng-click="clickChair(chair,chairTrainDetails)"
+                            >
+                                <div class="et-col-84 et-sit-sur-outer">
+                                    <div class="et-bed text-center et-sit-buying " style="width: 26px"
+                                         ng-class="{'': chair.byTicket == false,
+                                         'et-sit-avaiable': chair.byTicket == true,
+                                         'et-sit-booked': chair.status == 1,
+                                         'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair),
+                                          'mauDangChoThanhToan': chair.status == 2,
+                                         }"
+                                    >
+                                        <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
+                                             popover-trigger="mouseenter"
+                                             popover-placement="top" class="et-sit-no ng-scope"><span
+                                                class="ng-binding">{{ $index+1}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="et-bed-illu" style="width: 35px"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 " ng-if="searchData.isOneWay==1">
+            <div ng-if="Trains_Multil!=null||Trains_Multil!=undefined||Trains_Multil==''"
+                 class="row et-page-header"><span class="et-main-label ng-binding"><strong
+                    class="ng-binding">Chiều về:</strong> ngày {{searchData.dateEnd}} từ {{searchData.tenGaDen}} đến {{searchData.tenGaDi}}</span>
+            </div>
+            <div ng-if="Trains_Multil==null||Trains_Multil==undefined||Trains_Multil==''">không tìm thấy gì cả</div>
+
+            <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block" ng-repeat="tau in Trains_Multil"
+                 ng-click="doiChuyenMultil(tau, true)" analytics-on="click" analytics-event="SelectTrain">
+                <div class="et-train-head et-train-head-selected"
+                     ng-class="{'et-train-head-selected': tau.id == selectTauMultil.id}">
+                    <div class="row center-block" style="width: 40%; margin-bottom: 3px">
+                        <div class="et-train-lamp text-center ng-binding">{{tau.name}}</div>
+                    </div>
+                    <div class="et-train-head-info">
+                        <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đi</span> <span
+                                class="pull-right ng-binding">{{tau.timeStartFilter  | date:'yyyy-MM-dd HH:mm'}}</span>
+                        </div>
+                        <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đến</span> <span
+                                class="pull-right"></span> <span class="pull-right ng-binding">{{tau.timeEndFilter  | date:'yyyy-MM-dd HH:mm'}}</span>
+                        </div>
+                    </div>
+                    <div class="row et-no-margin">
+                        <div class="et-col-50"><span class="et-train-lamp-bellow-left"></span></div>
+                        <div class="et-col-50"><span class="et-train-lamp-bellow-right"></span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="col-md-10 ">
+            <span ng-repeat="train in TrainDetailMultil">
+                <span ng-click="showDetailsMultil(train)" class="et-car-icon et-car-icon-selected col-md-1 "><img
+                        src="/images/trainCar2.png"><span style="border: #0f0f0f">{{train.numberCar}}</span></span>
+            </span>
+                <span ng-if="TrainDetailMultil!=null" class="et-car-icon"><img class="et-car-block"
+                                                                               src="/images/train2.png"></span>
+            </div>
+
+            <div class="et-col-90" style="margin-top: 20px">
+
+                <div ng-show="chairTrainDetailsMultil.chairTrainSet" class="row et-car-floor">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center"><h4 class="ng-binding">Toa số {{chairTrainDetailsMultil.numberCar}}: {{chairTrainDetailsMultil.name}}</h4></div>
+                    <div class="et-full-width fix-width-80">
+                        <div ng-repeat="chair in chairTrainDetailsMultil.chairTrainSet"
+                             class="et-col-1-20" style="width: 45px"
+                             direct="direct">
+                            <div class="et-car-seat-left et-seat-h-35"
+                                 ng-click="clickChairMultil(chair,chairTrainDetailsMultil)"
+                            >
+                                <div class="et-col-84 et-sit-sur-outer">
+                                    <div class="et-bed text-center " style="width: 26px"
+                                         ng-class="{'et-sit-bought': chair.byTicket == false,
+                                         'et-sit-avaiable': chair.byTicket == true,
+                                          'et-sit-booked': chair.status == 1,
+                                         'et-sit-buying':checkChair(chairTrainDetailsMultil.idTrain,chairTrainDetailsMultil.numberCar,chair.numberChair),
+                                          'mauDangChoThanhToan': chair.status == 2
+}"
+
+                                    >
+                                        <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
+                                             popover-trigger="mouseenter"
+                                             popover-placement="top" class="et-sit-no ng-scope"><span
+                                                class="ng-binding">{{chair.numberChair}}</span>
+                                        </div>
+
+                                    </div>
+                                    <div class="et-bed-illu" style="width: 35px"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 

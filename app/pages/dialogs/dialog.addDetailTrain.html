@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h1>message</h1>
+</div>
+<div class="modal-body container">
+    <table>
+        <div class="form-group"><h6 class="ng-binding">Loại Toa Tàu</h6>
+
+            <input
+                    type="text" class="form-control input-sm ng-pristine ng-valid"
+                    ng-model="dataTrainDetailSet.name"
+                    placeholder="Loại Toa Tàu" aria-autocomplete="list" aria-expanded="false"/>
+        </div>
+
+        <div class="form-group"><h6 class="ng-binding">Số Ghế Trong Toa</h6>
+
+            <input
+                    type="text" class="form-control input-sm ng-pristine ng-valid"
+                    ng-model="dataTrainDetailSet.numberChair"
+                    ng-change="changeNumberChair()"
+                    placeholder="Loại Toa Tàu" aria-autocomplete="list" aria-expanded="false"/>
+        </div>
+    </table>
+</div>
+<div class="modal-footer">
+</div>

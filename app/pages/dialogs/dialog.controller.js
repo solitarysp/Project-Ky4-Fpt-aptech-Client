@@ -9,7 +9,7 @@
 
         if ($scope.isChooseDetailNumber) {
             $scope.dataCreate = $scope.dataCreate;
-            $scope.chooseDetailNumber = $scope.chooseDetailNumber;
+            $scope.chooseDetailNumber = $scope.chooseDetailNumberParam;
             $scope.dataTrainDetailSet = $scope.dataCreate.trainDetailSet[$scope.chooseDetailNumber];
         }
 

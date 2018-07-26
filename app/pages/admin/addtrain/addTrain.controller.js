@@ -37,7 +37,7 @@
 
         $scope.changeDetails = function (number) {
             $scope.isChooseDetailNumber = true;
-            $scope.chooseDetailNumber = number-1;
+            $scope.chooseDetailNumberParam = number - 1;
             ngDialog.open({
                 template: 'pages/dialogs/dialog.addDetailTrain.html',
                 className: 'ngdialog-theme-default',
@@ -47,8 +47,12 @@
             });
         }
         $scope.changeLocalNumber = function (number) {
-            $scope.chooseDetailNumber = number-1;
-            $scope.chairTrainDetails = $scope.dataCreate.trainDetailSet[number-1];
+            $scope.chooseDetailNumber = number ;
+            $scope.chairTrainDetails = $scope.dataCreate.trainDetailSet[number - 1];
+        }
+
+        $scope.changeDetailChair = function (number) {
+        console.log(number)
         }
     }
 })();

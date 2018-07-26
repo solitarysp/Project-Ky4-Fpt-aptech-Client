@@ -124,16 +124,10 @@
                              style="width: 45px"
                         >
                             <div class="et-car-seat-left et-seat-h-35"
-                                 ng-click="clickChair(chair,chairTrainDetails)"
+                                 ng-click="changeDetailChair($index)"
                             >
                                 <div class="et-col-84 et-sit-sur-outer">
                                     <div class="et-bed text-center et-sit-buying " style="width: 26px"
-                                         ng-class="{'': chair.byTicket == false,
-                                         'et-sit-avaiable': chair.byTicket == true,
-                                         'et-sit-booked': chair.status == 1,
-                                         'et-sit-buying':checkChair(chairTrainDetails.idTrain,chairTrainDetails.numberCar,chair.numberChair),
-                                          'mauDangChoThanhToan': chair.status == 2,
-                                         }"
                                     >
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
                                              popover-trigger="mouseenter"

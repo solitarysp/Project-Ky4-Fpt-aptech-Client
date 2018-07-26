@@ -1,0 +1,234 @@
+<div ng-controller="cartController" class="row " style="margin-right: 70px;margin-bottom: 200px"
+>
+    <table class="table table-bordered">
+        <thead class="et-table-header">
+        <tr>
+            <th style="background-color: lavender;width: 25%;" class="ng-binding">Họ tên<!--Họ tên--></th>
+            <th style="width: 120px;background-color: lavender;" class="ng-binding">Thông tin chỗ
+                <!--Thông tin chỗ--></th>
+            <th style="background-color: lavender;" class="ng-binding">Giá vé<!--Giá vé--></th>
+            <th style="background-color: lavender;" class="ng-binding">Khuyến mại<!--Khuyến mại--></th>
+            <th style="background-color: lavender;width: 120px;" class="ng-binding">Thành tiền (VNĐ)
+                <!--Thành tiền (VNĐ)--></th>
+            <th style="background-color: lavender;width: 25px;"></th>
+        </tr>
+        </thead>
+        <tbody class="ng-hide">
+
+        <!-- ngRepeat: ve in ves.khuHoi -->
+        </tbody>
+        <tbody class="">
+
+        <!-- ngRepeat: ve in ves.chieuDi -->
+        <tr ng-repeat="DetailsTicket in listSelect"
+            class="ng-scope">
+            <td class="et-table-cell" style="padding: 0px;border-bottom: solid 2px #ccc;">
+                <div class="input-group input-group-sm" style="margin-bottom: 6px;width: 100%;">
+                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Họ tên</span>
+                    <input type="text" placeholder="Thông tin hành khách" ng-model="DetailsTicket['nameADDre']"
+                           class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
+                           ng-class="{'et-error-block': ve.nameMissing}" ng-change="syncRegister($index, false)"
+                           style="border-top-right-radius: 4px !important;border-bottom-right-radius: 4px !important;"
+                           required="">
+                </div>
+
+                <div class="input-group input-group-sm" style="width: 100%;">
+                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Số giấy tờ</span>
+                    <input type="text" placeholder="Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em"
+                           ng-model="DetailsTicket['soCMND']" maxlength="19"
+                           class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
+                           style="border-top-right-radius: 4px !important;border-bottom-right-radius: 4px !important;"
+                           required="">
+                </div>
+            </td>
+            <td style="font-size: 10px;border-bottom: solid 2px #ccc;">
+
+                <div>
+                    <div class="ng-binding">
+                        {{DetailsTicket['name']}} {{DetailsTicket['tenGaDi']}} - {{DetailsTicket['tenGaDen']}}
+                    </div>
+                    <div class="ng-binding">
+                        {{DetailsTicket['timeStartFilter'] | date:'yyyy-MM-dd HH:mm'}}
+                    </div>
+                    <div class="ng-binding">
+                        <!--{{'Toa ' + ve.carNo + ' chỗ ' + ve.seat.ChoSo}}-->
+                        Toa {{DetailsTicket['numberCar'] }} chỗ {{DetailsTicket['numberChair']}}
+                    </div>
+                    <div class="ng-binding">
+                        {{DetailsTicket['nameToa']}}
+                    </div>
+                </div>
+            </td>
+            <td class="et-table-cell text-right ng-binding" style="border-bottom: solid 2px #ccc;">
+                {{DetailsTicket['price']}}
+            </td>
+            <td class="et-table-cell text-left" style="border-bottom: solid 2px #ccc;">
+                <div class="ng-binding">
+                    Không có
+                </div>
+            </td>
+            <td class="et-table-cell text-right ng-binding" style="border-bottom: solid 2px #ccc;">
+                {{DetailsTicket['price']}}
+            </td>
+            <td style="vertical-align: middle;border-bottom: solid 2px #ccc;">
+                <a analytics-on="click" analytics-event="removeTicket" style="color: #00b3ee" class="et-btn-cancel"
+                   ng-click="deleteDetails($index)">Xoá</a>
+            </td>
+        </tr><!-- end ngRepeat: ve in ves.chieuDi -->
+        </tbody>
+
+        <tfoot>
+        <tr class="info">
+            <td colspan="6">
+                <span class="pull-right"><strong class="ng-binding">Tổng tiền<!--Tổng tiền--></strong></span>
+            </td>
+            <td class="text-right">
+                <strong class="ng-binding">{{totalPrice}}</strong>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        </tfoot>
+    </table>
+    <!--//-->
+
+    <div class="et-register-block"><h5 class="ng-binding">Thông tin người đặt vé</h5>
+        <div class="row text-info ng-binding">Quý khách vui lòng
+            điền đẩy đủ và chính xác các thông tin về người mua vé dưới đây. Các thông tin này sẽ được sử dụng để xác
+            minh người mua vé và lấy vé tại ga trước khi lên tàu theo đúng các quy định của Tổng công ty Đường sắt Việt
+            Nam.
+        </div>
+        <div class="form-horizontal form-group">
+            <div class="row"><label class="col-xs-4 et-col-md-2 text-left ng-binding">Họ và tên<span style="color: red">*</span></label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input type="text" name="fullName"
+                                                                                   class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
+                                                                                   ng-model="addressPay.name"
+                                                                                   placeholder="Họ và tên" required=""
+                >
+                </div>
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding" style="padding-right: 0">Số CMND/Hộ chiếu<span
+                        style="color: red">*</span></label>
+                <div class="col-xs-8 et-col-md-4"><input type="text" name="identity"
+                                                         class="form-control input-sm ng-animate ng-dirty ng-invalid ng-invalid-required"
+                                                         ng-model="addressPay.soCMND" maxlength="20"
+                                                         placeholder="Số CMND/Hộ chiếu" required=""
+                                                         style="">
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding"
+                       style="padding-right: 0">Email</label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input  id="email" name="email"
+                                                                                   class="form-control input-sm ng-pristine ng-valid ng-valid-email"
+                                                                                   ng-model="addressPay.email"
+                                                                                   placeholder="Email"
+                >
+                </div>
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding" style="padding-right: 0">Địa chỉ<span
+                        style="color: red">*</span></label>
+                <div class="col-xs-8 et-col-md-4"><input type="text" name="identity"
+                                                         class="form-control input-sm ng-animate ng-dirty ng-invalid ng-invalid-required"
+                                                         ng-model="addressPay.address" maxlength="20"
+                                                         placeholder="Địa chỉ" required=""
+                                                         style="">
+                </div>
+            </div>
+            <div class="row ng-hide" ng-show="registerPhoneError">
+                <div class="col-xs-4 et-col-md-2"></div>
+                <div class="col-xs-8 et-col-md-4"><span class="et-error-label ng-binding ng-hide"
+                                                        ng-show="registerPhoneError">Số di động không hợp lệ</span>
+                </div>
+            </div>
+            <div class="row"><label class="col-xs-4 et-col-md-2 text-left ng-binding">Số di động</label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input type="text" id="phoneNumber"
+                                                                                   name="phoneNumber"
+                                                                                   class="form-control input-sm ng-pristine ng-valid"
+                                                                                   ng-model="addressPay['phone']"
+                                                                                   maxlength="20"
+                                                                                   placeholder="Số di động"
+                                                                                   ng-class="{'et-error-block': registerPhoneError}">
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="showinputCart" class="form-horizontal form-group">
+
+            <h5 class="ng-binding">Thông Tin Thẻ</h5>
+
+            <div class="row">
+
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding">Số Thẻ</label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input type="text" id="numberCart"
+                                                                                   name="numberCart"
+                                                                                   class="form-control input-sm ng-pristine ng-valid"
+                                                                                   ng-model="addressPay['numberCart']"
+                                                                                   maxlength="20"
+                                                                                   placeholder="Số Thẻ"
+                                                                                   ng-class="{'et-error-block': registerPhoneError}">
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding">Tháng hết hạn</label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px">
+                    <select ng-model="DetailsTicket['thangHetHan']">
+                        <option ng-repeat="v in [1,2,3,4,5,6,7,8,9,10,11,12]">
+                            {{v}}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <label class="col-xs-4 et-col-md-2 text-left ng-binding">Năm hết hạn</label>
+                <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px">
+                    <select ng-model="DetailsTicket['namHetHan']">
+                        <option ng-repeat="v in [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
+                            {{v}}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <button ng-show="!showinputCart" style="text-align: center" ng-click="funcBuyTicket(0)" class="btn btn-primary"
+            type="button">
+        Giữ Chỗ
+    </button>
+
+    <button ng-show="!showinputCart&&!PayOnline" style="text-align: center"
+            ng-click="clickHidePayOnline();clickPayOnline()" class="btn btn-primary "
+            type="button">
+        Thanh Toán Online
+    </button>
+
+    <button ng-show="!showinputCart&&PayOnline" style="text-align: center" ng-click="clickHidePayOnline()"
+            class="btn btn-primary "
+            type="button">
+        Ẩn Toán Online
+    </button>
+
+    <button ng-show="showinputCart" style="text-align: center" ng-click="funcBuyTicket(1)" class="btn btn-primary "
+            type="button">
+        Thanh Toán
+    </button>
+
+    <button ng-show="!showinputCart" style="text-align: center" ng-click="showInputClick()" class="btn btn-primary "
+            type="button">
+        Mua Qua Thẻ
+    </button>
+
+    <button ng-show="showinputCart" style="text-align: center" ng-click="showInputClick()" class="btn btn-primary "
+            type="button">
+        Ẩn Mua Qua Thẻ
+    </button>
+    <div>
+        <div ng-if="showinputPayOnline" id="paypal-button"></div>
+    </div>
+</div>

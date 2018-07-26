@@ -98,16 +98,16 @@
          </table>
 
 </div>
-    <button style="float: right" ng-if="showinput==false" ng-click="showinputClick()"
+    <button style="float: right" ng-if="showinput==false" ng-click="showInputClick()"
             class="btn btn-primary">Mua Vé</button>
-    <button style="float: right" ng-if="showinput==true" ng-click="showinputClick()" class="btn btn-primary">Ẩn</button>
+    <button style="float: right" ng-if="showinput==true" ng-click="showInputClick()" class="btn btn-primary">Ẩn</button>
     <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="clickChangeSsPayVisa()"
             class="btn btn-primary">Thanh Toán</button>
     <button style="float: right;margin-right: 20px" ng-if="showinput==true" ng-click="funcBuyTicket(0)"
             class="btn btn-primary">Giữ Ghế</button>
 
     <button style="float: right;margin-right: 20px" ng-if="showinput==true&&showinputPayOnline==true" ng-click="clickPay()"
-            class="btn btn-primary">Thanh Toán Online</button>
+                                                                        class="btn btn-primary">Thanh Toán Online</button>
     <span ng-if="
     showinput==true
     &&DetailsTicket['nameADDre'].length>0
@@ -142,14 +142,14 @@
                      {{v}}
                  </option>
                 </select>
-                                          <div ng-if="validateInput['thangHetHan']==false" style="color: red">Phải nhập thangHetHan</div>
+                   <div ng-if="validateInput['thangHetHan']==false" style="color: red">Phải nhập thangHetHan</div>
 
                   <select ng-model="DetailsTicket['namHetHan']">
                  <option ng-repeat="v in [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
                      {{v}}
                  </option>
                 </select>
-                                          <div ng-if="validateInput['namHetHan']==false" style="color: red">Phải nhập namHetHan</div>
+                     <div ng-if="validateInput['namHetHan']==false" style="color: red">Phải nhập namHetHan</div>
 
                  </th>
              </tr>

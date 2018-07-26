@@ -3,7 +3,8 @@
     <div class="modal-body">
         <table class="table table-hover collapse-body">
             <tr>
-                <th>Mã số phiếu</th>
+                <th>Mã Phiếu Mua</th>
+                <th>Mã Ticket</th>
                 <th>Tên Tàu</th>
                 <th>Nơi Đi</th>
                 <th>Nơi Đến</th>
@@ -15,6 +16,7 @@
 
             </tr>
             <tr ng-repeat="DetailsTicket1 in DetailsTicketRepon">
+                <th>{{DetailsTicket1['idAddress']}}</th>
                 <th>{{DetailsTicket1['idTicket']}}</th>
                 <th>{{DetailsTicket1['name']}}</th>
                 <th>{{DetailsTicket1['tenGaDi']}}</th>
@@ -25,8 +27,8 @@
                 <th>{{DetailsTicket1['numberChair']}}</th>
                 <th>{{DetailsTicket1['price']}}</th>
                 <th ng-if="!DetailsTicket1.pay">24h</th>
-                <th ng-if="!DetailsTicket1.pay">Chưa Thanh Toán</th>
-                <th ng-if="DetailsTicket1.pay">Đã Thanh Toán</th>
+                <th ng-if="DetailsTicket1.pay==0">Chưa Thanh Toán</th>
+                <th ng-if="DetailsTicket1.pay==1">Đã Thanh Toán</th>
             </tr>
         </table>
     </div>

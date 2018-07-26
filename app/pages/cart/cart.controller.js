@@ -4,7 +4,7 @@
     app.controller('cartController', cartController);
 
     /** @ngInject */
-    function cartController($rootScope, $scope, ngDialog, $localStorage, $window, cartService,$timeout) {
+    function cartController($rootScope, $scope, ngDialog, $localStorage, $window, cartService, $timeout) {
         $scope.DetailsTicket = [];
         $scope.showinputCart = false;
         $scope.PayOnline = false;
@@ -17,6 +17,22 @@
         $scope.addressPay = {};
 
         $scope.listSelect = $localStorage.listSelect;
+        if ($scope.listSelect.length==0) {
+            $localStorage.Trains = null;
+            $scope.message = "Không Có vé tàu nào";
+            ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
+            $timeout(function () {
+                window.location = "/#/home";
+
+            }, 150);
+        }
+
         $scope.listSelect.forEach(value =>
             $scope.totalPrice += value.price
         );
@@ -111,7 +127,7 @@
                     onAuthorize: function (data, actions) {
                         return actions.payment.execute()
                             .then(function () {
-                                $scope.funcBuyTicket(1, true);
+                                $scope.funcBuyTicket(2, true);
                             });
                     }
                 }, '#paypal-button');

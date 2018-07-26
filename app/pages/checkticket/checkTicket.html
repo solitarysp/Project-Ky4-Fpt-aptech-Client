@@ -1,0 +1,135 @@
+<span ng-controller="checkTicketController">
+
+<div class="modal-body row">
+<div class="kt-form ng-scope">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="ng-binding">Kiểm tra vé<!--Kiểm tra vé--></h3>
+            <div class="alert alert-info">
+                <div ng-bind-html="'PKTraVe_MoTa'" class="ng-binding">Theo quy định của Tổng công ty Đường sắt Việt Nam, hành khách có thông tin giấy tờ tùy thân trùng với thông tin trên vé điện tử mới đủ điều kiện vào ga lên tàu.<br>Để đảm bảo quyền lợi cho hành khách, tránh mua phải vé giả, hoặc vé không đúng với quy định, quý khách có thể kiểm tra lại vé điện tử của mình bằng cách điền đầy đủ các thông tin dưới đây.</div>
+            </div>
+            <div class="alert alert-danger ng-hide" ng-show="isError">
+                <div ng-bind-html="'PKTraVe_InputError'" class="ng-binding">Thông tin quý khách nhập chưa chính xác, vui lòng kiểm tra các mục lỗi màu đỏ bên dưới.</div>
+            </div>
+            <div class="alert alert-success ng-hide" ng-show="isValidTicket">
+                <div ng-bind-html="'PKTraVe_ResultValid'" class="ng-binding"><strong>Vé điện tử của bạn hoàn toàn hợp lệ.</strong></div>
+            </div>
+            <div class="alert alert-danger ng-hide" ng-show="isInvalidTicket">
+                <div ng-bind-html="'PKTraVe_ResultInValid'" class="ng-binding"><p><span
+                        class="glyphicon glyphicon-info-sign"></span> <strong>Không tìm thấy vé điện tử phù hợp.</strong></p><p>- Quý khách vui lòng kiểm tra và nhập chính xác các thông tin tìm vé.</p><p>- Nếu vẫn không tìm thấy Vé xin vui lòng ra ga để kiểm tra hoặc liên hệ đầu số <strong>19006469</strong> để được trợ giúp.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="et-direct-block">
+                <input ng-model="searchData['type']" checked
+                       type="radio" value="0" name="oneWay"
+                       class="ng-pristine ng-valid">
+                <span class="ng-binding">Tim theo Mã Vé</span>
+                <input ng-model="searchData['type']" type="radio" name="oneWay" value="1"
+                       class="ng-pristine ng-valid">
+                <span class="ng-binding">Tìm Theo Mã Phiếu</span>
+            </div>
+            <div class="col-xs-4 col-sm-2 col-md-2">
+                <label class="kt-form-label ng-binding" ng-class="{'has-error': maVeError}">Mã vé / Mã Phiếu
+                    <!--Mã vé--></label>
+            </div>
+            <div class="col-xs-8 col-sm-4 col-md-4">
+                <div class="form-group" ng-class="{'has-error': maVeError}">
+                    <span class="control-label ng-binding ng-hide" ng-show="maVeError">Vui lòng nhập mã vé chính xác 8 ký tự số
+                        <!--Vui lòng nhập mã vé chính xác 8 ký tự số--></span>
+                    <input type="text" class="form-control ng-pristine ng-valid" ng-model="searchData['id']"
+                           ng-disabled="isRequesting" ng-change="maVeError = false"
+                           placeholder="Nhập mã vé bao gồm 8 ký tự số">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <input analytics-on="click" analytics-event="DoCheckTicket" type="button" class="btn btn-primary"
+                       ng-click="submitSearch()" value="Kiểm tra vé" style="border-radius: 4px !important;">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+
+    <div class="col-md-12 table-responsive list-ticket-deskhop"><div class=""><h5
+            class="et-register-block ng-binding">Các giao dịch đang xử lý</h5>
+        <p class="et-error-label ng-binding" ng-bind-html="'PSearchBooking_ghiChuThoiGianTamGiu'">Các vé có biểu tượng <img
+            src="/images/waring20.png"> là các vé bị hết thời gian tạm giữ và sẽ không được thanh toán. Xin vui lòng loại bỏ các vé này khỏi danh sách vé đặt mua trước khi thực hiện giao dịch thanh toán tiền.</p><table
+            class="table table-bordered"><thead class="et-table-header"><tr>
+
+            <th  class="ng-binding">Họ tên</th><th
+            style="width:120px" class="ng-binding">Số CMND/ Hộ chiếu</th>
+            <th style="width:85px" class="ng-binding">Đối tượng</th>
+            <th class="ng-binding">Thông Tin vé</th>
+<th
+            style="width:100px" class="ng-binding">Thành tiền (VNĐ)</th><th style="width:150px" class="ng-binding">Trạng thái</th></tr></thead>
+        <!-- ngRepeat: group in pendingGroup -->
+        <tbody ng-repeat="group in dataTicketSerach" class="ng-scope">
+
+
+        <tr ng-repeat="book in group.ticketDtos" class="ng-scope">
+
+
+
+            <td
+                class="et-table-cell ng-binding">{{book.name}}</td><td
+                class="et-table-cell ng-binding">{{book.soCMND}}</td>
+         <td class="et-table-cell ng-binding">{{book.idChair.idTrainDetail.name}}</td>
+            <td class="et-table-cell"><div
+                    class="text-center et-text-md ng-hide"><img src="/images/waring20.png"><div
+                    class="ng-binding">Vé này đã hết thời gian tạm giữ</div></div>
+                <div class="ng-binding">{{book.idChair.idTrainDetail.trainDto.name}} </div>
+                <div class="ng-binding">{{book.locationStart}} - {{book.locationEnd }} {{book.idChair.idTrainDetail.trainDto.timeStart | date:'yyyy-MM-dd HH:mm'}}  {{book.idChair.idTrainDetail.trainDto.timeEnd | date:'yyyy-MM-dd HH:mm'}} </div>
+                <div
+                    class="ng-binding">Toa: {{book.idChair.idTrainDetail.numberCar}} chỗ số: {{book.idChair.numberChair}}</div></td>
+            <td
+                    class="et-table-cell text-right ng-binding">{{book.price}}</td>
+
+            <td ng-if="group.pay==0" class="et-table-cell ng-binding">Chưa Thanh Toán</td>
+            <td ng-if="group.pay==1" class="et-table-cell ng-binding">Đã Thanh Toán Qua Visa</td>
+            <td ng-if="group.pay==2" class="et-table-cell ng-binding">Đã Thanh Toán Qua PayPal</td>
+
+        </tr>
+
+        </tbody>
+
+        <!-- end ngRepeat: group in pendingGroup --><tfoot><tr class="info"><td
+                colspan="5"><span class="pull-right"><strong class="ng-binding">Tổng tiền</strong></span></td><td
+                class="text-right" style="border-right: 0"><strong class="ng-binding">{{total}}</strong></td><td
+                colspan="2" style="border-left: 0" class="text-right"></td></tr></tfoot></table><div
+            class="et-col-md-12 hidden-print" style="padding-bottom: 10px"><div
+            class="text-center"><!-- ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT"
+                                                                        class="et-btn ng-binding ng-scope"
+                                                                        ng-click="applyPayment(item.MaCongTT)"
+                                                                        ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
+                                                                        style="margin-right: 6px">Thanh toán trực tuyến</a>
+        <!-- end ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT" class="et-btn ng-binding ng-scope"
+                                                    ng-click="applyPayment(item.MaCongTT)"
+                                                    ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
+                                                    style="margin-right: 6px">Thanh toán trên PAYOO</a>
+        <!-- end ngRepeat: item in listCongTT --><a ng-repeat="item in listCongTT"
+                                                    class="et-btn ng-binding ng-scope ng-hide"
+                                                    ng-click="applyPayment(item.MaCongTT)"
+                                                    ng-hide="item.MaCongTT=='PayLater' &amp;&amp; !payLatter"
+                                                    style="margin-right: 6px">Trả sau</a>
+        <!-- end ngRepeat: item in listCongTT --></div></div></div><div
+            class="ng-hide"><h5
+            class="et-register-block ng-binding">Các giao dịch thành công</h5><table class="table table-bordered"><thead
+            class="et-table-header"><tr><th style="width:2%">#</th><th style="width:18%" class="ng-binding">Họ tên</th><th
+            style="width:10%" class="ng-binding">Số CMND/ Hộ chiếu</th><th style="width:10%" class="ng-binding">Đối tượng</th><th
+            style="width:14%" class="ng-binding">Loại chỗ</th><th style="width:15%" class="ng-binding">Thông tin vé</th><th
+            style="width:10%" class="ng-binding">Thành tiền (VNĐ)</th><th style="width:14%" class="ng-binding">Trạng thái</th><th
+            style="width:7%" class="ng-binding">Tải vé</th></tr></thead><!-- ngRepeat: group in successGroup --></table></div></div>
+</div>
+</div>
+

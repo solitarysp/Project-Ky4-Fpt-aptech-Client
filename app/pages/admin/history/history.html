@@ -1,25 +1,144 @@
-<table class="row table table-hover">
-    <tr>
-        <th>
-            Mã Ticket
-        </th>  <th>
-            Mã Ticket
-        </th>
-        <th>
-            Location start
-        </th>
-        <th>
-            Location end
-        </th>
-        <th>
-            Mã ghế
-        </th>
-        <th>
-            Mã train
-        </th>
-        <th>
-           Tên người đặt
-        </th>
-    </tr>
+<div ng-controller="historyAdminController">
+    <button style="text-align: left;margin-left: 20px" ng-click="getHistory(0,1)" class="btn btn-primary "
+            type="button">
+        Get ALL
+    </button>
 
-</table>
+    <button ng-if="!isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
+            class="btn btn-primary "
+            type="button">
+        Get Bởi Mã Chuyến Tàu
+    </button>
+
+    <button ng-if="isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
+            class="btn btn-primary "
+            type="button">
+        Ẩn Get Bởi Mã Chuyến Tàu
+    </button>
+
+    <button ng-if="!isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
+            class="btn btn-primary "
+            type="button">
+        Get Bởi Ngày ĐI
+    </button>
+
+    <button ng-if="isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
+            class="btn btn-primary "
+            type="button">
+        Ẩn Bởi Ngày ĐI
+    </button>
+
+    
+    <div ng-if="isFindByIdTrain">
+        <table class="table table-bordered">
+            <div class="input-group input-group-sm" style="width: 100%;">
+                <span class="input-group-addon text-left ng-binding" style="width: 84px;">ID Train</span>
+                <input type="text" placeholder="ID Train"
+                       ng-model="dataSearchHistory.trainId" maxlength="19"
+                       class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
+                       style="border-top-right-radius: 4px !important;border-bottom-right-radius: 4px !important;width: 200px"
+                       required="">
+            </div>
+            <button style="text-align: left;margin-left: 20px" ng-click="getHistory(1,1)" class="btn btn-primary "
+                    type="button">
+                Searh
+            </button>
+        </table>
+    </div>
+
+
+    <div ng-show="isFindByDateStart">
+        <table class="table table-bordered">
+            <div class="input-group input-group-sm" style="width: 100%;">
+                <span class="input-group-addon text-left ng-binding" style="width: 84px;">Ngày Đi</span>
+                <input type="text"
+                       ng-model="searchData.dateStart"
+                       class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                       placeholder="Ngày đi"
+                       id="dateStart"
+                       required="required">
+            </div>
+            <button style="text-align: left;margin-left: 20px" ng-click="getHistory(3,1)" class="btn btn-primary "
+                    type="button">
+                Searh
+            </button>
+        </table>
+    </div>
+
+
+    <table class="row table table-hover">
+        <tr>
+            <th>
+                Mã Phiếu
+            </th>
+            <th>
+                Mã Ticket
+            </th>
+            <th>
+                Location and time start /Location and time end
+            </th>
+            <th>
+                Thông tin Chuyến Tàu
+            </th>
+            <th>
+                Thông tin người ghi trên vé
+            </th>
+            <th>
+                Thông Tin người đặt
+            </th>
+            <th>
+                Trạng Thái
+            </th>
+        </tr>
+
+        <tr ng-repeat="data in datas">
+            <th>
+                {{data.idAddress.id}}
+            </th>
+            <th>
+                {{data.id}}
+
+            </th>
+            <th>
+                <p>{{data.locationStart}} {{data.timeStart | date:'yyyy-MM-dd HH:mm'}} </p>
+                <p>{{data.locationEnd}} {{data.timeEnd | date:'yyyy-MM-dd HH:mm '}} </p>
+
+
+            </th>
+            <th>
+                <p> Mã Chuyến Tàu: {{data.idChair.idTrainDetail.trainDto.id }} </p>
+                <p> Tên Tàu :{{data.idChair.idTrainDetail.trainDto.name }}</p>
+
+                <p> Toa {{data.idChair.idTrainDetail.numberCar}}</p>
+                <p>Ghế {{data.idChair.numberChair}}</p>
+
+            <th>
+                <p>name: {{data.name}}</p>
+                <p>CMND: {{data.soCMND}}</p>
+            </th>
+
+            <th>
+                <p>name: {{data.idAddress.name}}</p>
+                <p>phone: {{data.idAddress.phone}}</p>
+                <p>CMND: {{data.idAddress.soCMND}}</p>
+            </th>
+            <th>
+                <p ng-if="data.idAddress.pay==0">Chưa Thanh Toán</p>
+                <p ng-if="data.idAddress.pay==1">Đã Thanh Toán Paypal</p>
+                <p ng-if="data.idAddress.pay==2">Đã Thanh Toán Visa</p>
+
+            </th>
+        </tr>
+
+    </table>
+    <div class=" width-100-per-text-center" paging
+         page="currentPage"
+         page-size="20"
+         total="totalElement"
+         show-prev-next="true"
+         show-first-last="true"
+         paging-action="getHistory(0,page)">
+    </div>
+
+</div>
+

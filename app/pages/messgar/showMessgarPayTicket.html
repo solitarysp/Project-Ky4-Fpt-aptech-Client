@@ -26,9 +26,9 @@
                 <th>{{DetailsTicket1['numberCar'] }}</th>
                 <th>{{DetailsTicket1['numberChair']}}</th>
                 <th>{{DetailsTicket1['price']}}</th>
-                <th ng-if="!DetailsTicket1.pay">24h</th>
                 <th ng-if="DetailsTicket1.pay==0">Chưa Thanh Toán</th>
-                <th ng-if="DetailsTicket1.pay==1">Đã Thanh Toán</th>
+                <th ng-if="DetailsTicket1.pay==1">Đã Thanh Toán Paypal</th>
+                <th ng-if="DetailsTicket1.pay==1">Đã Thanh Toán Visa</th>
             </tr>
         </table>
     </div>

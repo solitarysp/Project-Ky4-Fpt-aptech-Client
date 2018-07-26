@@ -5,6 +5,7 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.version',
     'ngStorage',
+    'bw.paging',
     'ngDialog'
 ]).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $routeProvider

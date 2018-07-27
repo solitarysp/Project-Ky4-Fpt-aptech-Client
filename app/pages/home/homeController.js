@@ -22,12 +22,7 @@ function controller($scope, searchService, $location, $localStorage, $window) {
         if ($scope.validateSearchData($scope.searchData)) {
             searchService.getListTrain($scope.searchData).then(function (data) {
 
-                if ($scope.searchData.isOneWay == 1) {
-                    if (data.ONE_WAY || data.Multil_WAY) {
-                        $scope.mess = mess.not_find;
-                        return;
-                    }
-                }
+
 
                 if (data == null || data == undefined || data == '' || data.ONE_WAY == null) {
                     $scope.mess = mess.not_find;

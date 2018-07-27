@@ -90,7 +90,14 @@
                         $window.location.reload();
                     }, 2050);
                 } else {
-
+                    $scope.message = "Có lỗi chưa xác định ";
+                    ngDialog.open({
+                        template: 'pages/dialogs/dialog-notification.html',
+                        className: 'ngdialog-theme-default',
+                        controller: 'DialogController',
+                        scope: $scope,
+                        width: 1000,
+                    });
                 }
 
             }, function (data, status) {
@@ -104,11 +111,11 @@
                         scope: $scope,
                         width: 1000,
                     });
-                    // $timeout(function () {
-                    //     $localStorage.access_token = null;
-                    //     window.location = "/#/admin";
-                    //     $window.location.reload();
-                    // }, 2050);
+                    $timeout(function () {
+                        $localStorage.access_token = null;
+                        window.location = "/#/admin";
+                        $window.location.reload();
+                    }, 2050);
                 }
             })
         }

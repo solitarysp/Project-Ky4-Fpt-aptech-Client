@@ -1,48 +1,52 @@
 <div ng-controller="historyAdminController">
-    <button style="text-align: left;margin-left: 20px" ng-click="getHistory(0,1)" class="btn btn-primary "
-            type="button">
-        Get ALL
-    </button>
+    <div style="margin-bottom: 30px">
 
-    <button ng-if="!isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
-            class="btn btn-primary "
-            type="button">
-        Get Bởi Mã Chuyến Tàu
-    </button>
+        <button style="text-align: left;margin-left: 20px" ng-click="getHistory(0,1)" class="btn btn-primary "
+                type="button">
+            Get ALL
+        </button>
 
-    <button ng-if="isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
-            class="btn btn-primary "
-            type="button">
-        Ẩn Get Bởi Mã Chuyến Tàu
-    </button>
+        <button ng-if="!isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
+                class="btn btn-primary "
+                type="button">
+            Get Bởi Mã Chuyến Tàu
+        </button>
 
-    <button ng-if="!isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
-            class="btn btn-primary "
-            type="button">
-        Get Bởi Ngày ĐI
-    </button>
+        <button ng-if="isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
+                class="btn btn-primary "
+                type="button">
+            Ẩn Get Bởi Mã Chuyến Tàu
+        </button>
 
-    <button ng-if="isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
-            class="btn btn-primary "
-            type="button">
-        Ẩn Bởi Ngày ĐI
-    </button>
+        <button ng-if="!isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
+                class="btn btn-primary "
+                type="button">
+            Get Bởi Ngày ĐI
+        </button>
 
-    
+        <button ng-if="isFindByDateStart" style="text-align: left;margin-left: 20px" ng-click="clickFindByDateStart()"
+                class="btn btn-primary "
+                type="button">
+            Ẩn Bởi Ngày ĐI
+        </button>
+    </div>
+
+
     <div ng-if="isFindByIdTrain">
         <table class="table table-bordered">
             <div class="input-group input-group-sm" style="width: 100%;">
                 <span class="input-group-addon text-left ng-binding" style="width: 84px;">ID Train</span>
-                <input type="text" placeholder="ID Train"
+                <input style="width: 400px" type="text" placeholder="ID Train"
                        ng-model="dataSearchHistory.trainId" maxlength="19"
                        class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
                        style="border-top-right-radius: 4px !important;border-bottom-right-radius: 4px !important;width: 200px"
                        required="">
+                <button style="text-align: left;margin-left: 20px" ng-click="getHistory(1,1)" class="btn btn-primary "
+                        type="button">
+                    Searh
+                </button>
             </div>
-            <button style="text-align: left;margin-left: 20px" ng-click="getHistory(1,1)" class="btn btn-primary "
-                    type="button">
-                Searh
-            </button>
+
         </table>
     </div>
 
@@ -51,17 +55,18 @@
         <table class="table table-bordered">
             <div class="input-group input-group-sm" style="width: 100%;">
                 <span class="input-group-addon text-left ng-binding" style="width: 84px;">Ngày Đi</span>
-                <input type="text"
-                       ng-model="searchData.dateStart"
+                <input style="width: 400px" type="text"
+                       ng-model="dataSearchHistory.dateStart"
                        class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
                        placeholder="Ngày đi"
                        id="dateStart"
                        required="required">
+                <button style="text-align: left;margin-left: 20px" ng-click="getHistory(2,1)" class="btn btn-primary "
+                        type="button">
+                    Searh
+                </button>
             </div>
-            <button style="text-align: left;margin-left: 20px" ng-click="getHistory(3,1)" class="btn btn-primary "
-                    type="button">
-                Searh
-            </button>
+
         </table>
     </div>
 

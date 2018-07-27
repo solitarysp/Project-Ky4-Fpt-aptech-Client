@@ -16,11 +16,26 @@
             $scope.dataSearchHistory.trainId = null;
             $scope.isFindByDateStart = false;
 
-        }
+        };
+        var date_input = $('#dateStart'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        };
+        date_input.datepicker(options);
 
         $scope.clickFindByDateStart = function () {
             $scope.isFindByIdTrain = false;
             $scope.isFindByDateStart = !$scope.isFindByDateStart;
+            $scope.dataSearchHistory.trainId = null;
+        };
+
+        $scope.clickFindByALl = function () {
+            $scope.isFindByIdTrain = false;
+            $scope.isFindByDateStart = false;
             $scope.dataSearchHistory.trainId = null;
         };
         $(document).ready(function () {
@@ -39,8 +54,11 @@
         });
 
         $scope.getHistory = function (type, page) {
+            if(type==0){
+                $scope.clickFindByALl();
+            }
             $scope.currentPage = page;
-            historyService.getHistory(type, page, $scope.dataSearchHistory.trainId).then(function (data) {
+            historyService.getHistory(type, page, $scope.dataSearchHistory.trainId,$scope.dataSearchHistory.dateStart).then(function (data) {
                 $scope.data = data;
                 $scope.datas = data.data;
                 $scope.totalElement = $scope.data.paging.totalElements;

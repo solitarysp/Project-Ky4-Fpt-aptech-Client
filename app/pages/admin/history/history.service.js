@@ -9,11 +9,14 @@ function historyService($http, $q, $httpParamSerializer,$localStorage) {
     };
     return service;
 
-    function getHistory(dataInput, page, trainId) {
+    function getHistory(dataInput, page, trainId,dateStart) {
         var deferred = $q.defer();
         var url = "";
         if (trainId != undefined) {
             url += "&trainId=" + trainId;
+        }
+        if (dateStart != undefined) {
+            url += "&dateStart=" + dateStart
         }
         $http({
             url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "ticket/getTicket"

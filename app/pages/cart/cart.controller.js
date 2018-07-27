@@ -136,7 +136,7 @@
 
 
         }
-
+        console.log($scope.listSelect)
         $scope.funcBuyTicket = function (typePay) {
             var tickets = [];
             $scope.listSelect.forEach(function (searchData) {
@@ -152,6 +152,7 @@
                 ticket['tenGaDi'] = searchData.tenGaDi;
                 ticket['timeEndFilter'] = searchData.timeEndFilter;
                 ticket['timeStartFilter'] = searchData.timeStartFilter;
+                ticket['nameToa'] = searchData.nameToa;
                 tickets.push(ticket);
             });
             $scope.addressPay['buyTickets'] = tickets;
@@ -181,6 +182,9 @@
                         $localStorage.Trains = null;
                         $localStorage.DetailsTicket = data.data;
                         $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
+                        $localStorage.DetailsTicketrp = {};
+                        $localStorage.DetailsTicketrp.RP=angular.copy($localStorage.DetailsTicket1);
+                        $localStorage.DetailsTicketrp.RQ=angular.copy($scope.addressPay);
                         window.location = "/#/showMessgarPayTicket";
                         $localStorage.DetailsTicket = null;
                         ngDialog.close();

@@ -1,6 +1,6 @@
-<div ng-controller="showMessgarPayTicketController">
+<div style="min-height: 900px" ng-controller="showMessgarPayTicketController">
 
-    <div class="modal-body">
+<!--    <div class="modal-body">
         <table class="table table-hover collapse-body">
             <tr>
                 <th>Mã Phiếu Mua</th>
@@ -15,7 +15,7 @@
                 <th>giá tiền</th>
 
             </tr>
-            <tr ng-repeat="DetailsTicket1 in DetailsTicketRepon">
+            <tr ng-repeat="DetailsTicket1 in DetailsTicketRepon.RP">
                 <th>{{DetailsTicket1['idAddress']}}</th>
                 <th>{{DetailsTicket1['idTicket']}}</th>
                 <th>{{DetailsTicket1['name']}}</th>
@@ -31,7 +31,110 @@
                 <th ng-if="DetailsTicket1.pay==1">Đã Thanh Toán Visa</th>
             </tr>
         </table>
+    </div>-->
+
+    <table
+            class="table table-bordered">
+        <thead class="et-table-header">
+        <tr>
+
+            <th class="ng-binding">Tên trên vé</th>
+            <th
+                    style="width:120px" class="ng-binding">Số CMND/ Hộ chiếu
+            </th>
+            <th style="width:85px" class="ng-binding">Loại Toa</th>
+            <th class="ng-binding">Thông Tin vé</th>
+            <th
+                    style="width:100px" class="ng-binding">Thành tiền (VNĐ)
+            </th>
+            <th style="width:150px" class="ng-binding">Trạng thái</th>
+        </tr>
+        </thead>
+        <!-- ngRepeat: group in pendingGroup -->
+
+
+        <tr ng-repeat="book in DetailsTicketRepon.RP" class="ng-scope">
+
+            <td class="et-table-cell ng-binding">
+                <p> {{book.nameADDre}} </p>
+                <p></p>
+            </td>
+            <td
+                    class="et-table-cell ng-binding">{{book.soCMND}}
+            </td>
+            <td class="et-table-cell ng-binding">{{book.nameToa}}</td>
+            <td class="et-table-cell">
+                <div
+                        class="text-center et-text-md ng-hide"><img src="/images/waring20.png">
+                    <div
+                            class="ng-binding">Vé này đã hết thời gian tạm giữ
+                    </div>
+                </div>
+
+                <div class="ng-binding">
+                    <p>Mã Vé Mua : {{book.idAddress}}</p>
+                    <p>ID Train : {{book.id}}</p>
+                    <p>Toa: : {{book.numberCar}} chỗ số: {{book.numberChair}}</p>
+                    <p>ID Vé : {{book.idTicket}}</p>
+
+                    <p> Nơi đi : {{book.tenGaDi}} {{book.timeStartFilter |
+                        date:'yyyy-MM-dd HH:mm'}}</p>
+                    <p>Nơi đến : {{book.tenGaDen }} {{book.timeEndFilter | date:'yyyy-MM-dd HH:mm
+                        '}} </p>
+                </div>
+            </td>
+            <td class="et-table-cell text-right ng-binding">{{book.price}}</td>
+            <td ng-show="DetailsTicketRepon.RQ.pay==0"
+                class="et-table-cell ng-binding">Chưa Thanh Toán
+            </td>
+            <td ng-show="DetailsTicketRepon.RQ.pay==1" class="et-table-cell ng-binding">Đã Thanh Toán Qua Visa</td>
+            <td ng-show="DetailsTicketRepon.RQ.pay==2" class="et-table-cell ng-binding">Đã Thanh Toán Qua PayPal</td>
+
+        </tr>
+
+        </tbody>
+
+        <!-- end ngRepeat: group in pendingGroup -->
+        <tfoot>
+        <tr class="info">
+            <td
+                    colspan="5"><span class="pull-right"><strong class="ng-binding">Tổng tiền</strong></span></td>
+            <td
+                    class="text-right" style="border-right: 0"><strong class="ng-binding">{{totalPrice}}</strong></td>
+            <td
+                    colspan="2" style="border-left: 0" class="text-right"></td>
+        </tr>
+        </tfoot>
+
+
+    </table>
+    <h5 style="color: #e55a05;font-weight: 700" class="ng-binding">Thông tin người đặt vé</h5>
+    <div class="form-horizontal et-col-md-12">
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Họ và tên</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="text" name="fullName"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="DetailsTicketRepon.RQ.name"
+                                                              placeholder="Họ và tên" required="" disabled="disabled"
+                                                              style="margin-bottom: 5px;"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Email</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="email" name="email"
+                                                              class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="DetailsTicketRepon.RQ.email"
+                                                              placeholder="Email" required="" disabled="disabled"
+                                                              style=""></div>
+        </div>
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Số CMND/Hộ chiếu</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="text" name="identity"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="DetailsTicketRepon.RQ.soCMND"
+                                                              placeholder="Số CMND/Hộ chiếu" required=""
+                                                              disabled="disabled" style="margin-bottom: 5px;"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Số điện thoại</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="tel" name="phoneNumber"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="DetailsTicketRepon.RQ.phone"
+                                                              placeholder="Số điện thoại" required=""
+                                                              disabled="disabled" style=""></div>
+        </div>
     </div>
-
-
 </div>

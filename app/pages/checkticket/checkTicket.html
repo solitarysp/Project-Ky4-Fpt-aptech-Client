@@ -159,5 +159,34 @@
                 </div>
         </div>
 </div>
+        <h5 style="color: #e55a05;font-weight: 700" class="ng-binding">Thông tin người đặt vé</h5>
+    <div class="form-horizontal et-col-md-12">
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Họ và tên</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="text" name="fullName"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="dataTicketSerach[0].name"
+                                                              placeholder="Họ và tên" required="" disabled="disabled"
+                                                              style="margin-bottom: 5px;"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Email</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="email" name="email"
+                                                              class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="dataTicketSerach[0].email"
+                                                              placeholder="Email" required="" disabled="disabled"
+                                                              style=""></div>
+        </div>
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Số CMND/Hộ chiếu</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="text" name="identity"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="dataTicketSerach[0].soCMND"
+                                                              placeholder="Số CMND/Hộ chiếu" required=""
+                                                              disabled="disabled" style="margin-bottom: 5px;"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Số điện thoại</label>
+            <div class="col-xs-8 col-sm-4 et-col-md-4"><input type="tel" name="phoneNumber"
+                                                              class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                              ng-model="dataTicketSerach[0].phone"
+                                                              placeholder="Số điện thoại" required=""
+                                                              disabled="disabled" style=""></div>
+        </div>
+    </div>
 </div>
 

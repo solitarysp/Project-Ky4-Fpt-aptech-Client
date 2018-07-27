@@ -20,6 +20,7 @@
     "sockjs": "0.3.4",
     "stomp-websocket": "2.3.4",
     "lodash": "2.4.1",
-    "angular-paging": "2.2.2"
+    "angular-paging": "2.2.2",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
   }
 }

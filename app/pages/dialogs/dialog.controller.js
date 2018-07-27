@@ -17,13 +17,13 @@
             $scope.message = $scope.message;
         }
         $scope.changeNumberChair = function () {
-            $scope.DetailChairs = [];
-            for (let i = 1; i <= $scope.dataTrainDetailSet.numberChair; i++) {
+            $scope.chairTrainSet = [];
+            for (let i = 1; i <= $scope.dataTrainDetailSet.totalChair; i++) {
                 $scope.DetailChair = {};
-                $scope.DetailChair.numberCar = i;
-                $scope.DetailChairs.push($scope.DetailChair);
+                $scope.DetailChair.numberChair = i;
+                $scope.chairTrainSet.push($scope.DetailChair);
             }
-            $scope.dataTrainDetailSet.DetailChairs = $scope.DetailChairs;
+            $scope.dataTrainDetailSet.chairTrainSet = $scope.chairTrainSet;
         }
 
 

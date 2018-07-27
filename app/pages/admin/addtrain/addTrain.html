@@ -1,4 +1,4 @@
-<span class="container" ng-controller="addTrainAdminController">
+<span ng-mousemove="changedataSatrt()"  ng-click="changedataSatrt()" class="container" ng-controller="addTrainAdminController">
 
 
 
@@ -16,7 +16,7 @@
 
              <div class="form-group"><h6 class="ng-binding">Ga đi</h6> <input
                      type="text" class="form-control input-sm ng-pristine ng-valid"
-                     ng-model="dataCreate.tenGaDi"
+                     ng-model="dataCreate.locationStart"
                      placeholder="Ga đi" id="gaDi" aria-autocomplete="list" aria-expanded="false"/>
                  <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
                      ng-style="{top: position.top+'px', left: position.left+'px'}"
@@ -28,7 +28,7 @@
              </div>
              <div class="form-group"><h6 class="ng-binding">Ga đến</h6> <input
                      type="text" class="form-control input-sm ng-pristine ng-valid"
-                     ng-model="dataCreate.tenGaDen"
+                     ng-model="dataCreate.locationEnd"
                      placeholder="Ga đến" id="gaDen" aria-autocomplete="list" aria-expanded="false"
                      aria-owns="typeahead-010-1595">
                  <ul class="dropdown-menu ng-isolate-scope ng-hide" ng-show="isOpen()"
@@ -38,29 +38,31 @@
                      <!-- ngRepeat: match in matches track by $index -->
                  </ul>
              </div>
-
-             <div class="form-group"><h6 class="ng-binding">Ngày đi</h6>
-                 <div class="input-group input-cal-picker">
+              <div class="form-group"><h6 class="ng-binding">Ngày Đi</h6>
+                 <div class="input-group date" id="dateStart">
                      <input type="text"
-                            ng-model="dataCreate.dateStart"
-                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
-                            placeholder="Ngày đi"
-                            id="dateStart"
-                            required="required">
-                     <span class="input-group-btn"></span></div>
-             </div>
 
-              <div class="form-group"><h6 class="ng-binding">Ngày Đến</h6>
-                 <div class="input-group input-cal-picker">
+                            class="form-control"
+                            placeholder="Ngày đi"
+                            required="required">
+                     <span class="input-group-addon"><i
+                             class="glyphicon glyphicon-calendar"></i>
+                     <span class="input-group-btn"> </span>
+
+                 </div>
+             </div>
+    <div class="form-group"><h6 class="ng-binding">Ngày Đến</h6>
+                 <div class="input-group date" id="dateEnd">
                      <input type="text"
-                            ng-model="dataCreate.dateEnd"
-                            class="form-control input-sm ng-isolate-scope ng-pristine ng-invalid ng-invalid-required ng-valid-date"
+                            class="form-control"
                             placeholder="Ngày đi"
-                            id="dateEnd"
                             required="required">
-                     <span class="input-group-btn"></span></div>
-             </div>
+                     <span class="input-group-addon"><i
+                             class="glyphicon glyphicon-calendar"></i>
+                     <span class="input-group-btn"> </span>
 
+                 </div>
+             </div>
                <div class="form-group"><h6 class="ng-binding">Số Toa Tàu</h6> <input
                        type="text" class="form-control input-sm ng-pristine ng-valid"
                        ng-model="dataCreate.SoToaTau"
@@ -70,7 +72,7 @@
              </div>
 
              <div class="row text-center"><a href="" class="et-btn ng-binding" analytics-on="click"
-                                             analytics-event="SearchTau" ng-click="validateInput();">Tạo</a></div>
+                                             analytics-event="SearchTau" ng-click="createAndValidate();">Tạo</a></div>
          </div>
         </div>
 
@@ -78,7 +80,7 @@
         <div class="col-xs-12">
             <div class="row et-page-header"><span
                     class="et-main-label ng-binding"><strong
-                    class="ng-binding">Chiều đi:</strong> ngày {{dataCreate.dateStart}} từ {{dataCreate.tenGaDi}} đến {{dataCreate.tenGaDen}} {{dataCreate.dateStart}}</span>
+                    class="ng-binding">Chiều đi:</strong> ngày {{dataCreate.timeStart | date:'yyyy-MM-dd HH:mm'}} từ {{dataCreate.locationStart}} đến {{dataCreate.locationEnd}} {{dataCreate.timeEnd | date:'yyyy-MM-dd HH:mm'}}</span>
             </div>
             <div class="col-xs-4 col-sm-3 et-col-md-2 et-train-block ng-scope"
                  ng-click="doiChuyen(tau, true)" analytics-on="click" analytics-event="SelectTrain">
@@ -88,10 +90,10 @@
                     </div>
                     <div class="et-train-head-info">
                         <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đi</span> <span
-                                class="pull-right ng-binding">{{dataCreate.dateStart  | date:'yyyy-MM-dd HH:mm'}}</span>
+                                class="pull-right ng-binding">{{dataCreate.timeStart  | date:'yyyy-MM-dd HH:mm'}}</span>
                         </div>
                         <div class="row et-no-margin"><span class="pull-left et-bold ng-binding">TG đến</span> <span
-                                class="pull-right"></span> <span class="pull-right ng-binding">{{dataCreate.dateStart  | date:'yyyy-MM-dd HH:mm'}}</span>
+                                class="pull-right"></span> <span class="pull-right ng-binding">{{dataCreate.timeStart  | date:'yyyy-MM-dd HH:mm'}}</span>
                         </div>
                     </div>
                     <div class="row et-no-margin">
@@ -118,7 +120,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center"><h4 class="ng-binding">Toa số {{chooseDetailNumber}}: {{chairTrainDetails.name}}</h4></div>
 
                     <div class="et-full-width fix-width-80">
-                        <div ng-repeat="chair in chairTrainDetails.DetailChairs"
+                        <div ng-repeat="chair in chairTrainDetails.chairTrainSet"
                              class="et-col-1-20"
                              direct="direct"
                              style="width: 45px"
@@ -149,7 +151,7 @@
         <div class="col-xs-12 " ng-if="searchData.isOneWay==1">
             <div ng-if="Trains_Multil!=null||Trains_Multil!=undefined||Trains_Multil==''"
                  class="row et-page-header"><span class="et-main-label ng-binding"><strong
-                    class="ng-binding">Chiều về:</strong> ngày {{searchData.dateEnd}} từ {{searchData.tenGaDen}} đến {{searchData.tenGaDi}}</span>
+                    class="ng-binding">Chiều về:</strong> ngày {{searchData.timeEnd}} từ {{searchData.locationEnd}} đến {{searchData.locationStart}}</span>
             </div>
             <div ng-if="Trains_Multil==null||Trains_Multil==undefined||Trains_Multil==''">không tìm thấy gì cả</div>
 
@@ -203,7 +205,7 @@
                                          ng-class="{'et-sit-bought': chair.byTicket == false,
                                          'et-sit-avaiable': chair.byTicket == true,
                                           'et-sit-booked': chair.status == 1,
-                                         'et-sit-buying':checkChair(chairTrainDetailsMultil.idTrain,chairTrainDetailsMultil.numberCar,chair.numberChair),
+                                         'et-sit-buying':checkChair(chairTrainDetailsMultil.idTrain,chairTrainDetailsMultil.numberCar,chair.totalChair),
                                           'mauDangChoThanhToan': chair.status == 2
 }"
 
@@ -211,7 +213,7 @@
                                         <div popover="Chỗ đã bán" popover-title="Chỗ đã bán"
                                              popover-trigger="mouseenter"
                                              popover-placement="top" class="et-sit-no ng-scope"><span
-                                                class="ng-binding">{{chair.numberChair}}</span>
+                                                class="ng-binding">{{chair.totalChair}}</span>
                                         </div>
 
                                     </div>

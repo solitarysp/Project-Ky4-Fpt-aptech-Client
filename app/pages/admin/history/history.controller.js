@@ -66,12 +66,23 @@
                 $scope.clickFindByALl();
             }
             $scope.currentPage = page;
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             historyService.getHistory(type, page, $scope.dataSearchHistory.trainId, $scope.dataSearchHistory.dateStart).then(function (data) {
+                $scope.Dialog.close();
+
                 $scope.data = data;
                 $scope.datas = data.data;
                 $scope.totalElement = $scope.data.paging.totalElements;
                 $scope.pageSize = $scope.data.paging.totalElements;
             }, function (data, status) {
+                $scope.Dialog.close();
                 if (data.status == "401" || data.status == "-1") {
                     $scope.message = "Bạn Không Có quyền truy cập vui vui lòng đăng nhập lại ";
                     ngDialog.open({
@@ -119,14 +130,26 @@
         };
 
         $scope.getFindByIDAddres = function (page) {
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             $scope.typeFInd = 2;
             historyService.getByIdAddress($scope.dataSearchHistory.idaddress,page).then(function (data) {
+                $scope.Dialog.close();
+
                 $scope.data = data;
                 $scope.datas = data.data;
                 console.log($scope.datas)
                 $scope.totalElement = $scope.data.paging.totalElements;
                 $scope.pageSize = $scope.data.paging.totalElements;
             }, function (data, status) {
+                $scope.Dialog.close();
+
                 if (data.status == "401" || data.status == "-1") {
                     $scope.message = "Bạn Không Có quyền truy cập vui vui lòng đăng nhập lại ";
                     ngDialog.open({

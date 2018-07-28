@@ -368,7 +368,17 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
     });
     $scope.validateInput = function () {
         if ($scope.validateSearchData($scope.searchDataAtSearch)) {
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
+
             searchService.getListTrain($scope.searchDataAtSearch).then(function (data) {
+                $scope.Dialog.close();
                 $scope.TrainDetail = null;
                 $scope.chairTrainDetails = null;
                 $scope.TrainDetailMultil = null;
@@ -410,6 +420,8 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
                     }
 
                 }
+            }, function (data) {
+                $scope.Dialog.close();
             });
         } else {
             $scope.mess = "vui long nhap day du cac value";

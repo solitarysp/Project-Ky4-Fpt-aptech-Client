@@ -33,15 +33,40 @@
 
 
         $scope.updateTicket = function () {
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             dialogService.updateTicket($scope.dataTicket).then(function (data) {
+                $scope.Dialog.close();
                 $window.location.reload();
 
+            },function (data) {
+                $scope.Dialog.close();
+                $window.location.reload();
             })
         };
 
         $scope.updateAddress = function () {
-            console.log($scope.ParamAddress)
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             dialogService.updateAddress($scope.ParamAddress).then(function (data) {
+                $scope.Dialog.close();
+
+                $window.location.reload();
+
+            },function (data) {
+                $scope.Dialog.close();
                 $window.location.reload();
 
             })

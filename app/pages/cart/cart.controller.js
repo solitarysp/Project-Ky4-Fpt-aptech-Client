@@ -17,7 +17,7 @@
         $scope.addressPay = {};
 
         $scope.listSelect = $localStorage.listSelect;
-        if ($scope.listSelect.length==0) {
+        if ($scope.listSelect.length == 0) {
             $localStorage.Trains = null;
             $scope.message = "Không Có vé tàu nào";
             ngDialog.open({
@@ -157,7 +157,16 @@
             });
             $scope.addressPay['buyTickets'] = tickets;
             $scope.addressPay['pay'] = typePay;
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             cartService.funcBuyTicket($scope.addressPay).then(function (data) {
+                $scope.Dialog.close();
                 $scope.message = data.message;
                 if ($localStorage.DetailsTicket == null) {
                     $localStorage.DetailsTicket = [];
@@ -183,14 +192,17 @@
                         $localStorage.DetailsTicket = data.data;
                         $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
                         $localStorage.DetailsTicketrp = {};
-                        $localStorage.DetailsTicketrp.RP=angular.copy($localStorage.DetailsTicket1);
-                        $localStorage.DetailsTicketrp.RQ=angular.copy($scope.addressPay);
+                        $localStorage.DetailsTicketrp.RP = angular.copy($localStorage.DetailsTicket1);
+                        $localStorage.DetailsTicketrp.RQ = angular.copy($scope.addressPay);
                         window.location = "/#/showMessgarPayTicket";
                         $localStorage.DetailsTicket = null;
                         ngDialog.close();
                         break;
                 }
                 stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify({"get": true}));
+            }, function (data) {
+                $scope.Dialog.close();
+
             })
         }
     }

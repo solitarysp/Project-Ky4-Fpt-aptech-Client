@@ -2,7 +2,7 @@
 var app = angular.module('myApp');
 app.controller('homeController', controller);
 
-function controller($scope, searchService, $location, $localStorage, $window) {
+function controller($scope, searchService, $location, $localStorage, $window,ngDialog) {
     $scope.searchData = null;
     $(document).ready(function () {
 
@@ -20,10 +20,17 @@ function controller($scope, searchService, $location, $localStorage, $window) {
     });
     $scope.validateInput = function () {
         if ($scope.validateSearchData($scope.searchData)) {
+
+            $scope.message = "Vui lòng đợi trong giây lát";
+            $scope.Dialog = ngDialog.open({
+                template: 'pages/dialogs/dialog-notification.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
             searchService.getListTrain($scope.searchData).then(function (data) {
-
-
-
+                $scope.Dialog.close();
                 if (data == null || data == undefined || data == '' || data.ONE_WAY == null) {
                     $scope.mess = mess.not_find;
                     return;
@@ -35,6 +42,9 @@ function controller($scope, searchService, $location, $localStorage, $window) {
                     $window.location.reload();
 
                 }
+            },function (data) {
+                $scope.Dialog.close();
+
             });
         } else {
             $scope.mess = "vui long nhap day du cac value";

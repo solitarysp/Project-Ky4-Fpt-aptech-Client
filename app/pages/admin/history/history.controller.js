@@ -54,11 +54,11 @@
         });
 
         $scope.getHistory = function (type, page) {
-            if(type==0){
+            if (type == 0) {
                 $scope.clickFindByALl();
             }
             $scope.currentPage = page;
-            historyService.getHistory(type, page, $scope.dataSearchHistory.trainId,$scope.dataSearchHistory.dateStart).then(function (data) {
+            historyService.getHistory(type, page, $scope.dataSearchHistory.trainId, $scope.dataSearchHistory.dateStart).then(function (data) {
                 $scope.data = data;
                 $scope.datas = data.data;
                 $scope.totalElement = $scope.data.paging.totalElements;
@@ -80,6 +80,17 @@
                     }, 2050);
                 }
             })
+        }
+        $scope.editTicket = function (index) {
+            $scope.dataParam = $scope.datas[index];
+            $scope.type = 3;
+            ngDialog.open({
+                template: 'pages/dialogs/dialog.changeDetailTicket.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
         }
     }
 })();

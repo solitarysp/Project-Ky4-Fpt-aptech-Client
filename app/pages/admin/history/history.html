@@ -96,7 +96,7 @@
             </th>
         </tr>
 
-        <tr ng-repeat="data in datas">
+        <tr ng-dblclick="editTicket($index)" ng-repeat="data in datas">
             <th>
                 {{data.idAddress.id}}
             </th>
@@ -136,14 +136,17 @@
         </tr>
 
     </table>
-    <div class=" width-100-per-text-center" paging
-         page="currentPage"
-         page-size="20"
-         total="totalElement"
-         show-prev-next="true"
-         show-first-last="true"
-         paging-action="getHistory(0,page)">
+    <div ng-show="datas.length>20">
+        <div class=" width-100-per-text-center" paging
+             page="currentPage"
+             page-size="20"
+             total="totalElement"
+             show-prev-next="true"
+             show-first-last="true"
+             paging-action="getHistory(0,page)">
+        </div>
     </div>
+
 
 </div>
 

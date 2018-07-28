@@ -16,6 +16,25 @@
         if ($scope.message != null) {
             $scope.message = $scope.message;
         }
+
+
+        if ($scope.type == 2) {
+            $scope.changeDatailChair = $scope.changeDatailChair;
+
+        }
+
+
+        if ($scope.type == 3) {
+            $scope.dataTicket = angular.copy($scope.dataParam);
+        }
+
+
+        $scope.updateTicket = function () {
+            dialogService.updateTicket($scope.dataTicket).then(function (data) {
+                $scope.dataParam = data.data;
+            })
+        };
+
         $scope.changeNumberChair = function () {
             $scope.chairTrainSet = [];
             for (let i = 1; i <= $scope.dataTrainDetailSet.totalChair; i++) {
@@ -26,11 +45,6 @@
             $scope.dataTrainDetailSet.chairTrainSet = $scope.chairTrainSet;
         }
 
-
-        if ($scope.type == 2) {
-            $scope.changeDatailChair = $scope.changeDatailChair;
-
-        }
 
     }
 

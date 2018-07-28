@@ -5,7 +5,8 @@ angular.module("myApp").service("dialogService", dialogService);
 function dialogService($http, $q) {
     var service = {
 
-        funcBuyTicket: funcBuyTicket
+        funcBuyTicket: funcBuyTicket,
+        updateTicket: updateTicket
     };
     return service;
 
@@ -41,6 +42,27 @@ function dialogService($http, $q) {
                 'Content-Type': "application/json"
             },
             data: mappingAll
+        })
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function (error) {
+                    deferred.reject(error);
+                }
+            );
+        return deferred.promise;
+    }
+    function updateTicket(param) {
+        console.log(param)
+        var deferred = $q.defer();
+        $http({
+            url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "ticket",
+            method: config.put,
+            headers: {
+                'Content-Type': "application/json"
+            },
+            data: param
         })
             .then(
                 function (response) {

@@ -1,0 +1,134 @@
+<div class="modal-header">
+</div>
+<div class="modal-body container">
+    <h5 style="color: #e55a05;font-weight: 700" class="ng-binding">Thông tin vé</h5>
+
+    <div ng-repeat="dataTicket in ParamAddress.ticketDtos" class="form-horizontal et-col-md-12">
+        <h5 style="color: #e55a05;font-weight: 700" class="ng-binding">Thông tin vé {{dataTicket.id}}</h5>
+
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Họ và tên</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="fullName"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.name"
+                                                  placeholder="Họ và tên" required=""
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">CMND</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.soCMND"
+                                                  placeholder="CMND" required=""
+                                                  style="width: 200px"></div>
+        </div>
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Location and time start</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="identity"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  value="{{dataTicket.locationStart}}  {{dataTicket.timeStart | date:'yyyy-MM-dd '}}"
+                                                  placeholder="Location and time start" required="" disabled="disabled"
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Location and time end</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  value="{{dataTicket.locationEnd}}  {{dataTicket.timeEnd | date:'yyyy-MM-dd '}}"
+                                                  placeholder="Location and time end" required="" disabled="disabled"
+                                                  style=";width: 200px"></div>
+        </div>
+
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Mã Phiếu</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="identity"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.id"
+                                                  placeholder="Mã Phiếu" required="" disabled="disabled"
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Mã Ticket</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.id"
+                                                  placeholder="Mã Ticket" required="" disabled="disabled"
+                                                  style=";width: 200px"></div>
+        </div>
+
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Mã Chuyến Tàu</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="identity"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.idChair.idTrainDetail.trainDto.id"
+                                                  placeholder="Mã Chuyến Tàu" required="" disabled="disabled"
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Tên Tàu</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.idChair.idTrainDetail.trainDto.name"
+                                                  placeholder="Tên Tàu" required="" disabled="disabled"
+                                                  style=";width: 200px"></div>
+        </div>
+
+
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Toa</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="identity"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.idChair.idTrainDetail.numberCar"
+                                                  placeholder="Toa" required="" disabled="disabled"
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Ghế </label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="dataTicket.idChair.numberChair" disabled="disabled"
+                                                  placeholder="Ghế" required=""
+                                                  style=";width: 200px"></div>
+        </div>
+    </div>
+
+
+    <div  class="form-horizontal et-col-md-12">
+        <h5 style="color: #e55a05;font-weight: 700" class="ng-binding">Thông tin người mua vé</h5>
+
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">ID</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="fullName"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.id"
+                                                  placeholder="ID" required=""
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Họ và tên</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.name"
+                                                  placeholder="Họ và tên" required=""
+                                                  style="width: 200px"></div>
+        </div>
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">EMail</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="fullName"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.email"
+                                                  placeholder="EMail" required=""
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Phone</label>
+            <div class="col-xs-3 col-sm-3"><input
+                                                  class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.phone"
+                                                  placeholder="Phone" required=""
+                                                  style="width: 200px"></div>
+        </div>
+        <div class="row"><label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">So CMND</label>
+            <div class="col-xs-3 col-sm-3"><input type="text" name="fullName"
+                                                  class="form-control input-sm ng-pristine ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                                                  ng-model="ParamAddress.soCMND"
+                                                  placeholder="So CMND" required=""
+                                                  style="margin-bottom: 5px;width: 200px"></div>
+            <label class="col-xs-4 col-sm-2 et-col-md-2 ng-binding">Địa chỉ</label>
+            <div class="col-xs-3 col-sm-3"><input
+                    class="form-control input-sm ng-pristine ng-valid-email ng-animate ng-invalid-remove ng-valid-add ng-invalid-required-remove ng-invalid-remove-active ng-valid ng-valid-add-active ng-invalid-required-remove-active ng-valid-required"
+                    ng-model="ParamAddress.addressCustomer"
+                    placeholder="Địa chỉ" required=""
+                    style="width: 200px"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal-footer">
+
+    <button style="text-align: left;margin-left: 20px" ng-click="updateAddress()"
+            class="btn btn-primary "
+            type="button">
+        Update
+    </button>
+</div>

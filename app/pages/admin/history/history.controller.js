@@ -9,12 +9,15 @@
             window.location = "/#/admin";
         }
         $scope.isFindByIdTrain = false;
+        $scope.isFindByIDAddress = false;
         $scope.isFindByDateStart = false;
         $scope.dataSearchHistory = {};
         $scope.clickFindByIdTrain = function () {
             $scope.isFindByIdTrain = !$scope.isFindByIdTrain;
             $scope.dataSearchHistory.trainId = null;
             $scope.isFindByDateStart = false;
+            $scope.isFindByIDAddress = false;
+
 
         };
         var date_input = $('#dateStart'); //our date input has the name "date"
@@ -31,12 +34,16 @@
             $scope.isFindByIdTrain = false;
             $scope.isFindByDateStart = !$scope.isFindByDateStart;
             $scope.dataSearchHistory.trainId = null;
+            $scope.isFindByIDAddress = false;
+
         };
 
         $scope.clickFindByALl = function () {
             $scope.isFindByIdTrain = false;
             $scope.isFindByDateStart = false;
             $scope.dataSearchHistory.trainId = null;
+            $scope.isFindByIDAddress = false;
+
         };
         $(document).ready(function () {
 
@@ -54,6 +61,7 @@
         });
 
         $scope.getHistory = function (type, page) {
+            $scope.typeFInd = 1;
             if (type == 0) {
                 $scope.clickFindByALl();
             }
@@ -80,7 +88,7 @@
                     }, 2050);
                 }
             })
-        }
+        };
         $scope.editTicket = function (index) {
             $scope.dataParam = $scope.datas[index];
             $scope.type = 3;
@@ -91,6 +99,50 @@
                 scope: $scope,
                 width: 1000,
             });
+        };
+
+        $scope.editAddressTicket = function (index) {
+            $scope.dataParamAddress = $scope.datas[index];
+            $scope.type = 4;
+            ngDialog.open({
+                template: 'pages/dialogs/dialog.changeMultilDetailTicket.html',
+                className: 'ngdialog-theme-default',
+                controller: 'DialogController',
+                scope: $scope,
+                width: 1000,
+            });
+        };
+
+        $scope.clickFindByIDAddres = function () {
+            $scope.clickFindByALl();
+            $scope.isFindByIDAddress = true;
+        };
+
+        $scope.getFindByIDAddres = function (page) {
+            $scope.typeFInd = 2;
+            historyService.getByIdAddress($scope.dataSearchHistory.idaddress,page).then(function (data) {
+                $scope.data = data;
+                $scope.datas = data.data;
+                console.log($scope.datas)
+                $scope.totalElement = $scope.data.paging.totalElements;
+                $scope.pageSize = $scope.data.paging.totalElements;
+            }, function (data, status) {
+                if (data.status == "401" || data.status == "-1") {
+                    $scope.message = "Bạn Không Có quyền truy cập vui vui lòng đăng nhập lại ";
+                    ngDialog.open({
+                        template: 'pages/dialogs/dialog-notification.html',
+                        className: 'ngdialog-theme-default',
+                        controller: 'DialogController',
+                        scope: $scope,
+                        width: 1000,
+                    });
+                    $timeout(function () {
+                        $localStorage.access_token = null;
+                        window.location = "/#/admin";
+                        $window.location.reload();
+                    }, 2050);
+                }
+            })
         }
     }
 })();

@@ -2,11 +2,12 @@
 
 angular.module("myApp").service("dialogService", dialogService);
 
-function dialogService($http, $q) {
+function dialogService($http, $q,$localStorage) {
     var service = {
 
         funcBuyTicket: funcBuyTicket,
-        updateTicket: updateTicket
+        updateTicket: updateTicket,
+        updateAddress: updateAddress
     };
     return service;
 
@@ -54,10 +55,32 @@ function dialogService($http, $q) {
         return deferred.promise;
     }
     function updateTicket(param) {
-        console.log(param)
         var deferred = $q.defer();
         $http({
-            url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "ticket",
+            url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "ticket"
+            +"?access_token=" + $localStorage.access_token,
+            method: config.put,
+            headers: {
+                'Content-Type': "application/json"
+            },
+            data: param
+        })
+            .then(
+                function (response) {
+                    deferred.resolve(response.data);
+                },
+                function (error) {
+                    deferred.reject(error);
+                }
+            );
+        return deferred.promise;
+    }
+
+    function updateAddress(param) {
+        var deferred = $q.defer();
+        $http({
+            url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "address"
+            +"?access_token=" + $localStorage.access_token,
             method: config.put,
             headers: {
                 'Content-Type': "application/json"

@@ -3,7 +3,7 @@
 
         <button style="text-align: left;margin-left: 20px" ng-click="getHistory(0,1)" class="btn btn-primary "
                 type="button">
-            Get ALL
+            Get ALL Ticket
         </button>
 
         <button ng-if="!isFindByIdTrain" style="text-align: left;margin-left: 20px" ng-click="clickFindByIdTrain()"
@@ -28,6 +28,18 @@
                 class="btn btn-primary "
                 type="button">
             Ẩn Bởi Ngày ĐI
+        </button>
+
+        <button ng-if="!isFindByIDAddress" style="text-align: left;margin-left: 20px" ng-click="clickFindByIDAddres()"
+                class="btn btn-primary "
+                type="button">
+            Get bởi mã phiếu
+        </button>
+
+        <button ng-if="isFindByIDAddress" style="text-align: left;margin-left: 20px" ng-click="clickFindByIDAddres()"
+                class="btn btn-primary "
+                type="button">
+            Ẩn Get bởi mã phiếu
         </button>
     </div>
 
@@ -71,82 +83,148 @@
     </div>
 
 
-    <table class="row table table-hover">
-        <tr>
-            <th>
-                Mã Phiếu
-            </th>
-            <th>
-                Mã Ticket
-            </th>
-            <th>
-                Location and time start /Location and time end
-            </th>
-            <th>
-                Thông tin Chuyến Tàu
-            </th>
-            <th>
-                Thông tin người ghi trên vé
-            </th>
-            <th>
-                Thông Tin người đặt
-            </th>
-            <th>
-                Trạng Thái
-            </th>
-        </tr>
+    <div ng-if="isFindByIDAddress">
+        <table class="table table-bordered">
+            <div class="input-group input-group-sm" style="width: 100%;">
+                <span class="input-group-addon text-left ng-binding" style="width: 84px;">ID Phiếu</span>
+                <input style="width: 400px" type="text" placeholder="ID Phiếu"
+                       ng-model="dataSearchHistory.idaddress" maxlength="19"
+                       class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
+                       style="border-top-right-radius: 4px !important;border-bottom-right-radius: 4px !important;width: 200px"
+                       required="">
+                <button style="text-align: left;margin-left: 20px" ng-click="getFindByIDAddres(1)"
+                        class="btn btn-primary "
+                        type="button">
+                    Searh
+                </button>
+            </div>
 
-        <tr ng-dblclick="editTicket($index)" ng-repeat="data in datas">
-            <th>
-                {{data.idAddress.id}}
-            </th>
-            <th>
-                {{data.id}}
+        </table>
+    </div>
+    <div ng-show="typeFInd==1">
+        <table class="row table table-hover">
+            <tr>
+                <th>
+                    Mã Phiếu
+                </th>
+                <th>
+                    Mã Ticket
+                </th>
+                <th>
+                    Location and time start /Location and time end
+                </th>
+                <th>
+                    Thông tin Chuyến Tàu
+                </th>
+                <th>
+                    Thông tin người ghi trên vé
+                </th>
+                <th>
+                    Thông Tin người đặt
+                </th>
+                <th>
+                    Trạng Thái
+                </th>
+            </tr>
 
-            </th>
-            <th>
-                <p>{{data.locationStart}} {{data.timeStart | date:'yyyy-MM-dd HH:mm'}} </p>
-                <p>{{data.locationEnd}} {{data.timeEnd | date:'yyyy-MM-dd HH:mm '}} </p>
+            <tr ng-dblclick="editTicket($index)" ng-repeat="data in datas">
+                <th>
+                    {{data.idAddress.id}}
+                </th>
+                <th>
+                    {{data.id}}
+
+                </th>
+                <th>
+                    <p>{{data.locationStart}} {{data.timeStart | date:'yyyy-MM-dd HH:mm'}} </p>
+                    <p>{{data.locationEnd}} {{data.timeEnd | date:'yyyy-MM-dd HH:mm '}} </p>
 
 
-            </th>
-            <th>
-                <p> Mã Chuyến Tàu: {{data.idChair.idTrainDetail.trainDto.id }} </p>
-                <p> Tên Tàu :{{data.idChair.idTrainDetail.trainDto.name }}</p>
+                </th>
+                <th>
+                    <p> Mã Chuyến Tàu: {{data.idChair.idTrainDetail.trainDto.id }} </p>
+                    <p> Tên Tàu :{{data.idChair.idTrainDetail.trainDto.name }}</p>
 
-                <p> Toa {{data.idChair.idTrainDetail.numberCar}}</p>
-                <p>Ghế {{data.idChair.numberChair}}</p>
+                    <p> Toa {{data.idChair.idTrainDetail.numberCar}}</p>
+                    <p>Ghế {{data.idChair.numberChair}}</p>
 
-            <th>
-                <p>name: {{data.name}}</p>
-                <p>CMND: {{data.soCMND}}</p>
-            </th>
+                <th>
+                    <p>name: {{data.name}}</p>
+                    <p>CMND: {{data.soCMND}}</p>
+                </th>
 
-            <th>
-                <p>name: {{data.idAddress.name}}</p>
-                <p>phone: {{data.idAddress.phone}}</p>
-                <p>CMND: {{data.idAddress.soCMND}}</p>
-            </th>
-            <th>
-                <p ng-if="data.idAddress.pay==0">Chưa Thanh Toán</p>
-                <p ng-if="data.idAddress.pay==1">Đã Thanh Toán Paypal</p>
-                <p ng-if="data.idAddress.pay==2">Đã Thanh Toán Visa</p>
+                <th>
+                    <p>name: {{data.idAddress.name}}</p>
+                    <p>phone: {{data.idAddress.phone}}</p>
+                    <p>CMND: {{data.idAddress.soCMND}}</p>
+                </th>
+                <th>
+                    <p ng-if="data.idAddress.pay==0">Chưa Thanh Toán</p>
+                    <p ng-if="data.idAddress.pay==1">Đã Thanh Toán Paypal</p>
+                    <p ng-if="data.idAddress.pay==2">Đã Thanh Toán Visa</p>
 
-            </th>
-        </tr>
+                </th>
+            </tr>
 
-    </table>
-    <div ng-show="datas.length>20">
-        <div class=" width-100-per-text-center" paging
-             page="currentPage"
-             page-size="20"
-             total="totalElement"
-             show-prev-next="true"
-             show-first-last="true"
-             paging-action="getHistory(0,page)">
+        </table>
+        <div ng-show="datas.length>20">
+            <div class=" width-100-per-text-center" paging
+                 page="currentPage"
+                 page-size="20"
+                 total="totalElement"
+                 show-prev-next="true"
+                 show-first-last="true"
+                 paging-action="getHistory(0,page)">
+            </div>
         </div>
     </div>
 
+    <div ng-show="typeFInd==2">
+        <table class="row table table-hover">
+            <tr>
+                <th>Mã Phiếu</th>
+                <th>Tên người đặt</th>
+                <th>Số CMND</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Trạng Thái</th>
+            </tr>
+
+            <tr ng-dblclick="editAddressTicket($index)" ng-repeat="data in datas">
+                <th>
+                    {{data.id}}
+                </th>
+                <th>
+                    {{data.name}}
+                </th>
+                <th>
+                    {{data.soCMND}}
+                </th>
+                <th>
+                    {{data.phone}}
+                </th>
+                <th>
+                    {{data.email}}
+                </th>
+                <th>
+                    <p ng-if="data.pay==0">Chưa Thanh Toán</p>
+                    <p ng-if="data.pay==1">Đã Thanh Toán Paypal</p>
+                    <p ng-if="data.pay==2">Đã Thanh Toán Visa</p>
+                </th>
+            </tr>
+
+        </table>
+        <div ng-show="datas.length>20">
+            <div class=" width-100-per-text-center" paging
+                 page="currentPage"
+                 page-size="20"
+                 total="totalElement"
+                 show-prev-next="true"
+                 show-first-last="true"
+                 paging-action="getFindByIDAddres(page)">
+            </div>
+        </div>
+    </div>
 
 </div>
 

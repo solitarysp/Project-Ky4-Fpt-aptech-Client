@@ -5,7 +5,7 @@
 
     /** @ngInject */
 
-    function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService) {
+    function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService,$window) {
 
         if ($scope.type == 1) {
             $scope.dataCreate = $scope.dataCreate;
@@ -27,11 +27,23 @@
         if ($scope.type == 3) {
             $scope.dataTicket = angular.copy($scope.dataParam);
         }
+        if ($scope.type == 4) {
+            $scope.ParamAddress = angular.copy($scope.dataParamAddress);
+        }
 
 
         $scope.updateTicket = function () {
             dialogService.updateTicket($scope.dataTicket).then(function (data) {
-                $scope.dataParam = data.data;
+                $window.location.reload();
+
+            })
+        };
+
+        $scope.updateAddress = function () {
+            console.log($scope.ParamAddress)
+            dialogService.updateAddress($scope.ParamAddress).then(function (data) {
+                $window.location.reload();
+
             })
         };
 

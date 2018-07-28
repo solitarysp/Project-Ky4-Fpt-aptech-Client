@@ -2,14 +2,15 @@
 
 angular.module("myApp").service("historyService", historyService);
 
-function historyService($http, $q, $httpParamSerializer,$localStorage) {
+function historyService($http, $q, $httpParamSerializer, $localStorage) {
     var service = {
 
-        getHistory: getHistory
+        getHistory: getHistory,
+        getByIdAddress: getByIdAddress
     };
     return service;
 
-    function getHistory(dataInput, page, trainId,dateStart) {
+    function getHistory(dataInput, page, trainId, dateStart) {
         var deferred = $q.defer();
         var url = "";
         if (trainId != undefined) {
@@ -25,6 +26,33 @@ function historyService($http, $q, $httpParamSerializer,$localStorage) {
             + url
             + "&access_token=" + $localStorage.access_token
 
+            ,
+            method: config.get,
+        }).then(
+            function (response) {
+                deferred.resolve(response.data);
+            },
+            function (error) {
+                deferred.reject(error);
+            }
+        );
+        return deferred.promise;
+    }
+
+    function getByIdAddress(id, page) {
+        var deferred = $q.defer();
+        var url = "";
+        if (id != undefined) {
+            url += "?id=" + id;
+            url += "&page=" + page
+        }
+        if (id == undefined) {
+            url += "?page=" + page
+        }
+        $http({
+            url: baseConfig.protocol + baseConfig.server + baseConfig.standardServicePort + baseConfig.baseUrlEnding + "address"
+            + url
+            + "&access_token=" + $localStorage.access_token
             ,
             method: config.get,
         }).then(

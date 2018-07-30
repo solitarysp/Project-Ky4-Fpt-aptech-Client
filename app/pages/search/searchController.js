@@ -384,9 +384,33 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
                 $scope.TrainDetailMultil = null;
                 $scope.chairTrainDetailsMultil = null;
 
-                if (data == null || data == undefined || data == '') {
+                if (data == undefined || data == null || data == '') {
                     $scope.mess = mess.not_find;
                 } else {
+                    $scope.mess=null;
+                    if ( data.ONE_WAY == null) {
+                        $scope.message = mess.not_find_ONE_WAY;
+                        $scope.Dialog = ngDialog.open({
+                            template: 'pages/dialogs/dialog-notification.html',
+                            className: 'ngdialog-theme-default',
+                            controller: 'DialogController',
+                            scope: $scope,
+                            width: 1000,
+                        });
+                        return;
+                    }
+
+                    if ($scope.searchDataAtSearch.isOneWay == 1 && data.Multil_WAY == null) {
+                        $scope.message = mess.not_find_Multil_WAY;
+                        $scope.Dialog = ngDialog.open({
+                            template: 'pages/dialogs/dialog-notification.html',
+                            className: 'ngdialog-theme-default',
+                            controller: 'DialogController',
+                            scope: $scope,
+                            width: 1000,
+                        });
+                        return;
+                    }
 
                     $localStorage.searchData = angular.copy($scope.searchDataAtSearch);
                     $localStorage.Trains = data;
@@ -430,19 +454,21 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
     };
     $scope.validateSearchData = function (value) {
+        var isValidate = true;
         if (value == null) {
             isValidate = false;
-            return isValidate;
         }
-        var isValidate = false;
+        if (value.dateStart == undefined || value.dateEnd == undefined || value.tenGaDi == undefined || value.tenGaDen == undefined) {
+            isValidate = false;
+        }
         if (value.dateStart == null || value.dateEnd == null || value.tenGaDi == null || value.tenGaDen == null) {
             isValidate = false;
-        } else {
-            isValidate = true;
-
+        }
+        if (value.dateStart == '' || value.dateEnd == '' || value.tenGaDi == '' || value.tenGaDen == '') {
+            isValidate = false;
         }
         return isValidate;
-    }
+    };
     $scope.changeDataStart = function () {
         if ($scope.searchDataAtSearch.isOneWay == 0) {
             $scope.searchDataAtSearch.dateEnd = $scope.searchDataAtSearch.dateStart;

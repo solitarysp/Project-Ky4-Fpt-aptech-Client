@@ -40,8 +40,6 @@
             </div>
             <div class="col-xs-8 col-sm-4 col-md-4">
                 <div class="form-group" ng-class="{'has-error': maVeError}">
-                    <span class="control-label ng-binding ng-hide" ng-show="maVeError">Vui lòng nhập mã vé chính xác 8 ký tự số
-                        <!--Vui lòng nhập mã vé chính xác 8 ký tự số--></span>
                     <input type="text" class="form-control ng-pristine ng-valid" ng-model="searchData['id']"
                            ng-disabled="isRequesting" ng-change="maVeError = false"
                            placeholder="Nhập mã vé bao gồm 8 ký tự số">

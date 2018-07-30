@@ -17,7 +17,7 @@
         $scope.addressPay = {};
 
         $scope.listSelect = $localStorage.listSelect;
-        if ($scope.listSelect.length == 0) {
+        if ($scope.listSelect == undefined || $scope.listSelect.length == 0) {
             $localStorage.Trains = null;
             $scope.message = "Không Có vé tàu nào";
             ngDialog.open({
@@ -136,74 +136,125 @@
 
 
         }
-        console.log($scope.listSelect)
+
         $scope.funcBuyTicket = function (typePay) {
-            var tickets = [];
-            $scope.listSelect.forEach(function (searchData) {
-                var ticket = {};
-                ticket['id'] = searchData.id;
-                ticket['name'] = searchData.name;
-                ticket['nameADDre'] = searchData.nameADDre;
-                ticket['soCMND'] = searchData.soCMND;
-                ticket['numberCar'] = searchData.numberCar;
-                ticket['numberChair'] = searchData.numberChair;
-                ticket['price'] = searchData.price;
-                ticket['tenGaDen'] = searchData.tenGaDen;
-                ticket['tenGaDi'] = searchData.tenGaDi;
-                ticket['timeEndFilter'] = searchData.timeEndFilter;
-                ticket['timeStartFilter'] = searchData.timeStartFilter;
-                ticket['nameToa'] = searchData.nameToa;
-                tickets.push(ticket);
-            });
-            $scope.addressPay['buyTickets'] = tickets;
-            $scope.addressPay['pay'] = typePay;
-            $scope.message = "Vui lòng đợi trong giây lát";
-            $scope.Dialog = ngDialog.open({
-                template: 'pages/dialogs/dialog-notification.html',
-                className: 'ngdialog-theme-default',
-                controller: 'DialogController',
-                scope: $scope,
-                width: 1000,
-            });
-            cartService.funcBuyTicket($scope.addressPay).then(function (data) {
-                $scope.Dialog.close();
-                $scope.message = data.message;
-                if ($localStorage.DetailsTicket == null) {
-                    $localStorage.DetailsTicket = [];
-                }
-                $localStorage.DetailsTicket['dataResponse'] = data;
-                switch ($localStorage.DetailsTicket['dataResponse'].status) {
-                    case '900':
-                        ngDialog.open({
-                            template: 'pages/dialogs/dialog-notification.html',
-                            className: 'ngdialog-theme-default',
-                            controller: 'DialogController',
-                            scope: $scope,
-                            controllerAs: 'dialogCtrl',
-                            width: 1000,
-                        });
-                        break;
-                    case '200':
-                        $scope.listSelect = [];
-                        $localStorage.listSelect = [];
-                        $localStorage.thanhcongmuave = $localStorage.Trains;
+            if ($scope.validateCart()) {
+                var tickets = [];
+                $scope.listSelect.forEach(function (searchData) {
+                    var ticket = {};
+                    ticket['id'] = searchData.id;
+                    ticket['name'] = searchData.name;
+                    ticket['nameADDre'] = searchData.nameADDre;
+                    ticket['soCMND'] = searchData.soCMND;
+                    ticket['numberCar'] = searchData.numberCar;
+                    ticket['numberChair'] = searchData.numberChair;
+                    ticket['price'] = searchData.price;
+                    ticket['tenGaDen'] = searchData.tenGaDen;
+                    ticket['tenGaDi'] = searchData.tenGaDi;
+                    ticket['timeEndFilter'] = searchData.timeEndFilter;
+                    ticket['timeStartFilter'] = searchData.timeStartFilter;
+                    ticket['nameToa'] = searchData.nameToa;
+                    tickets.push(ticket);
+                });
+                $scope.addressPay['buyTickets'] = tickets;
+                $scope.addressPay['pay'] = typePay;
+                $scope.message = "Vui lòng đợi trong giây lát";
+                $scope.Dialog = ngDialog.open({
+                    template: 'pages/dialogs/dialog-notification.html',
+                    className: 'ngdialog-theme-default',
+                    controller: 'DialogController',
+                    scope: $scope,
+                    width: 1000,
+                });
+                cartService.funcBuyTicket($scope.addressPay).then(function (data) {
+                    $scope.Dialog.close();
+                    $scope.message = data.message;
+                    if ($localStorage.DetailsTicket == null) {
+                        $localStorage.DetailsTicket = [];
+                    }
+                    $localStorage.DetailsTicket['dataResponse'] = data;
+                    switch ($localStorage.DetailsTicket['dataResponse'].status) {
+                        case '900':
+                            ngDialog.open({
+                                template: 'pages/dialogs/dialog-notification.html',
+                                className: 'ngdialog-theme-default',
+                                controller: 'DialogController',
+                                scope: $scope,
+                                controllerAs: 'dialogCtrl',
+                                width: 1000,
+                            });
+                            break;
+                        case '200':
+                            $scope.listSelect = [];
+                            $localStorage.listSelect = [];
+                            $localStorage.thanhcongmuave = $localStorage.Trains;
 
-                        $localStorage.Trains = null;
-                        $localStorage.DetailsTicket = data.data;
-                        $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
-                        $localStorage.DetailsTicketrp = {};
-                        $localStorage.DetailsTicketrp.RP = angular.copy($localStorage.DetailsTicket1);
-                        $localStorage.DetailsTicketrp.RQ = angular.copy($scope.addressPay);
-                        window.location = "/#/showMessgarPayTicket";
-                        $localStorage.DetailsTicket = null;
-                        ngDialog.close();
-                        break;
-                }
-                stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify({"get": true}));
-            }, function (data) {
-                $scope.Dialog.close();
+                            $localStorage.Trains = null;
+                            $localStorage.DetailsTicket = data.data;
+                            $localStorage.DetailsTicket1 = $localStorage.DetailsTicket;
+                            $localStorage.DetailsTicketrp = {};
+                            $localStorage.DetailsTicketrp.RP = angular.copy($localStorage.DetailsTicket1);
+                            $localStorage.DetailsTicketrp.RQ = angular.copy($scope.addressPay);
+                            window.location = "/#/showMessgarPayTicket";
+                            $localStorage.DetailsTicket = null;
+                            ngDialog.close();
+                            break;
+                    }
+                    stompClient.send("/sub_topic/allSelectChair", {}, JSON.stringify({"get": true}));
+                }, function (data) {
+                    $scope.Dialog.close();
 
-            })
+                })
+            } else {
+                $scope.message = "Vui Lòng Nhập đầy đủ thông tin";
+                $scope.Dialog = ngDialog.open({
+                    template: 'pages/dialogs/dialog.notificationHasButtonClose.html',
+                    className: 'ngdialog-theme-default',
+                    controller: 'DialogController',
+                    scope: $scope,
+                    width: 1000,
+                });
+            }
+
+        };
+
+        $scope.validateCart = function () {
+            if (
+                $scope.addressPay.name == undefined
+                || $scope.addressPay.name == null
+                || $scope.addressPay.name == ''
+                || $scope.addressPay.soCMND == undefined
+                || $scope.addressPay.soCMND == null
+                || $scope.addressPay.soCMND == ''
+                || $scope.addressPay.email == undefined
+                || $scope.addressPay.email == null
+                || $scope.addressPay.email == ''
+                || $scope.addressPay.address == undefined
+                || $scope.addressPay.address == null
+                || $scope.addressPay.address == ''
+                || $scope.addressPay.phone == undefined
+                || $scope.addressPay.phone == null
+                || $scope.addressPay.phone == ''
+            ) {
+                return false;
+            }
+            console.log($scope.listSelect)
+
+
+            for (let i = 0; i < $scope.listSelect.length; i++) {
+                if (
+                    $scope.listSelect[i].nameADDre == undefined
+                    || $scope.listSelect[i].nameADDre == null
+                    || $scope.listSelect[i].nameADDre == ''
+
+                    || $scope.listSelect[i].soCMND == undefined
+                    || $scope.listSelect[i].soCMND == null
+                    || $scope.listSelect[i].soCMND == '' ) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 })();

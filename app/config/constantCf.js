@@ -22,4 +22,6 @@ var config = {
 var mess =
     {
         not_find: "không tìm thấy",
+        not_find_ONE_WAY: "không tìm thấy vé đi",
+        not_find_Multil_WAY: "không tìm thấy vé về",
     };

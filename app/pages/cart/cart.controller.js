@@ -238,7 +238,6 @@
             ) {
                 return false;
             }
-            console.log($scope.listSelect)
 
 
             for (let i = 0; i < $scope.listSelect.length; i++) {
@@ -249,7 +248,7 @@
 
                     || $scope.listSelect[i].soCMND == undefined
                     || $scope.listSelect[i].soCMND == null
-                    || $scope.listSelect[i].soCMND == '' ) {
+                    || $scope.listSelect[i].soCMND == '') {
                     return false;
                 }
             }

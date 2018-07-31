@@ -5,7 +5,7 @@
 
     /** @ngInject */
 
-    function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService,$window) {
+    function DialogController($rootScope, $scope, ngDialog, $localStorage, dialogService, $window) {
 
         if ($scope.type == 1) {
             $scope.dataCreate = $scope.dataCreate;
@@ -42,8 +42,32 @@
                 width: 1000,
             });
             dialogService.updateTicket($scope.dataTicket).then(function (data) {
-                $scope.Dialog.close();
-                $window.location.reload();
+                if (+data.status == 200) {
+                    $scope.Dialog.close();
+                    $window.location.reload();
+                }
+                if (+data.status == 900) {
+                    $scope.Dialog.close();
+                    $scope.message = data.message;
+                    $scope.Dialog = ngDialog.open({
+                        template: 'pages/dialogs/dialog-notification.html',
+                        className: 'ngdialog-theme-default',
+                        controller: 'DialogController',
+                        scope: $scope,
+                        width: 1000,
+                    });
+                }
+                if (+data.status == 901) {
+                    $scope.Dialog.close();
+                    $scope.message = data.message;
+                    $scope.Dialog = ngDialog.open({
+                        template: 'pages/dialogs/dialog-notification.html',
+                        className: 'ngdialog-theme-default',
+                        controller: 'DialogController',
+                        scope: $scope,
+                        width: 1000,
+                    });
+                }
 
             },function (data) {
                 $scope.Dialog.close();
@@ -65,7 +89,7 @@
 
                 $window.location.reload();
 
-            },function (data) {
+            }, function (data) {
                 $scope.Dialog.close();
                 $window.location.reload();
 

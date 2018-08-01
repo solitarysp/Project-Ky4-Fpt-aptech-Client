@@ -47,17 +47,18 @@
             }
 
         };
-        if (paramValue != undefined && paramValue.idPhieu != undefined) {
-            $scope.searchData['type'] = 1;
-            $scope.searchData['id'] = paramValue.idPhieu;
-            $scope.submitSearch();
-        }
         $scope.validate = function () {
             if ($scope.searchData.id == undefined || $scope.searchData.id == null || $scope.searchData.id == '') {
                 return false;
             }
             return true;
         }
+        if (paramValue != undefined && paramValue.idPhieu != undefined) {
+            $scope.searchData.type = 1;
+            $scope.searchData.id = paramValue.idPhieu;
+            $scope.submitSearch();
+        }
+
     }
 })();
 

@@ -206,7 +206,7 @@
 
                 })
             } else {
-                $scope.message = "Vui Lòng Nhập đầy đủ thông tin";
+                $scope.message = "Vui Lòng Nhập đầy đủ thông tin và đúng định dạng";
                 $scope.Dialog = ngDialog.open({
                     template: 'pages/dialogs/dialog.notificationHasButtonClose.html',
                     className: 'ngdialog-theme-default',
@@ -219,6 +219,7 @@
         };
 
         $scope.validateCart = function () {
+
             if (
                 $scope.addressPay.name == undefined
                 || $scope.addressPay.name == null
@@ -238,7 +239,11 @@
             ) {
                 return false;
             }
-
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var isEmail = re.test(String($scope.addressPay.email).toLowerCase());
+            if (!isEmail) {
+                return false;
+            }
 
             for (let i = 0; i < $scope.listSelect.length; i++) {
                 if (

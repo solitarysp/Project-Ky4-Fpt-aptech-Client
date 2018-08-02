@@ -24,7 +24,8 @@
             class="ng-scope">
             <td class="et-table-cell" style="padding: 0px;border-bottom: solid 2px #ccc;">
                 <div class="input-group input-group-sm" style="margin-bottom: 6px;width: 100%;">
-                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Họ tên</span>
+                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Họ tên<span
+                            style="color: red">*</span></span>
                     <input type="text" placeholder="Thông tin hành khách" ng-model="DetailsTicket['nameADDre']"
                            class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
                            ng-class="{'et-error-block': ve.nameMissing}" ng-change="syncRegister($index, false)"
@@ -33,7 +34,8 @@
                 </div>
 
                 <div class="input-group input-group-sm" style="width: 100%;">
-                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Số giấy tờ</span>
+                    <span class="input-group-addon text-left ng-binding" style="width: 84px;">Số giấy tờ<span
+                            style="color: red">*</span></span>
                     <input type="text" placeholder="Số CMND/ Hộ chiếu/ Ngày tháng năm sinh trẻ em"
                            ng-model="DetailsTicket['soCMND']" maxlength="19"
                            class="form-control input-sm ng-pristine ng-invalid ng-invalid-required"
@@ -116,7 +118,8 @@
             </div>
             <div class="row">
                 <label class="col-xs-4 et-col-md-2 text-left ng-binding"
-                       style="padding-right: 0">Email</label>
+                       style="padding-right: 0">Email<span
+                        style="color: red">*</span></label>
                 <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input  id="email" name="email"
                                                                                    class="form-control input-sm ng-pristine ng-valid ng-valid-email"
                                                                                    ng-model="addressPay.email"
@@ -138,7 +141,8 @@
                                                         ng-show="registerPhoneError">Số di động không hợp lệ</span>
                 </div>
             </div>
-            <div class="row"><label class="col-xs-4 et-col-md-2 text-left ng-binding">Số di động</label>
+            <div class="row"><label class="col-xs-4 et-col-md-2 text-left ng-binding">Số di động<span
+                    style="color: red">*</span></label>
                 <div class="col-xs-8 et-col-md-4" style="margin-bottom:5px"><input type="text" id="phoneNumber"
                                                                                    name="phoneNumber"
                                                                                    class="form-control input-sm ng-pristine ng-valid"

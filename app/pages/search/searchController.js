@@ -417,6 +417,7 @@ function controller($scope, $rootScope, searchService, $location, $localStorage,
 
                     window.location = "/#/search";
                     $scope.Trains_ONE_WAY = $localStorage.Trains['ONE_WAY'];
+                    console.log($scope.Trains_ONE_WAY)
                     $scope.Trains_Multil = $localStorage.Trains['Multil_WAY'];
                     $scope.searchData = $localStorage.searchData;
                     $scope.DetailsTicket = [];

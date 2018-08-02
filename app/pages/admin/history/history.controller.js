@@ -144,7 +144,6 @@
 
                 $scope.data = data;
                 $scope.datas = data.data;
-                console.log($scope.datas)
                 $scope.totalElement = $scope.data.paging.totalElements;
                 $scope.pageSize = $scope.data.paging.totalElements;
             }, function (data, status) {
